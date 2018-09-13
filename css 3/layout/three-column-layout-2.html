@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>layout</title>
+    <style>
+        html *{ padding: 0;margin: 0;}
+        .layout article div{min-height: 100px;}
+    </style>
+</head>
+<body>
+<!--中间内容高度不确定时-->
+<!--浮动布局-->
+<section class="layout float">
+    <style>
+        .layout.float .left {
+            float:left;
+            width:200px;
+            background:red;
+        }
+        .layout.float .center {
+            background:yellow;
+            overflow:auto; /*创建BFC*/
+        }
+        .layout.float .right {
+            float:right;
+            width:200px;
+            background:blue;
+        }
+    </style>
+    <h1>三栏布局</h1>
+    <article class="left-center-right">
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="center">
+            <h2>浮动解决方案</h2>
+            浮动解决方案；
+            浮动解决方案；
+            浮动解决方案；
+            浮动解决方案；
+            浮动解决方案；
+            浮动解决方案；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+        </div>
+    </article>
+</section>
+<!--绝对定位布局-->
+<section class="layout absolute">
+    <style>
+        .layout.absolute .left-center-right>div{
+            position: absolute;
+        }
+        .layout.absolute .left{
+            left:0;
+            width: 200px;
+            background: red;
+        }
+        .layout.absolute .center{
+            left: 200px;
+            right: 200px;
+            background: yellow;
+        }
+        .layout.absolute .right{
+            right:0;
+            width: 200px;
+            background: blue;
+        }
+    </style>
+    <h1>三栏布局</h1>
+    <article class="left-center-right">
+        <div class="left"></div>
+        <div class="center">
+            <h2>绝对定位解决方案</h2>
+            绝对定位解决方案；
+            绝对定位解决方案；
+            绝对定位解决方案；
+            绝对定位解决方案；
+            绝对定位解决方案；
+            绝对定位解决方案；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+        </div>
+        <div class="right"></div>
+    </article>
+</section>
+<!--弹性盒子布局-->
+<section class="layout flexbox">
+    <style>
+        .layout.flexbox {
+            margin-top: 100px;
+        }
+        .layout.flexbox .left-center-right {
+            display:flex;
+        }
+        .layout.flexbox .left {
+            width:200px;
+            background:red;
+        }
+        .layout.flexbox .center {
+            flex:1;
+            background:yellow;
+        }
+        .layout.flexbox .right {
+            width:200px;
+            background:blue;
+        }
+    </style>
+    <h1>三栏布局</h1>
+    <article class="left-center-right">
+        <div class="left"></div>
+        <div class="center">
+            <h2>flexbox解决方案</h2>
+            弹性盒子解决方案；
+            弹性盒子解决方案；
+            弹性盒子解决方案；
+            弹性盒子解决方案；
+            弹性盒子解决方案；
+            弹性盒子解决方案；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+        </div>
+        <div class="right"></div>
+    </article>
+</section>
+<!--表格布局-->
+<section class="layout table">
+    <style>
+        .layout.table .left-center-right {
+            display:table;
+        }
+        .layout.table .left-center-right>div {
+            display:table-cell;
+        }
+        .layout.table .left {
+            width:200px;
+            background:red;
+        }
+        .layout.table .center {
+            background:yellow;
+        }
+        .layout.table .right {
+            width:200px;
+            background:blue;
+        }
+    </style>
+    <h1>三栏布局</h1>
+    <article class="left-center-right">
+        <div class="left"></div>
+        <div class="center">
+            <h2>表格布局解决方案</h2>
+            表格布局解决方案；
+            表格布局解决方案；
+            表格布局解决方案；
+            表格布局解决方案；
+            表格布局解决方案；
+            表格布局解决方案；
+        </div>
+        <div class="right"></div>
+    </article>
+</section>
+<!--网格布局-->
+<section class="layout grid">
+    <style>
+        .layout.grid .left-center-right {
+            display:grid;
+            grid-template-columns:200px auto 200px;
+        }
+        .layout.grid .left {
+            background:red;
+        }
+        .layout.grid .center {
+            background:yellow;
+        }
+        .layout.grid .right {
+            background:blue;
+        }
+    </style>
+    <h1>三栏布局</h1>
+    <article class="left-center-right">
+        <div class="left"></div>
+        <div class="center">
+            <h2>网格布局解决方案</h2>
+            网格布局解决方案；
+            网格布局解决方案；
+            网格布局解决方案；
+            网格布局解决方案；
+            网格布局解决方案；
+            网格布局解决方案；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+            增加高度；
+        </div>
+        <div class="right"></div>
+    </article>
+</section>
+</body>
+</html>

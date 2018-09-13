@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>队列</title>
+</head>
+<body>
+<script>
+    // 队列
+    // 队列是一种列表，不同的是队列只能在队尾插入元素，在队首删除元素。
+    // 队列是一种先进先出(First-In-First-Out,FIFO)的数据结构.
+    // 队列的应用:比如提交操作系统执行的一系列进程、打印任务池等,一些仿真系统用队列来模拟银行或杂货店排队的顾客.
+
+    // 对队列的操作
+    // 队列的两种主要操作:
+    // 1.向队列中插入新元素和删除队列中的元素.插入操作也叫做入队,删除操作也叫做出队.
+    // 2.读取对头的元素.
+
+    // 一个用数组实现的队列
+    function Queue() {
+        this.dataStore = []
+        this.enqueue = enqueue
+        this.dequeue = dequeue
+        this.front = front
+        this.back = back
+        this.toString = toString
+        this.isEmpty = empty
+    }
+
+    // enqueue()方法向队尾添加一个元素:
+    function enqueue(element) {
+        this.dataStore.push(element)
+    }
+
+    // dequeue()方法删除队首的元素:
+    function dequeue() {
+        return this.dataStore.shift()
+    }
+
+    // 使用如下方法读取队首和队尾的元素:
+    function front() {
+        return this.dataStore[0]
+    }
+
+    function back() {
+        return this.dataStore[this.dataStore.length - 1]
+    }
+
+    // 使用 toString()方法显示队列内的所有元素:
+    function toString() {
+        var reStr = ''
+        for (var i = 0; i < this.dataStore.length; i++) {
+            reStr += this.dataStore[i] + '\n'
+        }
+        return reStr
+    }
+
+    // 判断队列是否为空
+    function isEmpty() {
+        if (this.dataStore.length === 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+</script>
+</body>
+</html>

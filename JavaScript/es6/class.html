@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>class</title>
+</head>
+<body>
+<script>
+    // JS 构造函数
+    (function(){
+        function MathHandle(x, y) {
+            this.x = x
+            this.y = y
+        }
+        MathHandle.prototype.add = function () {
+            return this.x + this.y
+        }
+        let m = new MathHandle(1, 2)
+        console.log('构造函数测试', m.add())
+    }())
+    // Class 语法
+    {
+        class MathHandle {
+            constructor(x, y) {
+                this.x = x
+                this.y = y
+            }
+            add() {
+                return this.x + this.y
+            }
+        }
+        const m = new MathHandle(1, 2)
+        console.log('Class 语法', m.add());
+
+        typeof MathHandle // 'function'
+        MathHandle.prototype.constructor === MathHandle // true
+        m.__proto__ === MathHandle.prototype // true
+    }
+    // 继承 - JS
+    (function(){
+        // 动物
+        function Animal() {
+            this.eat = function() {
+                console.log('继承 JS', 'animal eat')
+            }
+        }
+        function Dog() {
+            this.bark = function() {
+                console.log('继承 JS', 'dog bark')
+            }
+        }
+        Dog.prototype = new Animal()
+        // 哈士奇
+        var hashiqi = new Dog()
+        hashiqi.bark()
+        hashiqi.eat()
+    }())
+    // 继承 - Class
+    {
+        class Animal {
+            constructor(name) {
+                this.name = name
+            }
+            eat() {
+                console.log('class 继承',`${this.name} eat`)
+            }
+        }
+        class Dog extends Animal {
+            constructor(name) {
+                super(name)  // 注意 ！！！
+                this.name =name
+            }
+            say() {
+                console.log('class 继承', `${this.name} say`)
+            }
+        }
+        const dog = new Dog('哈士奇')
+        dog.say()
+        dog.eat()
+    }
+</script>
+</body>
+</html>

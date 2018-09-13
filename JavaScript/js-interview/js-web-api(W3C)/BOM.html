@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BOM</title>
+</head>
+<body>
+<script>
+    {
+        // 如何检测浏览器的类型
+        let ua = navigator.userAgent
+        let isChrome = ua.indexOf('Chrome')
+        console.log('isChorme?', isChrome)
+    }
+    {
+        // 拆解 url 的各部分
+        console.log(location.href)                 //  '整个url地址'
+        console.log('http协议',location.protocol)  // 'http:' 'https:'
+        console.log('域名',location.host)          // 'www.baidu.com'
+        console.log('路径', location.pathname)     //  '/learn/234'
+        console.log('查询参数', location.search)    //  '?cid=99'
+        console.log('#后面的东西',location.hash)    //  '#mid=100'
+    }
+    {
+        // 改变地址
+        location.href = 'http://imooc.com'
+    }
+</script>
+</body>
+</html>

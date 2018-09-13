@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing:border-box;
+        }
+        * {margin:0;padding:0;}
+        .parent {
+            background:#ccc;
+            margin:0 auto;
+        }
+        .logo {
+            float:left;
+            background:#333;
+            color:white;
+            height:36px;
+            line-height:36px;
+            width:100px;
+            text-align: center;
+        }
+        .nav {
+            float:right;
+            line-height:24px;
+            padding:6px 0;
+        }
+        .nav > .item {
+            float:left;
+
+            margin-left:20px;
+        }
+        .nav2 {
+            float:right;
+            display:none;
+        }
+        @media (max-width:420px) {
+            .nav2 {
+                display:block;
+            }
+            .nav {
+                display:none;
+            }
+        }
+        .clearfix::after {
+            content:'';
+            display:block;
+            clear:both;
+        }
+        .clearifx {
+            zoom:1;
+        } /*IE 6*/
+
+        .banner {
+            width:800px;
+            height:300px;
+            background:#888;
+            margin:10px auto;
+            background: transparent url(https://goss1.vcg.com/creative/vcg/800/version23/VCG41160250211.jpg) no-repeat center;
+            background-size: cover;
+        }
+        @media (max-width:420px) {
+            .banner {width:auto;}
+        }
+        .pictures {
+            width:800px;
+            margin:10px auto;
+            overflow:hidden;
+        }
+        @media (max-width:420px) {
+            .pictures{width:auto;}
+        }
+        .pictures > .xxx {
+            display:flex;
+            flex-wrap:wrap;
+            margin:0 -4px;
+        }
+        .picture {
+            width:calc(25% - 8px);
+            height:194px;
+            background:#ddd;
+            margin:4px;
+            /* border:1px solid red; */
+        }
+        @media (max-width:420px) {
+            .picture{width:calc(50% - 8px);}
+        }
+        .art {
+            background:#ddd;
+            width:800px;
+            margin:10px auto;
+            display:flex;
+            justify-content:space-between;
+        }
+        @media (max-width: 420px){
+            .art{
+                width: auto;
+                flex-direction: column;
+            }
+        }
+        .art > .sider {
+            height:300px;
+            width:calc(33.333333% - 10px);
+            border:1px solid black;
+        }
+        @media (max-width: 420px){
+            .art>.sider{
+                width: auto;
+                height: auto;
+            }
+        }
+        .art > .main {
+            width:66.333333%;
+            height:300px;
+            border:1px solid blue;
+        }
+        @media (max-width: 420px){
+            .art>.main{
+                width: auto;
+                height: auto;
+            }
+    </style>
+</head>
+<body>
+<div class="parent clearfix">
+    <div class="logo">logo</div>
+    <div class="nav clearfix">
+        <div class="item">导航1</div>
+        <div class="item">导航2</div>
+        <div class="item">导航3</div>
+        <div class="item">导航4</div>
+        <div class="item">导航5</div>
+    </div>
+    <div class="nav2">三</div>
+</div>
+<div class="banner"></div>
+<div class="pictures ">
+    <div class="xxx">
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+    </div>
+</div>
+<div class="art">
+    <div class="sider">
+        <div>广告1</div>
+    </div>
+    <div class="main">
+        <div>广告2</div>
+    </div>
+</div>
+</body>
+</html>

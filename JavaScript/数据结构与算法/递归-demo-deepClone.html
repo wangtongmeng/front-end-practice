@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归-深拷贝</title>
+</head>
+<body>
+<script>
+    // 深拷贝:在拷贝数据的时候，将数据的所有引用结构都拷贝一份。简单的说就是在内存中存在两个数据结构完全相同的有相互独立的数据。
+    // 方法一
+    function deepClone1(o1, o2) {
+        for (var k in o2) {
+            if (typeof o2[k] === "object") {
+                o1[k] = {}
+                deepClone1(o1[k], o2[k])
+            } else {
+                o1[k] = o2[k]
+            }
+        }
+    }
+
+    // 方法二
+    function deepClone2(obj) {
+        var temp = {}
+        for (var k in obj) {
+            if (typeof obj[k] === "object") {
+                temp[k] = deepClone2(obj[k])
+            } else {
+                temp[k] = obj[k]
+            }
+        }
+    }
+    // 注意性能问题,利用JSON.parse()和JSON.stringify()也可以进行深拷贝(注意:数据很大时如何处理)
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{box-sizing:border-box;}
+        *{margin:0;padding:0;}
+        .header {
+            width:600px;
+            background:#ddd;
+            margin:0 auto;
+        }
+        .header > .logo {
+            width:80px;
+            height:36px;
+            line-height:36px;
+            text-align: center;
+            background:#888;
+            float:left;
+        }
+        .header > .nav {
+            float:right;
+        }
+        .header > .nav > .navItem {
+            width:60px;
+            height:36px;
+            border:1px solid red;
+            float:left;
+            line-height:36px;
+            text-align: center;
+        }
+        .clearfix::after {
+            content:'';
+            display:block;
+            clear:both;
+        }
+    </style>
+</head>
+<body>
+    <div class="header clearfix">
+        <div class="logo">logo</div>
+        <div class="nav">
+            <div class="navItem">1</div>
+            <div class="navItem">2</div>
+            <div class="navItem">3</div>
+        </div>
+    </div>
+</body>
+</html>

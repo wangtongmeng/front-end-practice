@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组使用</title>
+</head>
+<body>
+<h1>数组的使用</h1>
+<script>
+    // 1.使用数组
+    // 创建数组
+    {
+        let numbers1 = [1, 2, 3]   // 字面量,更好
+        let numbers2 = []
+        let numbers3 = new Array()   // 通过Array构造函数
+        let numbers4 = new Array(5)
+        let numbers5 = new Array(1, 2, 3, 4, 5)
+
+    }
+    // 读写数组
+    {
+        // 使用 [] 操作符将数组赋给数组
+        let nums = []
+        for (let i = 0; i < 100; i++) {  // 循环赋值
+            nums[i] = i + 1
+        }
+        let numbers = [1, 2, 3, 4, 5]
+        let sum = 0
+        for (let i = 0; i < numbers.length; i++) {
+            sum += numbers[i]
+        }
+        console.log('数组元素和', sum)
+    }
+    // 由字符串生成数组
+    {
+        let sentence = 'a b c d'
+        let words = sentence.split(' ')
+        console.log('字符串生成数组 split', words)
+    }
+    // 对数组的整体性操作
+    {
+        // 注意浅复制与深复制
+        function copy(arr1, arr2) {
+            for (let i = 0; i < arr1.length; i++) {
+                arr2[i] = arr1[i]
+            }
+        }
+
+        let nums = []
+        for (let i = 0; i < 100; i++) {
+            nums[i] = i + 1
+        }
+        let samenums = []
+        copy(nums, samenums)
+        nums[0] = 400
+
+        console.log('深拷贝', 'nums[0]', nums[0], 'samenums[0]', samenums[0])
+    }
+    // 2.存取函数
+    // 查找元素
+    {
+        // indexof() 返回第一个与参数相同的元素的索引
+        // lastIndexOf() 返回相同元素中的最后一个元素的索引
+        let names = ['a', 'b', 'c']
+        let name = 'a'
+        nameIncluded(names, name)
+
+        function nameIncluded(names, name) {
+            let position = names.indexOf(name)
+            if (position >= 0) {
+                console.log('Found ' + name + ' at position ' + position)
+            } else {
+                console.log(name + ' not found in array')
+            }
+        }
+    }
+    // 数组的字符串表示
+    {
+        //    join()和toString(),两个方法都返回一个包含数组所有元素的字符串,各元素之间用逗号隔开
+        let names = ['a', 'b', 'c']
+        let namestr = names.join()
+        console.log('join方法', namestr)
+        namestr = names.toString()
+        console.log('toString方法', namestr)
+    }
+    // 由已有数组创建新数组
+    {
+        // concat()合并多个数组,创建一个新数组
+        // splice()截取一个数组的子集创建一个新数组
+        let arr1 = ['a', 'b', 'c']
+        let arr2 = ['d', 'e']
+        let arr3 = arr1.concat(arr2)  // concat()
+        console.log('arr1', arr1, 'arr2', arr2, 'arr3', arr3)
+
+        let arr4 = arr3.splice(2, 2) // 截取数组 splice()  注意原数组改变了
+        console.log('原数组 arr3', arr3, 'arr4', arr4)
+        let arr5 = arr3.splice(2, 0, 'f') // 添加元素
+        let arr6 = arr3.splice(2, 1, 'f')  // 替换元素
+    }
+    // 3.改变函数
+    // 为数组添加元素
+    {
+        // push()和 unshift()
+        let nums = [1, 2, 3, 4, 5]
+        nums.push(6)   // push()
+        console.log('push 添加元素', nums)
+        // 使用 length属性添加
+        nums[nums.length] = 7
+        console.log('使用 length 添加', nums)  // length 添加
+        nums.unshift(0)  // unshift()
+        nums.unshift(-2, -1) // 添加多个元素
+        console.log('使用 unshift 添加', nums)  // unshift 添加
+    }
+    // 从数组中删除元素
+    {
+        // pop()删除数组末尾元素
+        // shift() 删除数组第一个元素
+        let nums = [1, 2, 3]
+        let last = nums.pop()
+        let first = nums.shift()
+        console.log('pop()shift()', nums, 'last', last, 'first', first)
+    }
+    // 从数组中间位置添加和删除元素
+    {
+        // splice(起始索引, 删除个数,添加元素)
+        let nums = [1, 2, 3, 4, 5]
+        let newElements = [4, 5, 6]
+        nums.splice(3, 0, newElements)  // 添加元素
+        console.log('数组中间添加元素', nums)
+        let delelements = nums.splice(3, 1)  // 删除元素
+        console.log('删除的元素', delelements, '剩下的数组', nums)
+        let replaceElement = nums.splice(3, 1, 7) // 替换元素
+        console.log('替换掉的元素', replaceElement, '原数组', nums)
+    }
+    // 为数组排序
+    {
+        // reverse(),元素顺序翻转
+        // sort()
+        let nums = [1, 2, 3]
+        let numsReverse = nums.reverse()  // reverse()
+        console.log('原数组', nums, '翻转后的数组', numsReverse)
+        let names = ['a', 'c', 'b']
+        let namesSort = names.sort()   // sort() 字符串排序
+        console.log('原数组 改变了', names, '排序后的数组', namesSort)
+        let nums1 = [3, 1, 2, 100, 4, 200]
+        let nums1Sort = nums1.sort()
+        console.log('原数组 改变了', nums1, '排序后的数组 按字符串排', nums1Sort)
+
+        function compare(num1, num2) {
+            return num1 - num2
+        }
+
+        nums1.sort(compare)  // sort() 传入比较函数
+        console.log('原数组 改变了', nums1, '排序后的数组 传入比较函数,按大小排序', nums1Sort)
+    }
+    // 3.迭代器方法
+    // 迭代器方法,对数组的每个元素应用一个函数,可以返回一个值 一组值或一个新数组
+    // 不生成新数组的迭代器方法
+    {
+        // forEach() array.forEach(function(currentValue, index, arr), thisValue) 相等于for循环
+        {
+            let nums = [1, 2, 3, 4, 5]
+            let numsSquare = []
+            nums.forEach(square)  // forEach() 元素平方操作
+            function square(num, index, array) {
+                console.log(index)
+                num = num * num
+                numsSquare.push(num)
+            }
+
+            console.log('原数组', nums, 'forEach()元素平方 ', numsSquare)
+        }
+        // every(), 该方法接收一个返回值为布尔类型的函数,如果所有元素该函数均返回true,则该方法返回true
+        {
+            function isEven(num) {
+                return num % 2 === 0
+            }
+
+            let nums = [2, 4, 6, 8]
+            let even = nums.every(isEven)
+            if (even) {
+                console.log('all numbers are even')
+            } else {
+                console.log('not all numbers are even')
+            }
+
+        }
+        // some(),接受一个返回值为布尔类型的函数, 只要有一个函数使得该函数返回true,该方法就返回true
+        {
+            function isEven(num) {
+                return num % 2 === 0
+            }
+
+            let nums = [1, 2, 3, 4, 5]
+            let someEven = nums.some(isEven)
+            if (someEven) {
+                console.log('some numbers are even')
+            } else {
+                console.log('no numbers are even')
+            }
+        }
+        // reduce(),接受一个函数,返回一个值.该方法会从一个累加值开始,不断对累加值和数组中的后续元素调用该函数,知道数组中的最后一个元素,最后返回得到的累加值.
+        // reduceRight(),从右到左执行
+        {
+            function add(total, current) {
+                return total + current
+            }
+
+            let nums = [1, 2, 3, 4, 5]
+            let sum = nums.reduce(add)  // reduce() 求和
+            console.log('reduce数组元素和', sum, '原数组', nums)
+
+            function concat(string, item) {
+                return string + item
+            }
+
+            let words = ['a', 'b', 'c']
+            let sentence = words.reduce(concat) // reduce() 数组转字符串
+            console.log('reduce数组转字符串', sentence, '原数组', words)
+            let sentenceReduceRight = words.reduceRight(concat)
+            console.log('reduceRight数组转字符串', sentenceReduceRight, '原数组', words)
+        }
+    }
+    // 生成新数组的迭代器方法
+    {
+        // map(), 对数组中的每一个元素使用某个函数,并返回一个新的数组(forEach不返回)
+        // filter(),传入一个返回值为布尔类型的函数,并返回一个新数组,该数组包含该函数结果为true的元素
+        {
+
+            function first(word) {
+                return word[0]
+            }
+
+            let words = ['for', 'your', 'information']
+            let acronym = words.map(first)
+            console.log('map()例子', acronym.join(""))
+        }
+        {
+            function isEven(num) {
+                return num % 2 === 0
+            }
+
+            function isOdd(num) {
+                return num % 2 !== 0
+            }
+
+            let num = []
+            for (let i = 0; i < 20; i++) {
+                num[i] = i + 1
+            }
+            let evens = num.filter(isEven)
+            let odds = num.filter(isOdd)
+            console.log('filter例子', '偶数', evens, '奇数', odds)
+        }
+    }
+    // 4.二维和多维数组
+    // 创建二维数组
+    {
+        // 通过扩展 JS数组对象,为其增加一个新方法,该方法传入的参数,设定了数组的行数 列数和初始值
+        Array.matrix = function (numrows, numcols, initial) {
+            let arr = []
+            let coloums = []
+            for (let i = 0; i < numrows; i++) {
+                for (let j = 0; j < numcols; j++) {
+                    coloums[j] = initial
+                }
+                arr[i] = coloums
+            }
+            return arr
+        }
+        let nums = Array.matrix(5, 5, 0)
+        nums[1][1] = 'Joe'
+        console.log('二维数组', nums)
+    }
+    // 处理二维数组的元素
+    {
+        // 按列访问和按行访问
+        {
+            // 按行访问,求每位学生的平均成绩
+            let grades = [[89, 77, 78], [76, 82, 81], [91, 94, 89]]
+            let total = 0
+            let average = 0.0
+            for (let row = 0; row < grades.length; row++) {
+                for (let col = 0; col < grades[row].length; col++) {
+                    total += grades[row][col]
+                }
+                average = total / grades[row].length
+                console.log("按行访问数组", "student " + parseInt(row + 1) + " average: " + average.toFixed(2))
+                total = 0
+                average = 0
+            }
+        }
+        {
+            // 按列访问,求各科成绩平均值
+            let grades = [[89, 77, 78], [76, 82, 81], [91, 94, 89]]
+            let total = 0
+            let average = 0.0
+            let colLength = grades[0].length
+            for (let col = 0; col < colLength; col++) {
+                for (let row = 0; row < grades.length; row++) {
+                    total += grades[row][col]  // 各科成绩总和
+                }
+                average = total / grades.length
+                console.log("按列访问数组", "各科成绩" + parseInt(col + 1) + " average: " + average.toFixed(2))
+                total = 0
+                average = 0
+            }
+        }
+    }
+    // 参差不齐的数组
+    {
+        // 很多编程语言在处理这种参差不齐的数组时表现都不是很好,但是JavaScript却表现良好,因为每一行的长度是可以通过计算得到的
+        let grades = [[89, 77, 78], [76, 82, 81], [91, 94, 89, 99]]
+        let total = 0
+        let average = 0.0
+        for (let row = 0; row < grades.length; row++) {
+            for (let col = 0; col < grades[row].length; col++) {
+                total += grades[row][col]
+            }
+            average = total / grades[row].length
+            console.log("参差不齐的数组" + "student " + parseInt(row + 1) + " average: " + average.toFixed(2))
+            total = 0
+            average = 0
+        }
+    }
+    // 5.对象数组(对象为元素组成的数组)
+    {
+        // 数组还可以包含对象, 数组的方法和属性对对象依然适用
+        function Point(x, y) {
+            this.x = x
+            this.y = y
+        }
+
+        function displayPts(arr) {
+            for (let i = 0; i < arr.length; i++) {
+                console.log(arr[i].x + ',' + arr[i].y)
+            }
+        }
+
+        let p1 = new Point(1, 2)
+        let p2 = new Point(3, 5)
+        let p3 = new Point(2, 8)
+        let p4 = new Point(4, 4)
+        let points = [p1, p2, p3, p4]
+        for (let i = 0; i < points.length; i++) {
+            console.log("对象数组", 'Point' + parseInt(i + 1) + ":" + points[i].x + "," + points[i].y)
+        }
+    }
+    // 6.对象中的数组
+    {
+        // 很多数据都可以被实现成一个对象,对象内部使用数组保存数据
+        function weekTemps() {
+            this.dataStore = []
+            this.add = add
+            this.average = average
+        }
+
+        function add(temp) {
+            this.dataStore.push(temp)
+        }
+
+        function average() {
+            let total = 0
+            for (let i = 0; i < this.dataStore.length; i++) {
+                total += this.dataStore[i]
+            }
+            return total / this.dataStore.length
+        }
+        let thisWeek = new weekTemps()
+        thisWeek.add(52)
+        thisWeek.add(55)
+        thisWeek.add(61)
+        thisWeek.add(65)
+        thisWeek.add(55)
+        thisWeek.add(50)
+        thisWeek.add(52)
+        thisWeek.add(49)
+        console.log('在对象内部使用数组保存数据','一个星期的平均气温',thisWeek.average())
+    }
+</script>
+</body>
+</html>~

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>变量类型与计算</h1>
+</body>
+<script>
+    /*变量类型*/
+        /*值类型*/
+        {
+            let a = 100
+            let b = a
+            a = 200
+            console.log('b', b)   // 100
+        }
+        /*引用类型*/
+        {
+            let a = {age:20}
+            let b = a
+            b.age = 21
+            console.log('a.age',a.age)   // 21
+        }
+        /*typeof运算符详解*/
+        {
+            console.log('undefined', typeof undefined) // undefined
+            console.log('abc', typeof 'abc') // string
+            console.log('123', typeof 123) // number
+            console.log('true', typeof true) // boolean
+            console.log('{}', typeof {}) // object
+            console.log('[]', typeof []) // object
+            console.log('null', typeof null) // object
+            console.log('console.log', typeof console.log) // function
+        }
+    /*变量计算*/
+        /*强制类型转换*/
+        {
+            /*字符串拼接*/
+            let a = 100 + 10 // 110
+            let b = 100 + '10' // '10010'
+        }
+        {
+            /*==运算符*/
+            100 == '100' // true
+            0 == ''  // true
+            null == undefined // true
+        }
+        {
+            /*if 语句*/
+            let a = true
+            if(a){console.log('a=true','执行')}
+            let b = 100
+            if(b){console.log('b=100','执行')}
+            let c = ''
+            if(c){console.log('c=""','执行')}
+        }
+        {
+            /*逻辑运算符*/
+            console.log('10 && 0',10 && 0 ) // 0
+            console.log('\'\' || \'abc\'','' || 'abc') // 'abc'
+            console.log('!window.abc',!window.abc) // true
+        }
+
+
+</script>
+</html>

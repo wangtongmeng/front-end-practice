@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件-slot</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>插槽</h1>
+    <h2>插槽内容</h2>
+    <xx-1>
+        Your Profile
+    </xx-1>
+    <div class="container" style="border:1px solid red;">
+        <header>
+            <!-- 我们希望把页头放这里 -->
+        </header>
+        <main>
+            <!-- 我们希望把主要内容放这里 -->
+        </main>
+        <footer>
+            <!-- 我们希望把页脚放这里 -->
+        </footer>
+    </div>
+</div>
+<script>
+    Vue.component('xx-1',{
+        template:`
+            <a class="nav-link">
+              <slot></slot>
+            </a>
+        `
+    })
+new Vue({
+    el:'#app',
+    data:{}
+})
+</script>
+</body>
+</html>

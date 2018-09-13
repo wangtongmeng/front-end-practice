@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DOM</title>
+</head>
+<body>
+<style>
+    .passage {
+        border:1px solid red;
+    }
+    .p1 {
+        border:1px solid blue;
+    }
+</style>
+<p id="passage" class="passage" style="width:100px;">段落</p>
+<p id="passage2"  data-name="xxx" style="">段落2</p>
+<div id="div1">
+    <p id="p1">this is p1</p>
+    <p id="p2">this is p2</p>
+</div>
+<div id="div2">
+    <p id="p3">this is p3</p>
+    <p id="p4">this is p4</p>
+</div>
+<script>
+    // DOM节点操作
+    {
+    // DOM 查询
+        // 获取节点
+        let p = document.getElementById('passage')  // 元素
+        let p1 = document.getElementsByTagName('p')  // 集合
+        let p2 = document.getElementsByClassName('passage') // 集合
+        let p3 = document.querySelector('#passage')  // 元素
+        let p4 = document.querySelectorAll('p') // 集合
+        // 获取父元素、父节点
+        let parent = ele.parentElement;
+        let parent = ele.parentNode;
+        // 获取子节点，子节点可以是任何一种节点，可以通过nodeType来判断
+        let nodes = ele.children;
+        // 查询子元素
+        let els = ele.getElementsByTagName('td');
+        let els = ele.getElementsByClassName('highlight');
+        // 当前元素的第一个/最后一个子元素节点
+        let el = ele.firstElementChild;
+        let el = ele.lastElementChild;
+        // 下一个/上一个兄弟元素节点
+        let el = ele.nextElementSibling;
+        let el = ele.previousElementSibling;
+    // DOM 更改
+        // 添加、删除子元素
+        ele.appendChild(el);
+        ele.removeChild(el);
+        // 替换子元素
+        ele.replaceChild(el1, el2);
+        // 插入子元素
+        parentElement.insertBefore(newElement, referenceElement);
+    }
+    {
+        // property 操作
+        let p = document.getElementById('passage')
+        console.log('获取样式',p.style.width) // 获取样式
+        p.style.width = '200px'  // 修改样式
+        console.log('获取 class',p.className) // 获取 class
+        p.className = 'p1' // 修改 class
+        // 获取 nodeName 和 nodeType
+        console.log('nodeName', p.nodeName)
+        console.log('nodeType', p.nodeType)
+    }
+    {
+        // Attribute 操作
+        // 获取一个{name, value}的数组
+        var attrs = el.attributes;
+        // 获取、设置属性
+        var c = el.getAttribute('class');
+        el.setAttribute('class', 'highlight');
+        // 判断、移除属性
+        el.hasAttribute('class');
+        el.removeAttribute('class');
+        // 是否有属性设置
+        el.hasAttributes();
+    }
+    // DOM 结构操作
+    {
+        {
+            // 新增节点
+            let p = document.createElement('p')
+            p.innerHTML = 'new p'
+            let div1 = document.getElementById('div1')
+            div1.appendChild(p)
+        }
+        {
+            // 移动已有节点
+            let p4 = document.getElementById('p4')
+            let div1 = document.getElementById('div1')
+            div1.appendChild(p4)
+        }
+        {
+            // 通过节点获取节点
+            let p1 = document.getElementById('p1')
+            console.log('p1的父元素',p1.parentElement)
+            let div1 = document.getElementById('div1')
+            console.log('div1的子元素',div1.childNodes,div1.childNodes[1])
+            console.log(div1.childNodes[0].nodeType) // text 3
+            console.log(div1.childNodes[1].nodeType) // p 1
+            console.log(div1.childNodes[0].nodeName) // text  #text
+            console.log(div1.childNodes[1].nodeName) // p   p
+        }
+        {
+            // 删除节点
+            let div1 = document.getElementById('div1')
+            let childNodes = div1.childNodes
+            div1.removeChild(childNodes[1])
+        }
+    }
+</script>
+</body>
+</html>

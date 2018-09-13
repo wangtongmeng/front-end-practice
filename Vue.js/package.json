@@ -1,0 +1,25 @@
+{
+  "name": "vuejs-storage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/littlebirdflying/vuejs-storage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/littlebirdflying/vuejs-storage/issues"
+  },
+  "homepage": "https://github.com/littlebirdflying/vuejs-storage#readme",
+  "dependencies": {
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  }
+}

@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing:border-box;
+        }
+        .parent {
+            background:#ccc;
+            min-width:600px;
+            max-width:1000px;
+            margin:0 auto;
+        }
+        .logo {
+            float:left;
+            background:#333;
+            color:white;
+            height:36px;
+            line-height:36px;
+            width:100px;
+            text-align: center;
+        }
+        .nav {
+
+            float:right;
+            line-height:24px;
+            padding:6px 0;
+        }
+        .nav > .item {
+            float:left;
+
+            margin-left:20px;
+        }
+        .clearfix::after {
+            content:'';
+            display:block;
+            clear:both;
+        }
+        .clearifx {
+            zoom:1;
+        } /*IE 6*/
+
+        .banner {
+            width:800px;
+            height:300px;
+            background:#888;
+            margin:10px auto;
+        }
+        .pictures {
+            width:800px;
+            margin:10px auto;
+
+        }
+        .pictures > .xxx {
+            display:flex;
+            flex-wrap:wrap;
+            margin:0 -4px;
+        }
+        .picture {
+            width:calc(25% - 8px);
+            height:194px;
+            background:#ddd;
+            margin:4px;
+            /* border:1px solid red; */
+        }
+        .art {
+            background:#ddd;
+            width:800px;
+            margin:10px auto;
+        }
+        .art > .sider {
+            float:left;
+            height:300px;
+            width:calc(33.333333% - 10px);
+            margin-right:10px;
+            border:1px solid black;
+        }
+        .art > .main {
+            float:left;
+            width:66.333333%;
+            height:300px;
+            border:1px solid blue;
+        }
+    </style>
+</head>
+<body>
+<div class="parent clearfix">
+    <div class="logo">logo</div>
+    <div class="nav clearfix">
+        <div class="item">导航1</div>
+        <div class="item">导航2</div>
+        <div class="item">导航3</div>
+        <div class="item">导航4</div>
+        <div class="item">导航5</div>
+    </div>
+</div>
+<div class="banner"></div>
+<div class="pictures ">
+    <div class="xxx">
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+        <div class="picture"></div>
+    </div>
+</div>
+<div class="art clearfix">
+    <div class="sider">
+        <div>广告1</div>
+    </div>
+    <div class="main">
+        <div>广告2</div>
+    </div>
+</div>
+</body>
+</html>

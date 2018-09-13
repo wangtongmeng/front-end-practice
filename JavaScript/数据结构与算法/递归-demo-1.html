@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归</title>
+</head>
+<body>
+<script>
+    // 无限分类递归 多数用在树形结构数据
+    const arr = [
+        {
+            id: 4,
+            name: '张三的儿子',
+            parentId: 1
+        },
+        {
+            id: 43,
+            name: '张三的2儿子',
+            parentId: 1
+        },
+        {
+            id: 5,
+            name: '李四的儿子',
+            parentId: 2
+        },
+        {
+            id: 6,
+            name: '张三的儿子的儿子',
+            parentId: 4
+        },
+        {
+            id: 1,
+            name: '张三',
+            parentId: 0
+        },
+        {
+            id: 2,
+            name: '李四',
+            parentId: 0
+        },
+        {
+            id: 3,
+            name: '王五',
+            parentId: 0
+        },
+    ]
+    // 想要得到的结果是这样子的:
+    const result = [
+        {
+            id: 1,
+            name: '张三',
+            parentId: 0,
+            children: [
+                {
+                    id: 4,
+                    name: '张三的儿子',
+                    parentId: 1,
+                    children: [
+                        {
+                            id: 6,
+                            name: '张三的儿子的儿子',
+                            parentId: 4
+                        }
+                    ]
+                },
+                {
+                    id: 43,
+                    name: '张三的2儿子',
+                    parentId: 1
+                }
+            ]
+        },
+        {
+            id: 2,
+            name: '李四',
+            parentId: 0,
+            children: [
+                {
+                    id: 5,
+                    name: '李四的儿子',
+                    parentId: 2
+                }
+            ]
+        },
+        {
+            id: 3,
+            name: '王五',
+            parentId: 0
+        }
+    ]
+
+    // 递归
+    function rescurve(arr, id) {
+        let treeData = []
+        arr.forEach(i => {
+            if (i.parentId == id) {
+                treeData.push(i)
+                i.children = rescurve(arr, i.id)
+            }
+        })
+        return treeData
+    }
+    console.log(rescurve(arr, 0)) // 输出正确的值
+    // 充分利用数据的引用(堆栈)
+    function setTreeData(arr) {
+        let map = {} // 构建map
+        arr.forEach(i => {
+            map[i.id] = i // 构建以id为键 当前数据为值
+        })
+
+        let treeData = []
+        arr.forEach(child => {
+            const mapItem = map[child.parentId] // 获取当前数据的parentId是否存在map中
+
+            if (mapItem) { // 存在则表示当前数据不是最顶层数据
+
+                // 注意: 这里的map中的数据是引用了arr的它的指向还是arr, 当mapItem改变时arr也会改变
+                (mapItem.children || (mapItem.children = [])).push(child) // 这里判断mapItem中是否存在children, 存在则插入当前数据, 不存在则赋值children为[]然后再插入当前数据
+            } else { // 不存在则是组顶层数据
+                treeData.push(child)
+            }
+        })
+
+        return treeData
+    }
+
+    console.log(setTreeData(arr)) // 输出正确的值
+</script>
+</body>
+</html>

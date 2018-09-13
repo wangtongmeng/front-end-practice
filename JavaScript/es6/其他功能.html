@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>es6其他常用功能</title>
+</head>
+<body>
+<script>
+// let / const
+    // JS
+    (function(){
+        var i = 10
+        i = 100
+        var j = 20
+        j = 200
+    }())
+    // ES6
+    {
+      let i = 10
+      i = 100       // 正确
+      const j = 20
+      // j = 200    // 报错
+    }
+// 多行字符串/模板变量
+    // JS
+    (function(){
+        var name = 'zhangsan', age = 20, html = '';
+        html += '<div>';
+        html += ' <p>' +  name + '</p>';
+        html += '<p>' + age + '</p>';
+        html += '</div>';
+        console.log('JS 字符串拼接', html)
+    }())
+    // ES6
+    {
+        const name = 'zhangsan', age = 20;
+        const html = `
+            <div>
+                <p>${name}</p>
+                <p>${age}</p>
+            </div>
+        `
+        console.log('es6 模板字符串',html)
+
+    }
+// 解构赋值
+    // JS
+    (function(){
+        var obj = {a: 100, b: 200}
+        var a = obj.a
+        var b = obj.b
+
+        var arr = ['xxx', 'yyy', 'zzz']
+        var x = arr[0]
+        console.log('JS 赋值','a',a,'b',b,'arr[0]', x)
+    }())
+    // 结构赋值
+    {
+        const obj = {a: 10, b: 20, c: 30}
+        const {a, b} = obj
+        console.log('解构赋值 对象', a, b)
+
+        const arr = ['xxx', 'yyy', 'zzz']
+        const [x, y, z] = arr
+        console.log('解构赋值 数组', x, y, z)
+
+    }
+// 块级作用域
+    // JS
+    (function(){
+       var obj = {a: 100, b: 200}
+       for (var item in obj) {
+           console.log(item)
+       }
+       console.log('JS 可以取到 for 循环中的 item', item)  // 'b'
+    }())
+    // ES6
+{
+    const obj = {a: 100, b: 200}
+    for (let item in obj) {
+        console.log('块级作用域中的item', item)
+    }
+    // console.log('块级作用域外取不到', item) // undefined
+}
+// 函数默认参数
+/*
+    // JS
+    {
+        function(a, b){
+            if( b == null) {
+                b = 0
+            }
+        }
+    }
+    // ES6
+    {
+        function (a, b=0) {
+            console.log(b)
+        }
+    }
+*/
+// 箭头函数
+    // JS
+    (function(){
+        var arr = [1, 2, 3]
+        arr.map(function (item) {
+            return item + 1
+        })
+    }())
+    // ES6
+    const arr = [1, 2, 3]
+    arr.map(item => item + 1)
+    arr.map((item, index) => {
+        console.log('箭头函数', index)
+        return item + 1
+    })
+// 箭头函数中的 this
+{
+    function fn() {
+        console.log('real', this) // {a: 100}
+        let arr = [1, 2, 3]
+        // 普通 JS
+        arr.map(function (item) {
+            console.log('js', this)  // window
+            return item + 1
+        })
+        // 箭头函数
+        arr.map(item => {
+            console.log('es6', this) // {a: 100}
+            return item + 1
+        })
+    }
+
+    fn.call({a: 100})
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Date and Math API</title>
+</head>
+<body>
+<script>
+    // Date 日期对象
+    {
+        Date.now() // 获取当前时间毫秒数
+        let dt = new Date()
+        let time = dt.getTime() // 获取毫秒数
+        let nm = dt.getFullYear() // 年
+        let yt = dt.getMonth() + 1 // 月 (0- 11) + 1
+        let ri = dt.getDate() // 日 (0 - 31)
+        let ui = dt.getHours() // 小时 (0 - 23)
+        let ff = dt.getMinutes() // 分钟 (0 - 59)
+        let mc = dt.getSeconds() // 秒 (0 - 59)
+        console.log('年',nm,'月',yt,'日',ri,'时',ui,'分',ff,'秒',mc)
+    }
+    // Math对象
+    {
+        // 获取随机数
+        let num = Math.random()
+        console.log('随机数', num)
+    }
+</script>
+</body>
+</html>

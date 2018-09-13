@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Array&Object API</title>
+</head>
+<body>
+<script>
+    // Array API
+    {
+        // forEach
+        let arr = [1,2,3]
+        arr.forEach((item, index)=>{
+            // 遍历数组的所有元素
+            console.log('forEach',index,item)
+        })
+        // every
+        let arr1 = [1,2,3]
+        let result1 = arr1.every((item,index)=>{
+            // 用来判断所有的数组元素，都满足一个条件
+            if(item < 4) {
+                return true
+            }
+        })
+        console.log('every',result1)
+        // some
+        let arr2 = [1,2,3]
+        let result2 = arr.some((item,index)=>{
+            // 用来判断所有的数组元素，只要有一个满足条件即可
+            if(item < 2) {
+                return true
+            }
+        })
+        console.log('some', result2)
+        // sort
+        let arr3 = [1,4,2,3,5]
+        let result3 = arr.sort((a,b)=>{
+            // 从小到大排序
+            return a - b
+            // 从大到小排序
+            // return b - a
+        })
+        console.log('sort', result3)
+        // map
+        let arr4 = [1,2,3,4]
+        let result4 = arr4.map((item,index)=>{
+            // 将元素重新组装，并返回
+            return '<b>' + item + '</b>'
+        })
+        console.log('map', result4)
+        // filter
+        let arr5 =  [1,2,3]
+        let result5 = arr5.filter((item,index)=>{
+            // 通过一个条件过滤数组
+            if(item >= 2) {
+                return true
+            }
+        })
+        console.log('filter', result5)
+    }
+    // Object API
+    {
+        // for in
+        let obj = {
+            x:100,
+            y:200,
+            z:300
+        }
+        let key
+        for(key in obj) {
+            // 注意这里的 hasOwnProperty
+            if(obj.hasOwnProperty(key)) {
+                console.log('for in object', key, obj[key])
+            }
+
+        }
+    }
+</script>
+</body>
+</html>

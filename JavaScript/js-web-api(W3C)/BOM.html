@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BOM</title>
+</head>
+<body>
+<script>
+    // navigator
+    {
+        let ua = navigator.userAgent
+        let isChrome = ua.indexOf('Chrome')
+        console.log('是否是Chorme浏览器',isChrome)
+    }
+    // screen
+    {
+        console.log(screen.width, screen.height)
+    }
+    // location
+    {
+        console.log(location.href)
+        console.log('http协议',location.protocol)  // 'http:' 'https:'
+        console.log('域名',location.host)
+        console.log('路径', location.pathname)     //  '/learn/234'
+        console.log('查询参数', location.search)
+        console.log('#后面的东西',location.hash)
+    }
+    // history
+    {
+        history.back()
+        history.forward()
+
+    }
+</script>
+</body>
+</html>

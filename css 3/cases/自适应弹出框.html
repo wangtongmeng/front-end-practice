@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自适应弹出框</title>
+    <script src="https://cdn.bootcss.com/sass.js/0.11.0-beta.1/sass.min.js"></script>
+    <style>
+        /*reset*/
+        * {padding: 0;margin: 0;box-sizing: border-box;}
+        .message-dialog {
+            position: fixed;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            background-color: rgba(26, 25, 19, 0.5);
+        }
+        .message-dialog > .message-dialog-box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            width: 60%;
+            background-color: #fff;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+        .message-dialog > .message-dialog-box > article {}
+        .message-dialog > .message-dialog-box > article > h1, h2, h3, h4, h5 {}
+        .message-dialog > .message-dialog-box > article > p {}
+        .message-dialog > .message-dialog-box > button {}
+
+
+    </style>
+</head>
+<body>
+<button id="btn">点我</button>
+<div id="message-dialog" class="message-dialog">
+    <div class="message-dialog-box">
+        <article>
+            <h3>提示信息</h3>
+            <p>msg</p>
+        </article>
+        <button id="dialogCancelButton">返回</button>
+        <button id="dialogOkBtn">确认</button>
+    </div>
+</div>
+</body>
+</html>

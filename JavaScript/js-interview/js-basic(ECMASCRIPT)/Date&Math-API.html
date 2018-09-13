@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Data&Math API</title>
+</head>
+<body>
+<script>
+    // Date API
+    {
+        // 获取 2018-06-10格式的日期
+        let dt = new Date()
+        let formatdate = formatDate(dt)
+        console.log('格式化日期', formatdate )
+        function formatDate(dt) {
+            if(!dt) {
+                dt = new Date()
+            }
+            let year = dt.getFullYear()
+            let month = dt.getMonth() + 1
+            let date = dt.getDate()
+            if(month < 10) {
+                // 强制类型转换
+                month = '0' + month
+            }
+            if(date < 10) {
+                // 强制类型转换
+                date = '0' + date
+            }
+            return year + '-' + month + '-' + date
+        }
+    }
+    // Math API
+    {
+        // 获取随机数，要求是长度一致的字符串格式
+        let random = Math.random()
+        random = random + '0000000000' //后面加上 10 个零
+        random = random.slice(0,10)
+        console.log('长度一致的随机数',random)
+    }
+
+</script>
+</body>
+</html>

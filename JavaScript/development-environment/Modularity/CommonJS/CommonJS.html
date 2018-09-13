@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CommonJS.html</title>
+</head>
+<body>
+<script>
+    // 注意这里这是简单表述，CommonJS 需要构建工具支持，一般和 npm一起使用，具体看webpack中的使用
+
+    //util.js
+    module.exports = {
+        getFormatDate:function(date, type) {
+            if(type === 1){
+                return '2018-05-08'
+            }
+            if(type === 2) {
+                return '2018年5月8日'
+            }
+        }
+    }
+    // a-util.js
+    let  util = require('util.js')
+    module.exports = {
+        aGetFormatDate:function(date) {
+            return util.getFormatDate(date,2)
+        }
+    }
+</script>
+</body>
+</html>

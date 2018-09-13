@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Layout</title>
+    <style media="screen">
+        html *{ padding: 0;margin: 0;}
+        body{
+            height:100vh;
+            display:grid;
+            grid-template-columns: 20% 20% 20% 20% 20%;
+        }
+    </style>
+</head>
+<body>
+<!--正常布局-->
+<section class="layout normal">
+    <style>
+        .layout.normal{
+            height:100vh;
+            border:1px solid #ddd;
+        }
+        .layout.normal .top-center-bottom {
+            height:100%;
+
+        }
+        .layout.normal article div{
+            /*width:20%;*/
+
+        }
+        .layout.normal .top{
+            height:50px;
+            background: red;
+        }
+        .layout.normal .center{
+            background: yellow;
+            height:calc(100% - 100px);
+
+        }
+        .layout.normal .bottom{
+            height:50px;
+            background: blue;
+        }
+    </style>
+    <article class="top-center-bottom">
+        <div class="top"></div>
+        <div class="center">
+            <h2>正常布局解决方案</h2>
+            正常布局解决方案；
+            正常布局解决方案；
+            正常布局解决方案；
+            正常布局解决方案；
+            正常布局解决方案；
+            正常布局解决方案；
+        </div>
+        <div class="bottom"></div>
+    </article>
+</section>
+<!--绝对定位布局-->
+<section class="layout absolute">
+    <style>
+        .layout.absolute {
+            border:1px solid #ddd;
+            height:100vh;
+        }
+        .layout.absolute article div{
+            width:20%;
+            position:absolute;
+        }
+        .layout.absolute .top{
+            height:50px;
+            background: red;
+            top:0;
+        }
+        .layout.absolute .center{
+            background: yellow;
+            top:50px;
+            bottom:50px;
+            overflow:auto;
+        }
+        .layout.absolute .bottom{
+            height:50px;
+            background: blue;
+            bottom:0;
+        }
+    </style>
+    <h1>三栏布局</h1>
+    <article class="top-center-bottom">
+        <div class="top"></div>
+        <div class="center">
+            <h2>绝对定位布局解决方案</h2>
+            绝对定位布局解决方案；
+            绝对定位布局解决方案；
+            绝对定位布局解决方案；
+            绝对定位布局解决方案；
+            绝对定位布局解决方案；
+            绝对定位布局解决方案；
+        </div>
+        <div class="bottom"></div>
+    </article>
+</section>
+<!--弹性盒子布局-->
+<section class="layout flexbox">
+    <style>
+        .layout.flexbox {
+            border:1px solid #ddd;
+
+        }
+        .layout.flexbox .top-center-bottom {
+            display:flex;
+            flex-direction:column;
+            height:100vh;
+        }
+        .layout.flexbox article div{
+            /*width:20%;*/
+        }
+        .layout.flexbox .top{
+            height:50px;
+            background: red;
+        }
+        .layout.flexbox .center{
+            background: yellow;
+            flex:1;
+            overflow:auto;
+        }
+        .layout.flexbox .bottom{
+            height:50px;
+            background: blue;
+        }
+    </style>
+    <article class="top-center-bottom">
+        <div class="top"></div>
+        <div class="center">
+            <h2>弹性盒子布局解决方案</h2>
+            弹性盒子布局解决方案；
+            弹性盒子布局解决方案；
+            弹性盒子布局解决方案；
+            弹性盒子布局解决方案；
+            弹性盒子布局解决方案；
+            弹性盒子布局解决方案；
+        </div>
+        <div class="bottom"></div>
+    </article>
+</section>
+<!--表格布局-->
+<section class="layout table">
+    <style>
+        .layout.table .top-center-bottom {
+            display:table;
+            height:100vh;
+        }
+        .layout.table .top-center-bottom>div {
+
+        }
+        .layout.table .top {
+            height:50px;
+            background:red;
+        }
+        .layout.table .center {
+            background:yellow;
+            height:calc(100% - 100px);
+        }
+        .layout.table .bottom {
+            height:50px;
+            background:blue;
+        }
+    </style>
+    <article class="top-center-bottom">
+        <div class="top"></div>
+        <div class="center">
+            <h2>表格布局解决方案</h2>
+            表格布局解决方案；
+            表格布局解决方案；
+            表格布局解决方案；
+            表格布局解决方案；
+            表格布局解决方案；
+            表格布局解决方案；
+        </div>
+        <div class="bottom"></div>
+    </article>
+</section>
+<!--网格布局-->
+<section class="layout grid">
+    <style>
+        .layout.grid .top-center-bottom {
+            display:grid;
+            grid-template-rows:50px auto 50px;
+            height:100vh;
+            border:1px solid #ddd;
+        }
+        .layout.grid article div{
+
+        }
+        .layout.grid .top{
+            background: red;
+
+        }
+        .layout.grid .center{
+            background: yellow;
+            overflow:auto;
+        }
+        .layout.grid .bottom{
+            background: blue;
+        }
+    </style>
+    <article class="top-center-bottom">
+        <div class="top"></div>
+        <div class="center">
+            <h2>网格布局解决方案</h2>
+            网格布局解决方案；
+            网格布局解决方案；
+            网格布局解决方案；
+            网格布局解决方案；
+            网格布局解决方案；
+            网格布局解决方案；
+        </div>
+        <div class="bottom"></div>
+    </article>
+</section>
+</body>
+</html>

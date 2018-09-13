@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 执行上下文
+    (function(){
+        console.log(a) // undefined
+        var a = 100
+
+        fn('zs') // 'zs 20'
+        function fn(name) {
+            age = 20
+            console.log(name, age)
+            var age
+        }
+    }())
+    // this
+    {
+        // 注意：这里限制了作用域，请到控制台中验证
+        let a = {
+            name:'A',
+            fn:function(){
+                console.log(this.name)
+            }
+        }
+        a.fn() // this === a
+        a.fn().call({name:'B'})   // this =={name:'B'}
+        let fn1 = a.fn
+        fn1()  // this === window
+        // 构造函数执行中的 this
+        function Foo(name){
+            this.name = name
+        }
+        let f = new Foo('zs')
+        // 普通对象执行中的 this
+        let obj = {
+            name:'A',
+            printName:function(){
+                console.log(this.name)
+            }
+        }
+        obj.printName()
+        // 普通函数执行中的 this
+        function fn(){
+            console.log(this)
+        }
+        // call aplly bind
+        function fn1(name,age){
+            alert(name)
+            console.log(this)
+        }
+        fn1.call({x:100},'zs',20)
+
+        let fn2 = function(name, age) {
+            alert(name)
+            console.log(this)
+        }.bind({y:200})
+        fn2('zs', 20)
+    }
+    // 作用域
+    (function(){
+        // 无块级作用域
+        if (true) {
+            var name = 'zs'
+        }
+        console.log(name)
+        // 函数和全局作用域
+        var a = 100
+        function fn(){
+            var a = 200
+            console.log('fn', a)
+        }
+        console.log('global', a)
+        fn()
+    }())
+    // 作用域链
+    (function(){
+        var a = 100
+        function fn(){
+            var b = 200
+
+            //当前作用域没有定义的变量，即“自由变量”
+            console.log(a)
+
+            console.log(b)
+        }
+        fn()
+    }())
+    // 闭包
+    (function(){
+        // 函数作为返回值
+        var a = 100
+        // 返回一个函数(函数作为返回值)
+        return function (){
+            console.log(a)
+        }
+        // f1 得到一个函数
+        var f1 = F1()
+        var a = 200
+        f1() // 100
+    }())
+    (function(){
+        // 函数作为参数传递
+        function F1() {
+            var a = 100
+            return function () {
+                console.log(a) // 自由变量，父作用域寻找
+            }
+        }
+        var f1 = F1()
+
+        function F2(fn) {
+            var a = 200
+            fn()
+        }
+        F2(f1)  // 100
+    }())
+</script>
+</body>
+</html>
