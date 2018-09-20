@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <p>jQuery callbacks</p>    
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script>
+        var callbacks = $.Callbacks() // 注意大小写
+        callbacks.add(function (info) {
+            console.log('fn1', info)
+        })
+        callbacks.add(function (info) {
+            console.log('fn2', info)
+        })
+        callbacks.add(function (info) {
+            console.log('fn3', info)
+        })
+        callbacks.fire('gogogo')
+        callbacks.fire('fire')
+    </script>
+</body>
+</html>

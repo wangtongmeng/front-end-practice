@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <p>jquery each</p>
+    <p>jquery each</p>
+    <p>jquery each</p>
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script>
+        var arr = [1, 2, 3]
+        var nodeList = document.getElementsByTagName('p')
+        var $p = $('p')
+
+        // 要对这三个变量进行遍历，需要写三个遍历方法
+        // 第一
+        arr.forEach(function (item) {
+            console.log(item)
+        })
+        // 第二
+        var i, length = nodeList.length
+        for (i = 0; i < length; i++) {
+            console.log(nodeList[i])
+        }
+        // 第三
+        $p.each(function (key, p) {
+            console.log(key, p)
+        })
+
+        // 如何能写出一个方法来遍历这三个对象呢
+        function each(data) {
+            var $data = $(data)
+            $data.each(function (key, p) {
+                console.log(key, p)
+            })
+        }
+        each(arr)
+        each(nodeList)
+        each($p)
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <p>有限状态机</p>
+    <button id="btn"></button>
+    
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./03-javascript-state-machine.js"></script>
+    <script>
+        // 状态机模型
+        var fsm = new StateMachine({
+            init: '收藏',  // 初始状态，待收藏
+            transitions: [
+                {
+                    name: 'doStore', 
+                    from: '收藏',
+                    to: '取消收藏'
+                },
+                {
+                    name: 'deleteStore',
+                    from: '取消收藏',
+                    to: '收藏'
+                }
+            ],
+            methods: {
+                // 执行收藏
+                onDoStore: function () {
+                    alert('收藏成功')
+                    updateText()
+                },
+                // 取消收藏
+                onDeleteStore: function () {
+                    alert('已取消收藏')
+                    updateText()
+                }
+            }
+        })
+
+        var $btn = $('#btn')
+
+        // 点击事件
+        $btn.click(function () {
+            if (fsm.is('收藏')) {
+                fsm.doStore(1)
+            } else {
+                fsm.deleteStore()
+            }
+        })
+
+        // 更新文案
+        function updateText() {
+            $btn.text(fsm.state)
+        }
+
+        // 初始化文案
+        updateText()
+    </script>
+</body>
+</html>
