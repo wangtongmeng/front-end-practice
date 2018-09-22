@@ -9,13 +9,14 @@ http.createServer(function (request, response) {
   if (request.url === '/') {
     response.writeHead(200, {
       'Content-Type': 'text/html',
-      'Connection': 'close'
+      'Connection': 'keep-alive',
+      'Link': '</test.jpg>; as=image; rel=preload'
     })
     response.end(html)
   } else {
     response.writeHead(200, {
       'Content-Type': 'image/jpg',
-      'Connection': 'close'
+      'Connection': 'keep-alive' // or close
     })
     response.end(img)
   }

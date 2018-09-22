@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- <meta http-equiv="Content-Security-Policy" content="connect-src 'self'; form-action 'self';"> -->
+  <title>Document</title>
+</head>
+<body>
+  <div>This is content</div>
+  <form action="http://baidu.com">
+    <button type="submit">click me</button>
+  </form>
+  <img src="http://img.zcool.cn/community/0117e2571b8b246ac72538120dd8a4.jpg@1280w_1l_2o_100sh.jpg" alt="">
+  <!-- 内联脚本 -->
+  <script> 
+    console.log('inline js')
+    fetch('http://baidu.com')
+  </script>
+  <script src="test.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/core.js"></script>
+</body>
+</html>
