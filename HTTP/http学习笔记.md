@@ -42,7 +42,7 @@ HTTP2的信道复又为什么能提高性能
 
 ## 深入到TCP
 
-![1537270692254](C:\Users\WANGTO~1\AppData\Local\Temp\1537270692254.png)
+![1537270692254](C:\Users\wangtongmeng\Desktop\myBlog\source\_posts\web前端\8-HTTP\从浏览器地址栏输入url到显示页面的步骤\input-url-http-brower.png)
 
 ## 讲课过程
 
@@ -1587,13 +1587,17 @@ Server Push
 
 # 课程总结
 
-HTTP 原理：如何发送 HTTP请求，数据如何返回，是在 TCP 连接上发送数据的，创建 TCP 连接要经过三次握手，或者是 https 要经过 https 的握手，https 的握手过程是一个加密数据的传输过程。http是否是长连接，性能方面的好处。http2 在长连接的基础上又增加了信道复用和分帧传输，极大地提高了性能。
+**HTTP 原理**：如何发送 **HTTP**请求，数据如何返回，是在 TCP 连接上发送数据的，创建 TCP 连接要经过三次握手，或者是 https 要经过 https 的握手，**https** 的握手过程是一个加密数据的传输过程。http是否是长连接，性能方面的好处。**http2** 在长连接的基础上又增加了信道复用和分帧传输，极大地提高了性能。
 
-HTTP技术点：HTTP头相关作用，缓存，使用 Cache-Control 去控制浏览器或代理服务器的缓存；使用 Last-Modified 或 Etag 来验证缓存是否可用；使用 CSP 控制网页内容加载的安全性；CORS，创建一个可用性很高，并且安全性得到保证的一个可跨域的 HTTP 服务。
+**HTTP技术点**：HTTP头相关作用，**缓存**，使用 Cache-Control 去控制浏览器或代理服务器的缓存；使用 Last-Modified 或 Etag 来**验证缓存**是否可用；使用 CSP 控制**网页**内容加载的**安全性**；CORS，创建一个可用性很高，并且安全性得到保证的一个可**跨域**的 HTTP 服务。
 
-Nginx实践、面向未来的HTTP：如何使用 Nginx 实现一个代理服务器，开启 Nginx 的代理缓存；HTTPS 安全性是如何进行保证的；HTTP2比HTTP1.1,性能提升极大，通过 Nginx 部署一个 HTTP2。
+**Nginx实践、面向未来的HTTP**：如何使用 Nginx 实现一个代理服务器，开启 Nginx 的代理缓存；HTTPS 安全性是如何进行保证的；HTTP2比HTTP1.1,性能提升极大，通过 Nginx 部署一个 HTTP2。
 
 ![1537521316017](C:\Users\WANGTO~1\AppData\Local\Temp\1537521316017.png)
 
-
+1. Redirect跳转，url 回车 Redirect，有可能存在 301 请求返回过，浏览器记录过，这类请求开始就要 Redirect。
+2. App cahce应用缓存，浏览器缓存，浏览器会根据资源是否设置过 Cache-Control，判断是否超时，如果超时重新请求缓存
+3. DNS查找，域名解析，根据域名对应 ip
+4. 创建 TCP 连接，三次握手，https 如何创建，http2 如何创建
+5. Request 发送请求，发送的过程中，可能会经过代理服务器或从代理服务器的缓存中读取
 
