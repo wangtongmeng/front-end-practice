@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>列表渲染</title>
+  <style>
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+
+<body>
+  <div>
+  </div>
+  <div id="app">
+    <ul>
+      <template v-for="(item,index) of list">
+        <div>
+            {{index}}-{{item.text}}
+        </div>
+        <span>{{item.text}}</span>
+      </template>
+    </ul>
+  </div>
+</body>
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      list: [{
+        id: '1',
+        text: "hello",
+      }, {
+        id: '2',
+        text: "dell"
+      }, {
+        id: "3",
+        text: "lee"
+      }]
+    }
+  })
+</script>
+
+</html>
