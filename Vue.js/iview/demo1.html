@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
+  <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+  <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
+  <style>
+    #app {
+      height: 100vh;
+      position: relative;
+    }
+
+    .button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <i-button class="button" @click="show">Click me!</i-button>
+    <Modal v-model="visible" title="欢迎">UI框架确实牛逼</Modal>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      visible: false
+    },
+    methods: {
+      show: function () {
+        this.visible = true;
+      }
+    }
+  })
+</script>
+
+</html>
