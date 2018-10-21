@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>父子组件的数据传递</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+
+<body>
+  <div>
+    父组件通过属性向子组件传递数据<br>
+    vue单项数据流，不要直接改props，当他是引用类型时，数据修改可能会导致其他组件使用数据时出错<br>
+    - 可以把 props的值用作组件里data中的属性值，使用data中的值就不会影响 props 了
+  </div>
+  <div id="root">
+    <counter :count="0"></counter>
+    <counter :count="1"></counter>
+  </div>
+</body>
+<script>
+  var counter = {
+    props: ['count'],
+    data: function () {
+      return {
+        number: this.count
+      }
+    },
+    template: '<div @click="handleClick">{{number}}</div>',
+    methods: {
+      handleClick: function () {
+        this.number++
+      }
+    }
+  }
+  var vm = new Vue({
+    el: '#root',
+    components: {
+      counter: counter
+    }
+  })
+</script>
+
+</html>
