@@ -20,8 +20,14 @@
     -webkit-font-smoothing: antialiased;
   }
   
-  #particles {
+  .particles {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+  .demo-1 {
+    width:400px;height:200px;border:1px solid red;
+  }  

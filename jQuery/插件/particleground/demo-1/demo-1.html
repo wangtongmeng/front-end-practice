@@ -13,26 +13,23 @@
 </head>
 
 <body>
-    <div id="particles">
+    <div id="particles" class="particles">
+        <div id="demo-1" class="demo-1"></div>
     </div>
 </body>
 <script>
-    // js初始化插件，调用对应的id
-    $('#particles').particleground();
-    // 选项
-    // 设置粒子系统点和线的颜色
-    $('#particles').particleground({
-    dotColor: '#0000ff',
-    lineColor: '#0000ff'
-    // minSpeedX: '0.1',
-    // maxSpeedX: '0.7',
-    // minSpeedY: '0.1',
-    // maxSpeedY: '0.7',
-    // directionX: 'center', // 可以“center”,“left”或'right”。“中心”意味着点将反弹的边缘画布。
-    // directionY: 'center', // 可以 'center', 'up' or 'down'. 'center' 意味着点将反弹的边缘画布。
-    // density: 1000,
-    // particleRadius: 7
-});
+    $('#demo-1').particleground({
+        dotColor: '#ffffff',
+        lineColor: '#ffffff',
+        // minSpeedX: '0.1',
+        // maxSpeedX: '0.7',
+        // minSpeedY: '0.1',
+        // maxSpeedY: '0.7',
+        // directionX: 'center', // 可以“center”,“left”或'right”。“中心”意味着点将反弹的边缘画布。
+        // directionY: 'center', // 可以 'center', 'up' or 'down'. 'center' 意味着点将反弹的边缘画布。
+        density: 5000,
+        // particleRadius: 7
+    });
 </script>
 
 </html>
