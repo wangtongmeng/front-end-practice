@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <script type='text/javascript' src='jquery-1.11.1.min.js'></script>
+    <script type='text/javascript' src='jquery.particleground.min.js'></script>
+</head>
+
+<body>
+    <div id="particles">
+    </div>
+</body>
+<script>
+    // js初始化插件，调用对应的id
+    $('#particles').particleground();
+    // 选项
+    // 设置粒子系统点和线的颜色
+    $('#particles').particleground({
+    dotColor: '#0000ff',
+    lineColor: '#0000ff'
+    // minSpeedX: '0.1',
+    // maxSpeedX: '0.7',
+    // minSpeedY: '0.1',
+    // maxSpeedY: '0.7',
+    // directionX: 'center', // 可以“center”,“left”或'right”。“中心”意味着点将反弹的边缘画布。
+    // directionY: 'center', // 可以 'center', 'up' or 'down'. 'center' 意味着点将反弹的边缘画布。
+    // density: 1000,
+    // particleRadius: 7
+});
+</script>
+
+</html>
