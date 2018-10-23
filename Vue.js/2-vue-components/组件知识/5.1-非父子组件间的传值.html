@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>非父子组件间传值(Bus/总线/发布订阅模式/观察者模式)</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+
+<body>
+  <div>
+    非父子组件传值（爷孙，兄弟）<br>
+    - 解决复杂通信<br>
+    - 1. vuex<br>
+    - 2. 发布订阅模式，vue 中叫总线机制
+  </div>
+  <div>
+  </div>
+  <div id="root">
+    <!-- 这里是自定义事件 -->
+    <child @click.native="handleClick"></child>
+  </div>
+</body>
+<script>
+  Vue.component('child', {
+    template: '<div>Child</div>',
+  })
+  var vm = new Vue({
+    el: '#root',
+    methods: {
+      handleClick: function () {
+        alert('click')
+      }
+    }
+  })
+</script>
+
+</html>
