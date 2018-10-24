@@ -19,21 +19,31 @@
   <div>
   </div>
   <div id="root">
-    <!-- 这里是自定义事件 -->
-    <child @click.native="handleClick"></child>
+    <child content="Dell"></child>
+    <child content="Lee"></child>
   </div>
 </body>
 <script>
+  Vue.prototype.bus = new Vue()
   Vue.component('child', {
-    template: '<div>Child</div>',
+    props: {
+      content: String
+    },
+    template: '<div @click="handleClick">{{content}}</div>',
+    methods: {
+      handleClick:function(){
+        this.bus.$emit('change', this.content)
+      }
+    },
+    mounted() {
+      this.bus.$on('change', function(msg) {
+        alert(msg)
+      })
+    },
+
   })
   var vm = new Vue({
-    el: '#root',
-    methods: {
-      handleClick: function () {
-        alert('click')
-      }
-    }
+    el: '#root'
   })
 </script>
 
