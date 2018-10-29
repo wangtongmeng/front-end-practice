@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue中的JS动画与Velocity.js的结合</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdn.bootcss.com/velocity/2.0.5/velocity.min.js"></script>
+  <style>
+  
+  </style>
+</head>
+
+<body>
+  <div>
+    通过 JS 实现动画效果
+  </div>
+  <div id="root">
+    <transition 
+    name="fade"
+    @before-enter="handleBeforeEnter"
+    @enter="handleEnter"
+    @after-enter="handleAfterEnter"
+    @before-leave=""
+    @leave=""
+    @after-leave=""
+    >
+      <div v-show="show">Hello World</div>
+    </transition>
+    <button @click="handleClick">toggle</button>
+  </div>
+</body>
+<script>
+  var vm = new Vue({
+    el: '#root',
+    data: {
+      show: true
+    },
+    methods: {
+      handleClick: function () {
+        this.show = !this.show
+      },
+      handleBeforeEnter: function (el) {
+        el.style.opacity = 0;
+      },
+      handleEnter: function (el, done) {
+        Velocity(el, {
+          opacity: 1
+          }, {
+            duration: 1000,
+            complete: done
+            })
+      },
+      handleAfterEnter: function (el) {
+        console.log("动画结束")
+      }
+    }
+  })
+</script>
+
+</html>

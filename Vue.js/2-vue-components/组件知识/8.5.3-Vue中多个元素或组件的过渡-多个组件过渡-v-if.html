@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue中的JS动画与Velocity.js的结合</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdn.bootcss.com/velocity/2.0.5/velocity.min.js"></script>
+  <style>
+    .v-enter, .v-leave-to {
+      opacity: 0;
+    }
+    .v-enter-active, .v-leave-active {
+      transition: opacity 1s;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+  </div>
+  <div id="root">
+    <transition mode="out-in">
+      <child v-if="show"></child>
+      <child-one v-else></child-one>
+    </transition>
+    <button @click="handleClick">toggle</button>
+  </div>
+</body>
+<script>
+  Vue.component('child', {
+    template: '<div>child</div>'
+  })
+  Vue.component('child-one', {
+    template: '<div>child-one</div>'
+  })
+  var vm = new Vue({
+    el: '#root',
+    data: {
+      show: true
+    },
+    methods: {
+      handleClick: function () {
+        this.show = !this.show
+      }
+    }
+  })
+</script>
+
+</html>

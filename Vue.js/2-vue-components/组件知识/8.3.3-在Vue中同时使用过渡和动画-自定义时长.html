@@ -8,19 +8,29 @@
   <title>在Vue中同时使用过渡和动画</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
   <link rel="stylesheet" href="./animate.css">
+  <style>
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity 3s;
+    }
+  </style>
 </head>
 
 <body>
   <div>
-    - animate.css 是一个动画的封装库，提供的是 keyframe 形式的动画<br>
-    - 利用 appear 类 和 appear-active-class 自定义类
+    通过duration，自定义设置动画时长，也可以设置入场和出场的动画时长
   </div>
   <div id="root">
+    <!-- :duration="10000" -->
     <transition 
+      :duration="{enter: 5000,leave: 10000}"
       name="fade"
       appear
-      enter-active-class="animated swing"
-      leave-active-class="animated bounceOut"
+      enter-active-class="animated swing fade-enter-active"
+      leave-active-class="animated bounceOut fade-leave-active"
       appear-active-class="animated swing"
     >
       <div v-show="show">hello world</div>
