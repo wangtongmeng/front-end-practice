@@ -1,0 +1,26 @@
+{
+    "name": "myproject",
+    "version": "1.0.0",
+    "description": "",
+    "private": true,
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "echarts": "^4.2.0-rc.2",
+        "lodash": "^4.17.11"
+    },
+    "devDependencies": {
+        "css-loader": "^1.0.1",
+        "file-loader": "^2.0.0",
+        "fs-extra": "^7.0.0",
+        "rollup-plugin-node-resolve": "^3.4.0",
+        "rollup-plugin-uglify": "^6.0.0",
+        "style-loader": "^0.23.1",
+        "webpack": "^4.23.1",
+        "webpack-cli": "^3.1.2"
+    }
+}
