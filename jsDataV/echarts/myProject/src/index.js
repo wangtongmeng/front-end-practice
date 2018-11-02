@@ -1,6 +1,7 @@
 import _ from "lodash";
 import "./style.css";
 import bird from "./bird.jpg";
+import Data from './data.xml';
 
 function component() {
     var element = document.createElement("div");
@@ -13,6 +14,9 @@ function component() {
     var myIcon = new Image();
     myIcon.src = bird;
     element.appendChild(myIcon);
+
+    console.log(Data);
+    
     return element;
 }
 

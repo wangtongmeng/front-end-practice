@@ -15,6 +15,14 @@ module.exports = {
             {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: ["file-loader"]
+            },
+            {
+                test: /\.(csv|tsv)$/,
+                use: ["csv-loader"]
+            },
+            {
+                test: /\.xml$/,
+                use: ["xml-loader"]
             }
         ]
     }
