@@ -11,7 +11,8 @@ module.exports = {
       .set("@", resolve("src"))
       .set("pages", resolve("src/pages"))
       .set("static", resolve("src/static"))
-      .set("common", resolve("src/common"))
+      .set("components", resolve("src/components"))
+      .set("common", resolve("src/pages/common"))
       .set("styles", resolve("src/assets/styles"));
   },
 

@@ -1,7 +1,79 @@
 <template>
     <div>
         <div class="header">
-            
+            <div>路由笔记</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
+            <div>首页</div>
         </div>
     </div>
 </template>
@@ -11,5 +83,4 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-
 </style>
