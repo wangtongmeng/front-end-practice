@@ -3,7 +3,7 @@
         <h1>demo2-饼状图</h1>
         <div class="demo">
             <div class="item">
-                <h2>柱状图</h2>
+                <h2>饼状图</h2>
                 <div class="chart" id="main"></div>
             </div>
             <div class="item">
