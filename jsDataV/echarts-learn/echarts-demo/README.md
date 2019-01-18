@@ -1,4 +1,4 @@
-# map-demo1
+# echarts-demo
 
 ## Project setup
 ```
