@@ -12,22 +12,22 @@
 </template>
 <script>
 export default {
-    name: "PageTemplate"
+  name: "PageTemplate"
 };
 </script>
 <style lang="less" scoped>
 .page {
-    .page-title {
-        height: 30px;
-        line-height: 30px;
-        padding: 20px;
-        font-size: 28px;
-    }
-    .page-content {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        padding-bottom: 100px;
-    }
+  .page-title {
+    height: 30px;
+    line-height: 30px;
+    padding: 20px;
+    font-size: 28px;
+  }
+  .page-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding-bottom: 100px;
+  }
 }
 </style>

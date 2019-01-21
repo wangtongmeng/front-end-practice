@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Home from "@/pages/home/Home";
 import VueRouter from "@/pages/vue_router/VueRouter";
 import ComponentsDynamicAsync from "@/pages/vue_components/components-dynamic-async/components-dynamic-async";
+import IviewDemo from "@/pages/iview/iview-demo";
 
 Vue.use(Router);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/components-dynamic-async",
     name: "components-dynamic-async",
     component: ComponentsDynamicAsync
+  },
+  {
+    path: "/iview-demo",
+    name: "IviewDemo",
+    component: IviewDemo
   }
 ];
 

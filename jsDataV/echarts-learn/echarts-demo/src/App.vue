@@ -1,12 +1,15 @@
 <template>
     <div id="app">
         <div id="nav">
-            <ul>
-                <li>
-                    <router-link to="/demo1">demo1-柱状图</router-link>
+            <ul class="list">
+                <li class="item">
+                    <router-link to="/bar">柱状图</router-link>
                 </li>
                 <li>
-                    <router-link to="/demo2">demo2-饼状图</router-link>
+                    <router-link to="/pie">饼状图</router-link>
+                </li>                
+                <li>
+                    <router-link to="/map">地图</router-link>
                 </li>
             </ul>
         </div>
@@ -21,4 +24,8 @@
     color #2c3e50;
     #nav
         border-bottom 1px solid #ddd 
+        .list
+            display flex
+            li
+                min-width 70px
 </style>

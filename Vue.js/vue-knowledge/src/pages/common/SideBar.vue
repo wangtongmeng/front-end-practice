@@ -7,6 +7,9 @@
             <li>
                 <router-link to="/components-dynamic-async" class="page">components-dynamic-async</router-link>
             </li>
+            <li>
+                <router-link to="/iview-demo" class="page">iview</router-link>
+            </li>
         </ul>
     </div>
 </template>
