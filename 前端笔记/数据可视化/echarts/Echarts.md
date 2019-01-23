@@ -82,13 +82,23 @@ Echarts基础架构
 
 ![1548144837392](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1548144837392.png)
 
-**柱状图**
-
-**折线图**
-
 Echarts2 查找配置项技巧
 
+技巧0，echarts2的配置文档，有图例可以点选
 
+技巧1，百度图说，可视化操作快速生成代码
+
+技巧2，文档图示，常见配置说明都有
+
+https://echarts.baidu.com/echarts2/doc/example/themeDesigner.html# 
+
+技巧3，echarts3实例直接修改，同理2
+
+辅助线，toolbox中的mark，在2里面有；3中弱化了不起作用
+
+拖动计算，2和3的区别，3中取消了，2可以，需要时可以用2
+
+28-48,56分钟
 
 ### Echarts图表高级
 
