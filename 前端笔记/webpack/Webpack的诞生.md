@@ -275,6 +275,76 @@ Webpack版本更迭
 
 ![1548544722758](C:\Users\WANGTO~1\AppData\Local\Temp\1548544722758.png)
 
+![1548595357611](C:\Users\WANGTO~1\AppData\Local\Temp\1548595357611.png)
+
+## Plugins
+
+参与打包整个过程
+
+打包优化和压缩
+
+配置编译时的变量
+
+机器灵活
+
+![1548595541084](C:\Users\WANGTO~1\AppData\Local\Temp\1548595556176.png)
+
+## 名词
+
+Chunk，代码块
+
+Bundle
+
+Module
+
+# 使用 Webpack
+
+## 使用方式
+
+- Webpack 命令
+- Webpack 配置
+- 第三方脚手架
+
+### Webpack命令
+
+- webpack -h
+- webapck -v
+- webpack <entry> [<entry>] <output>
+
+### Webpack 配置
+
+`webpack` 默认会找到对应配置文件
+
+`webpack -- config webpack.conf.dev.js` 也可以自己制定配置文件，或者通过脚本简化
+
+### 脚手架
+
+- Vue-cli
+- Angular-cli
+- React-starter
+
+### Webpack-Cli
+
+`npm install webpack-cli -g`
+
+交互式的初始化一个项目！
+
+迁移项目！V1 -> V2
+
+## 打包 JS
+
+`webpack entry<entry> output` 命令行
+
+`webpack --config webpack.conf.js`  指定配置文件
+
+
+
+
+
+
+
+
+
 
 
 
