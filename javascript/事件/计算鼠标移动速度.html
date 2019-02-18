@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    var previousX;
+    var previousY;
+    var previousT;
+
+    window.addEventListener('mousemove', function(event) {
+    if (
+        previousX !== undefined &&
+        previousY !== undefined &&
+        previousT !== undefined
+    ) {
+        var deltaX = event.screenX - previousX;
+        var deltaY = event.screenY - previousY;
+        var deltaD = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+
+        var deltaT = event.timeStamp - previousT;
+        console.log(deltaD / deltaT * 1000);
+    }
+
+    previousX = event.screenX;
+    previousY = event.screenY;
+    previousT = event.timeStamp;
+    });
+</script>
+</body>
+</html>
