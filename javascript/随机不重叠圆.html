@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JS 随机不重叠排列圆形</title>
+    <script src="http://ui.quteam.com/qui.js"></script>
+    <style>
+        .list-box {
+            height: 500px;
+            position: relative;
+            padding: 0;
+            border: 1px solid red;
+        }
+        .list-box li {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #FFF;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, .2);
+            background: #FFF url(https://www.google.com/images/srpr/logo11w.png) 50% 50% no-repeat;
+            background-size: contain;
+            transition: 0.2s ease;
+        }
+        .list-box li:hover {
+            width: 240px !important;
+            height: 240px !important;
+            z-index: 2;
+            margin: -120px 0 0 -120px !important;
+        }
+    </style>
+</head>
+<body>
+<h1>JS 随机不重叠排列圆形</h1>
+<ul class="list-box"></ul>
+<script>
+    // 问题：
+    //   1.生成点太多，显示不全
+    //   2.边界圆变大，滚动条会显示
+
+    Qui.use("jquery", function ($) {
+        var myPoints = [];
+        var $box = $(".list-box");
+        //  随机生成 15个 100-1000 的整数
+        let mockData = mockArray(30, 100, 1000)
+        // 换算成适合显示的大小 40-110
+        mockData = rangeNum(mockData, 30, 100)
+        
+        // 显示数据
+        //   中心圆
+        let maxValue = Math.max(...mockData)
+        let maxIndex =  mockData.indexOf(maxValue)
+        showCircle(maxValue, 1, true);
+        //   其他圆
+        mockData.splice(maxIndex, 1)
+        mockData.forEach(item => {
+            showCircle(item, 1);
+        })
+        // 显示圆
+        for (var i = 0, l = myPoints.length; i < l; i++) {
+            var r = myPoints[i];
+            $("<li>").css({
+                left: r.centerX,
+                top: r.centerY,
+                width: r.radius * 2,
+                height: r.radius * 2,
+                "margin-left": -r.radius,
+                "margin-top": -r.radius
+            }).appendTo($box);
+        }
+
+
+        function showCircle(radius, num, isCenter) {
+            var maxLoop = 2000; // 定义循环限度
+            var i = 0, go = 0, allowLoop = true, warning = maxLoop, isMatch = true, centerX = 0, centerY = 0;
+            var margin = 10;
+            var width = $box.width();
+            var height = $box.height();
+            while (i < num && allowLoop) {
+                isMatch = true;
+                centerX = Math.round((isCenter ? 0.5 : Math.random()) * width);
+                centerY = Math.round((isCenter ? 0.5 : Math.random()) * height);
+
+                // 边距内显示
+                if ((centerX - radius - margin) < 0 || (centerY - radius - margin) < 0 || (centerX + radius + margin) > width || (centerY + radius + margin) > height) {
+                    continue;
+                }
+
+                // 找出没有重复的圆
+                for (var j = 0; j < myPoints.length; j++) {
+                    var _distance = Math.sqrt(Math.pow(centerX - myPoints[j].centerX, 2) + Math.pow(centerY - myPoints[j].centerY, 2)) - myPoints[j].radius - margin;
+                    if (_distance < radius) {
+                        isMatch = false;
+                        break;
+                    }
+                }
+                if (isMatch) {
+                    myPoints.push({centerX: centerX, centerY: centerY, radius: radius});
+                    i++;
+                    warning = maxLoop;
+                    go = 0;
+                }
+                go++;
+                if (go >= warning) {
+                    allowLoop = false;
+                }
+            }
+        }
+        // 模拟随机整数数组
+        function mockArray(num, min, max){
+            let arr = []
+            for(let i = 0; i < num; i++){
+                let randomInt = getRandomInt(min, max)
+                arr.push(randomInt)
+            }
+            return arr
+        }
+        // 得到一个两数之间的随机整数
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+        // 范围换算
+        function rangeNum(arr, min, max) {
+            let result = []
+            let arrMin = Math.min(...arr)
+            let arrMax = Math.max(...arr)
+            let range = arrMax - arrMin
+            let ruleRange = max - min
+            
+            result = arr.map(item => {
+                // 数值在 range范围内的百分比位置
+                let percentage = (item - arrMin) / range
+                return min + ruleRange * percentage
+            })
+            return result
+        }
+    })
+</script>
+</body>
+</html>
