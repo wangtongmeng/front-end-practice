@@ -17,12 +17,17 @@ var fs = require('fs')
 //          data 数据
 //          error null
 //      失败
-//          data null
+//          data undefined
 //          error 错误对象
 fs.readFile('./data/hello.txt', function (error, data) {
   // <Buffer 68 65 6c 6c 6f>
   // 文件存储的是二进制数据 0 1
   // 这里二进制转为 16进制了
   // 可以通过 toString 方法 将其转为我们认识的字符
-  console.log(data.toString())
+  if (error) {
+    console.log('读取文件失败了')
+  } else {
+    console.log('读取文件成功')
+    console.log(data.toString())
+  }
 })
