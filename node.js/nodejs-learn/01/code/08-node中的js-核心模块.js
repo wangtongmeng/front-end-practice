@@ -13,3 +13,4 @@ console.log(os.totalmem());
 // extname extension name
 console.log(path.extname('c:/a/b/c/hello.txt'));
 
+  
