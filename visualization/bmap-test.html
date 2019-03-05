@@ -15,7 +15,42 @@
     function randomData() {  
     return Math.round(Math.random()*200);  
     }
+    //首先先定义需要显示对应信息的位置坐标，按照[纬度,精度]的格式
+    var geoCoordMap = {
+        '中科院1':[116.3425740000, 39.9164940000],
+        '中科院2':[116.3914400000, 40.0088540000],
+        '中科院3':[116.2897860000, 40.0780170000],
+        '中科院4':[116.3448600000, 39.9857590000],
+        '北京大学':[116.3168330000, 39.9988770000]
+    };
+
+    //随后定义每个位置需要显示的量的值
+    var beijingData = [
+        {name: '中科院1', value: 20},
+        {name: '中科院2', value: 20},
+        {name: '中科院3', value: 20},
+        {name: '中科院4', value: 20},
+        {name: '北京大学', value: 20}
+    ];
+
+    // 随后需要对数据进行处理，将坐标信息和对应物理量的值合在一起。
+    var convertData = function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var geoCoord = geoCoordMap[data[i].name];    //首先根据data中的name作为键值读入地理坐标
+            //var rjj1 = data[i].value;
+            if (geoCoord) {
+                res.push({
+                    name: data[i].name,
+                    value: geoCoord.concat(data[i].value)   //随后将地理坐标与对应信息值衔接起来
+                    //成为了 [name 经度 纬度 value]的形式
+                });
+            }
+        }
+        return res;
+    };
     var mapType='';
+    // 北京地图 JSON 
     var beijing = {
         "type": "FeatureCollection",
         "cp":[116.4551,40.2539],
@@ -57,6 +92,16 @@
             ]; 
     var geoCoordMap = {};
     var option = {
+                backgroundColor: '#404a59',
+                title: {
+                    text: '全国科技人才检测展示',
+                    subtext: '子标题',
+                    sublink: '子链接',
+                    x:'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
                 animation: true,
                 tooltip: {
                     show: true,
@@ -73,55 +118,95 @@
                 },
                 visualMap: {
                     min: 0,
-                    text: ['高', '低'],
-                    itemWidth: 15,
-                    itemHeight: 130,
-                    left: '10%',
-                    bottom: 30,
-                    realtime: false,
+                    max: 200,
                     calculable: true,
                     inRange: {
-                        color: ['#0316ed', '#2cc90c','#e8b837']
+                        color: ['#50a3ba', '#eac736', '#d94e5d']
                     },
                     textStyle: {
-                        color: 'white'
+                        color: '#fff'
+                    }
+                },
+                geo: {
+                    map: '北京',
+                    label: {
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#323c48',
+                            borderColor: '#111'
+                        },
+                        emphasis: {
+                            areaColor: '#2a333d'
+                        }
                     }
                 },
                 //配置属性
                 series: [
-                {  
-                    name: mapType,  
-                    type: 'map',  
-                    mapType: '北京',   
-                    roam: true,  
-                    label: {  
-                        normal: {  
-                            show: true,
-                            color:'#b8dfe0'
-                        },  
-                        emphasis: {  
-                            show: false,
-                            color:'#fff'
-                        }  
-                    },  
-                    itemStyle: {
-                       normal: {
-                            color: '#F06C00',
-                            borderWidth:1,
-                            borderColor:'#00eff2',
-                            opacity:.8
-                       },
-                       emphasis:{
-                            areaColor: null,
-                            shadowOffsetX: 0,
-                            shadowOffsetY: 0,
-                            shadowBlur: 20,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)',
-                            opacity:1
+                    // {  
+                    //     name: mapType,  
+                    //     type: 'map',  
+                    //     mapType: '北京',   
+                    //     roam: false,  
+                    //     // label: {  
+                    //     //     normal: {  
+                    //     //         show: true,
+                    //     //         color:'purple'
+                    //     //     },  
+                    //     //     emphasis: {  
+                    //     //         show: false,
+                    //     //         color:'red'
+                    //     //     }  
+                    //     // },  
+                    //     // itemStyle: {
+                    //     //     normal: {
+                    //     //             color: '#F06C00',
+                    //     //             borderWidth:1,
+                    //     //             borderColor:'#00eff2',
+                    //     //             opacity:.8
+                    //     //     },
+                    //     //     emphasis:{
+                    //     //             areaColor: null,
+                    //     //             shadowOffsetX: 0,
+                    //     //             shadowOffsetY: 0,
+                    //     //             shadowBlur: 20,
+                    //     //             shadowColor: 'rgba(0, 0, 0, 0.5)',
+                    //     //             opacity:1
+                    //     //         }
+                    //     // },
+                    //     // data:mydata  // 数据
+                    // },
+                    {
+                        name: '科研机构',   // 首先定义全部点用散点图画出来
+                        type: 'scatter',
+                        coordinateSystem: 'geo',   // 以地图为底图坐标
+                        data: convertData([
+                            {name: '中科院1', value: 20},
+                            {name: '中科院2', value: 20},
+                            {name: '中科院3', value: 20},
+                            {name: '中科院4', value: 20},
+                            {name: '北京大学', value: 20}
+                        ]),  // 数据来自于先前定义的函数
+                        symbolSize: 12,
+                        label: {
+                            normal: {
+                                show: false
+                            },
+                            emphasis: {
+                                show: false
+                            }
+                        },
+                        itemStyle: {
+                            emphasis: {
+                                borderColor: '#fff',
+                                borderWidth: 1
+                            }
                         }
-                   },
-                    data:mydata  //数据
-                }]  
+                    }
+                ]  
             };
     chart.setOption(option)
 </script>
