@@ -10,46 +10,8 @@
 </head>
 <body>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="width: 100%;height:800px;border: 1px solid red;"></div>
+<div id="main" style="width: 100%;height:800px;background: url('./bg.jpg') no-repeat; border:1px solid red;"></div>
 <script type="text/javascript">
-    function randomData() {  
-    return Math.round(Math.random()*200);  
-    }
-    //首先先定义需要显示对应信息的位置坐标，按照[纬度,精度]的格式
-    var geoCoordMap = {
-        '中科院1':[116.3425740000, 39.9164940000],
-        '中科院2':[116.3914400000, 40.0088540000],
-        '中科院3':[116.2897860000, 40.0780170000],
-        '中科院4':[116.3448600000, 39.9857590000],
-        '北京大学':[116.3168330000, 39.9988770000]
-    };
-
-    //随后定义每个位置需要显示的量的值
-    var beijingData = [
-        {name: '中科院1', value: 20},
-        {name: '中科院2', value: 20},
-        {name: '中科院3', value: 20},
-        {name: '中科院4', value: 20},
-        {name: '北京大学', value: 20}
-    ];
-
-    // 随后需要对数据进行处理，将坐标信息和对应物理量的值合在一起。
-    var convertData = function (data) {
-        var res = [];
-        for (var i = 0; i < data.length; i++) {
-            var geoCoord = geoCoordMap[data[i].name];    //首先根据data中的name作为键值读入地理坐标
-            //var rjj1 = data[i].value;
-            if (geoCoord) {
-                res.push({
-                    name: data[i].name,
-                    value: geoCoord.concat(data[i].value)   //随后将地理坐标与对应信息值衔接起来
-                    //成为了 [name 经度 纬度 value]的形式
-                });
-            }
-        }
-        return res;
-    };
-    var mapType='';
     // 北京地图 JSON 
     var beijing = {
         "type": "FeatureCollection",
@@ -76,23 +38,48 @@
                 {"type": "Feature","properties":{"id":"110103","name":"崇文区","cp":[116.4166,39.8811],"childNum":1},"geometry":{"type":"Polygon","coordinates":[[[116.3809,39.8714],[116.3933,39.8721],[116.3988,39.8728],[116.3988,39.8893],[116.396,39.9003],[116.4359,39.9017],[116.4359,39.903],[116.4482,39.903],[116.4468,39.901],[116.4468,39.8941],[116.451,39.8934],[116.451,39.89],[116.4455,39.8907],[116.4441,39.8893],[116.4455,39.879],[116.4427,39.8721],[116.4207,39.8735],[116.4207,39.8708],[116.4153,39.8721],[116.4166,39.866],[116.4139,39.8653],[116.4139,39.8591],[116.4098,39.8591],[116.407,39.8605],[116.396,39.8591],[116.3933,39.8653],[116.3809,39.8673],[116.3809,39.8714]]]}}
             ]
         }
-    echarts.registerMap('北京', beijing);
 
+    // 首先先定义需要显示对应信息的位置坐标，按照[纬度,精度]的格式
+    var geoCoordMap = {
+        "中科院1":[116.3425740000, 39.9164940000],
+        "中科院2":[116.3914400000, 40.0088540000],
+        "中科院3":[116.2897860000, 40.0780170000],
+        "中科院4":[116.3448600000, 39.9857590000],
+        "北京大学":[116.3168330000, 39.9988770000]
+    };
+
+    // 随后定义每个位置需要显示的量的值
+    var beijingData = [
+        {name: '中科院1', value: 20},
+        {name: '中科院2', value: 20},
+        {name: '中科院3', value: 20},
+        {name: '中科院4', value: 20},
+        {name: '北京大学', value: 20}
+    ];
+
+    // 随后需要对数据进行处理，将坐标信息和对应物理量的值合在一起。
+    var convertData = function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var geoCoord = geoCoordMap[data[i].name]; // 首先根据data中的name作为键值读入地理坐标
+            // var rjj1 = data[i].value;
+            if (geoCoord) {
+                res.push({
+                    name: data[i].name,
+                    value: geoCoord.concat(data[i].value) // 随后将地理坐标与对应信息值衔接起来
+                    // 成为了 [name 经度 纬度 value]的形式
+                });
+            }
+        }
+        return res;
+    };
+    // 注册地图
+    echarts.registerMap('北京', beijing);
+    // 初始化
     var chart = echarts.init(document.getElementById('main')); 
-    var mydata = [  
-                {name: '密云县',value: '100' },{name: '怀柔区',value: randomData() },  
-                {name: '房山区',value: randomData() },{name: '延庆县',value: randomData() },  
-                {name: '门头沟区',value: randomData() },{name: '昌平区',value: randomData() },  
-                {name: '大兴区',value: randomData() },{name: '顺义区',value: randomData() },  
-                {name: '平谷区',value: randomData() },{name: '通州区',value: randomData() },  
-                {name: '朝阳区',value: randomData() },{name: '海淀区',value: randomData() },  
-                {name: '丰台区',value: randomData() },{name: '石景山区',value: randomData() },  
-                {name: '西城区',value: randomData() },{name: '东城区',value: randomData() },  
-                {name: '宣武区',value: randomData() },{name: '崇文区',value: randomData() } 
-            ]; 
-    var geoCoordMap = {};
+
     var option = {
-                backgroundColor: '#404a59',
+                // backgroundColor: '#404a59',
                 title: {
                     text: '全国科技人才检测展示',
                     subtext: '子标题',
@@ -114,21 +101,14 @@
                         fontSize:'18px',
                         fontFamily:'electronicFont',
                         color:'#fff'
-                    }
-                },
-                visualMap: {
-                    min: 0,
-                    max: 200,
-                    calculable: true,
-                    inRange: {
-                        color: ['#50a3ba', '#eac736', '#d94e5d']
                     },
-                    textStyle: {
-                        color: '#fff'
+                    formatter: function (params) {
+                        return params.name + ' : ' + params.value[2];
                     }
                 },
                 geo: {
                     map: '北京',
+                    roam:true,
                     label: {
                         emphasis: {
                             show: false
@@ -136,49 +116,16 @@
                     },
                     itemStyle: {
                         normal: {
-                            areaColor: '#323c48',
-                            borderColor: '#111'
+                            areaColor: '#103f7b',
+                            borderColor: '#073168'
                         },
                         emphasis: {
-                            areaColor: '#2a333d'
+                            areaColor: '#03306b'
                         }
                     }
                 },
                 //配置属性
                 series: [
-                    // {  
-                    //     name: mapType,  
-                    //     type: 'map',  
-                    //     mapType: '北京',   
-                    //     roam: false,  
-                    //     // label: {  
-                    //     //     normal: {  
-                    //     //         show: true,
-                    //     //         color:'purple'
-                    //     //     },  
-                    //     //     emphasis: {  
-                    //     //         show: false,
-                    //     //         color:'red'
-                    //     //     }  
-                    //     // },  
-                    //     // itemStyle: {
-                    //     //     normal: {
-                    //     //             color: '#F06C00',
-                    //     //             borderWidth:1,
-                    //     //             borderColor:'#00eff2',
-                    //     //             opacity:.8
-                    //     //     },
-                    //     //     emphasis:{
-                    //     //             areaColor: null,
-                    //     //             shadowOffsetX: 0,
-                    //     //             shadowOffsetY: 0,
-                    //     //             shadowBlur: 20,
-                    //     //             shadowColor: 'rgba(0, 0, 0, 0.5)',
-                    //     //             opacity:1
-                    //     //         }
-                    //     // },
-                    //     // data:mydata  // 数据
-                    // },
                     {
                         name: '科研机构',   // 首先定义全部点用散点图画出来
                         type: 'scatter',
@@ -190,24 +137,20 @@
                             {name: '中科院4', value: 20},
                             {name: '北京大学', value: 20}
                         ]),  // 数据来自于先前定义的函数
-                        symbolSize: 12,
+                        symbol:'image://./school.png',
+                        // symbol:'./dog.jpg',
+                        symbolSize: 20,
                         label: {
-                            normal: {
-                                show: false
-                            },
-                            emphasis: {
-                                show: false
-                            }
-                        },
-                        itemStyle: {
-                            emphasis: {
-                                borderColor: '#fff',
-                                borderWidth: 1
-                            }
+                            show: true,
+                            position:'right',
+                            distance: 10,
+                            formatter: '{b}',
+                            color: '#fff957'
                         }
                     }
                 ]  
             };
+    // 地图配置
     chart.setOption(option)
 </script>
     </body>
