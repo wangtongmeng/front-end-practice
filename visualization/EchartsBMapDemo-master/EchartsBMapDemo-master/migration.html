@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>迁徙</title>
+		<link rel="stylesheet" type="text/css" href="css/horizontal.css"/>
+		<style>
+		html{height:100%}
+		body{height:100%;margin:0px;padding:0px;font-family:"微软雅黑";}
+            #main {
+                width: 100%;
+                height: 80%;
+                margin: 0;
+            }
+            .frame ul li{
+            	width: 120px;
+            }
+        </style>
+	</head>
+	<body>
+		<!-- 为 ECharts 准备一个具备大小（宽高）的Dom -->
+    	<div id="main"></div>
+    	<!--使用sly插件-->
+		<div class="wrap">
+			<div class="scrollbar">
+				<div class="handle">
+					<div class="mousearea"></div>
+				</div>
+			</div>
+			<div class="frame" id="forcecentered">
+				<ul class="clearfix">
+					<li>0:00-2:00</li>
+					<li>2:00-4:00</li>
+					<li>4:00-6:00</li>
+					<li>6:00-8:00</li>
+					<li>8:00-10:00</li>
+					<li>10:00-12:00</li>
+					<li>12:00-14:00</li>
+					<li>14:00-16:00</li>
+					<li>16:00-18:00</li>
+					<li>18:00-20:00</li>
+					<li>20:00-22:00</li>
+					<li>22:00-24:00</li>
+					
+				</ul>
+			</div>
+	
+			<div class="controls center">
+				<button class="btn prev"><i class="icon-chevron-left"></i> prev</button>
+				<button class="btn next">next <i class="icon-chevron-right"></i></button>
+			</div>
+		</div>
+    	
+    	<!-- 引入 ECharts 文件 -->
+    	<script src="js/dist/echarts.js" type="text/javascript" charset="utf-8"></script>
+    	<script src="js/jquery-1.11.3.min.js"></script>
+    	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=VHZH64jBho4DAlPGXZIyjmY7GEPl9GMc"></script>
+    	<!--sly滑块插件需要的三个js文件-->
+		<script src="js/plugins.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/sly.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/horizontal.js" type="text/javascript" charset="utf-8"></script>
+		<!--调试插件-->
+		<script src="js/dump.js"></script>
+		
+		<script src="js/migration.js" type="text/javascript"></script>
+		
+		<script type="text/javascript">
+		//百度地图扩展
+		var BMapExt;
+		//所需数据
+		var loc_name = ["上海西站","虹桥机场","复旦大学","世纪公园","上海站","上海大学","上海南站","绍兴公园","龙华机场","上海浦东国际机场"];
+		var time = ["0:00-2:00","2:00-4:00","4:00-6:00"];
+		//随机生成线，个数不定
+		var allLine = [];
+		//产生每条线的数据
+		function createAllLine(){
+			allLine = [];
+			var len = Math.random()*10;
+			for (var i = 0;i < loc_name.length;i++) {
+				for (var j = 0;j < len;j++) {
+					if(i != j){
+						var num = Math.random()*1000;
+						allLine.push({
+							start : loc_name[i],
+							end : loc_name[j],
+							num: num,
+							singleNum: num
+						});
+					}
+				}
+				
+			}
+		}
+		//切换数据，数据随机生成
+		function changePoints(){
+			var effect = {
+			    show: true,
+			    scaleSize: require('zrender/tool/env').canvasSupported ? 1 : 2,
+			    period: 60,             // 运动周期，无单位，值越大越慢
+			    color: 'blue',
+			    shadowColor: 'rgba(220,220,220,0.4)',
+			    shadowBlur : 5 
+			};
+			option = {
+				title : {
+			        text: '上海人口迁徙',
+			        x:'center',
+			        y:'top',
+			        textStyle: {
+			            color: 'black'
+			        }
+			    },
+			    legend: {
+			        show: false,
+			        selected: {},
+			        x: 'left',
+			        orient: 'vertical',
+			        selectedMode: 'single',
+			        selected: {
+			            '2:00-4:00' : false,
+			            '4:00-6:00' : false
+			        },
+			        data: time
+			    },
+			    toolbox: {
+				    show : false,
+				    orient : 'vertical',
+				    x: 'right',
+				    y: 'center',
+				    feature : {
+				        mark : {show: true},
+				        dataView : {show: true, readOnly: false},
+				        restore : {show: true},
+				        saveAsImage : {show: true}
+				    }
+				},
+				series : [{
+				        name: "",
+				        type: 'map',
+				        mapType: 'none',
+				
+				        itemStyle: {
+				            normal: {
+				                borderColor:'rgba(100,149,237,0.2)',
+				                borderWidth:0.5,
+				                areaStyle: {
+				                    color: '#1b1b1b'
+				                }
+				            }
+				        },
+				        data: [],
+				        markLine: {
+				            effect: effect,
+				            bundling: {
+				                enable: true
+				            },
+				            large: true,
+				            smooth: true,
+				            smoothness: 0.1,
+				            symbol: ['none', 'none'],
+				            itemStyle: {
+				                normal: {
+				                    lineStyle: {
+				                        color: 'rgba(2, 166, 253, 0.05)',
+				                        type: 'solid',
+				                        width: 1,
+				                        opacity: 0.8
+				                    }
+				                }
+				            },
+				            data: []
+				        },
+				        markPoint: {
+				            symbol: 'circle',
+				            symbolSize: 1.5,
+				            itemStyle: {
+				                normal: {
+				                    color: 'rgba(255, 0, 0, 0.5)'
+				                }   
+				            },
+				            data: []
+				        }
+				   }]
+			}
+			var geoCoord = {
+					"上海西站": [121.410385,31.268287],
+					"虹桥机场": [121.352893,31.201099],
+					"复旦大学": [121.510995,31.305813],
+					"世纪公园": [121.559575,31.221112],
+					"上海站": [121.462127,31.254705],
+					"上海大学": [121.402336,31.320374],
+					"上海南站": [121.437693,31.158093],
+					"绍兴公园": [121.468739,31.213948],
+					"龙华机场": [121.462415,31.176385],
+					"上海浦东国际机场": [121.810813,31.15661],
+					
+				};
+			function getGeoCoord (name) {
+			    var city = name;
+			    var coord = geoCoord[city];
+			    return city;
+			}
+			
+				createAllLine();
+				option.series[0].markLine.data = allLine.sort(function (a, b) {
+		            return b.num - a.num
+		        }).slice(0, 3000).map(function (line) {
+		            return [{
+		                name: getGeoCoord(line.start)   
+		            }, {
+		                name: getGeoCoord(line.end)
+		            }]
+		        });
+		
+		        option.series[0].markPoint.data = topCityOut.map(function (point) {
+		            return {
+		                name: getGeoCoord(point.name)
+		            }
+		        });
+				
+
+			    BMapExt.setOption(option,true); 
+		}
+		
+		var topCityOut = [{
+			"name": "上海西站",
+			"num": 317418,
+			"singleNum": 24269,
+			"per": 0.098,
+			"floatFlag": 0
+		},
+		{
+			"name": "虹桥机场",
+			"num": 292370,
+			"singleNum": 20385,
+			"per": 0.0903,
+			"floatFlag": 0
+		},
+		{
+			"name": "复旦大学",
+			"num": 284635,
+			"singleNum": 18362,
+			"per": 0.0879,
+			"floatFlag": 0
+		},
+		{
+			"name": "世纪公园",
+			"num": 189308,
+			"singleNum": 12778,
+			"per": 0.0584,
+			"floatFlag": 0
+		},
+		{
+			"name": "上海站",
+			"num": 154029,
+			"singleNum": 10489,
+			"per": 0.0475,
+			"floatFlag": 0
+		},
+		{
+			"name": "上海大学",
+			"num": 94937,
+			"singleNum": 6946,
+			"per": 0.0293,
+			"floatFlag": 0
+		},
+		{
+			"name": "上海南站",
+			"num": 91169,
+			"singleNum": 7203,
+			"per": 0.0281,
+			"floatFlag": 0
+		},
+		{
+			"name": "绍兴公园",
+			"num": 75620,
+			"singleNum": 5051,
+			"per": 0.0233,
+			"floatFlag": 0
+		},
+		{
+			"name": "龙华机场",
+			"num": 69494,
+			"singleNum": 4617,
+			"per": 0.0215,
+			"floatFlag": 0
+		},
+		{
+			"name": "上海浦东国际机场",
+			"num": 66582,
+			"singleNum": 5235,
+			"per": 0.0206,
+			"floatFlag": 0
+		}]
+		</script>
+	
+	</body>
+</html>

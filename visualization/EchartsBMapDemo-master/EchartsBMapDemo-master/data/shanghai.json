@@ -1,0 +1,74 @@
+{
+	
+	"topCityOut": [{
+		"name": "上海西站",
+		"num": 317418,
+		"singleNum": 24269,
+		"per": 0.098,
+		"floatFlag": 0
+	},
+	{
+		"name": "虹桥机场",
+		"num": 292370,
+		"singleNum": 20385,
+		"per": 0.0903,
+		"floatFlag": 0
+	},
+	{
+		"name": "复旦大学",
+		"num": 284635,
+		"singleNum": 18362,
+		"per": 0.0879,
+		"floatFlag": 0
+	},
+	{
+		"name": "世纪公园",
+		"num": 189308,
+		"singleNum": 12778,
+		"per": 0.0584,
+		"floatFlag": 0
+	},
+	{
+		"name": "上海站",
+		"num": 154029,
+		"singleNum": 10489,
+		"per": 0.0475,
+		"floatFlag": 0
+	},
+	{
+		"name": "上海大学",
+		"num": 94937,
+		"singleNum": 6946,
+		"per": 0.0293,
+		"floatFlag": 0
+	},
+	{
+		"name": "上海南站",
+		"num": 91169,
+		"singleNum": 7203,
+		"per": 0.0281,
+		"floatFlag": 0
+	},
+	{
+		"name": "绍兴公园",
+		"num": 75620,
+		"singleNum": 5051,
+		"per": 0.0233,
+		"floatFlag": 0
+	},
+	{
+		"name": "龙华机场",
+		"num": 69494,
+		"singleNum": 4617,
+		"per": 0.0215,
+		"floatFlag": 0
+	},
+	{
+		"name": "上海浦东国际机场",
+		"num": 66582,
+		"singleNum": 5235,
+		"per": 0.0206,
+		"floatFlag": 0
+	}]
+	
+}

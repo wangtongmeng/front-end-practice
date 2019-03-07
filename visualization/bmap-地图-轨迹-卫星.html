@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>卫星轨迹</title>
+    <style type="text/css">
+        html, body, #main {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+            }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=VHZH64jBho4DAlPGXZIyjmY7GEPl9GMc"></script>
+
+    <script>
+        // 对应信息的位置坐标，按照[纬度,精度]的格式
+        var geoCoordMap = {
+            "北京交通大学":[116.3496678946, 39.9577247139],
+            "西安交通大学":[108.9901699341, 34.2523452646],
+            "兰州交通大学":[103.7308952125, 36.1113800856],
+            "上海交通大学":[121.4391047490, 31.2054593808],
+        };
+
+        // 个人轨迹数据
+        var routeData = [
+            {name: '北京交通大学', year: 2010, value: 20},
+            {name: '西安交通大学', year: 2015, value: 20},
+            {name: '兰州交通大学', year: 2016, value: 20},
+            {name: '上海交通大学', year: 2018,  value: 20}
+        ];
+        
+        var map = new BMap.Map("main");
+        var point = new BMap.Point(112.4717, 23.0529);    // 创建点坐标,肇庆市
+
+        var icon = './school-light.jpg'
+        var point = [
+
+        ]
+
+        map.centerAndZoom(point,5); 
+        map.addControl(new BMap.NavigationControl());  
+        map.enableScrollWheelZoom();                
+        map.enableKeyboard();                        
+        map.addControl(new BMap.MapTypeControl());  
+
+    </script>
+</body>
+</html>

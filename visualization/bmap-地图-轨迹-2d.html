@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轨迹-2d</title>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts-en.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <!-- 世界地图 -->
+    <script src="./world.js"></script>
+    <!-- 中国地图 -->
+    <script src="./china.js"></script>
+    <!-- 北京地图 -->
+    <script src="./beijing.js"></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 100%;height:800px;background: url('./bg.jpg') no-repeat; border:1px solid red;"></div>
+<script type="text/javascript">
+
+    // 对应信息的位置坐标，按照[纬度,精度]的格式
+    var geoCoordMap = {
+        "北京交通大学":[116.3496678946, 39.9577247139],
+        "西安交通大学":[108.9901699341, 34.2523452646],
+        "兰州交通大学":[103.7308952125, 36.1113800856],
+        "上海交通大学":[121.4391047490, 31.2054593808],
+    };
+
+    // 个人轨迹数据
+    var routeData = [
+        {name: '北京交通大学', year: 2010, value: 20},
+        {name: '西安交通大学', year: 2015, value: 20},
+        {name: '兰州交通大学', year: 2016, value: 20},
+        {name: '上海交通大学', year: 2018,  value: 20}
+    ];
+
+    // 将数据与坐标结合
+    var convertData = function (data) {
+        var res = []
+        for (var i = 0; i < data.length - 1; i++) {
+            var fromCoord = geoCoordMap[data[i].name]
+            var toCoord = geoCoordMap[data[i + 1].name]
+            res.push({
+                fromName: data[i].name,
+                toName: data[i + 1].name,
+                coords: [fromCoord, toCoord],
+                value: data[i].value
+            })
+        }
+        return res
+    };
+
+    // var color = ['#a6c84c', '#ffa022', '#46bee9'];//航线的颜色
+    var color = '#a6c84c'
+    var series = []
+
+    series.push(
+        {
+            name: '个人学术轨迹',
+            type: 'lines',
+            zlevel: 2,
+            effect: {
+                show: true,
+                period: 3,
+                trailLength: 0.7,
+                color: 'pink',   //arrow箭头的颜色
+                symbolSize: 2
+            },
+            lineStyle: {
+                type: 'dashed',
+                color: color,
+                width: 1.6,
+                curveness: 0.2,
+            },
+            data: convertData(routeData)
+
+        },
+        {
+            name: '科研机构',
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            zlevel: 1,
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{b}'
+                }
+            },
+            symbol:'image://./school.png',
+            symbolSize: 20,
+            itemStyle: {
+                color: '#fff957',
+                shadowColor: '#e0bf8b',
+                shadowBlur: 10
+            },
+            data:routeData.map(function (item) {
+                return {
+                    name: item.name,
+                    value: geoCoordMap[item.name].concat([item.value])
+                };
+            })
+        }
+    )
+
+    
+    var option = {
+                title: {
+                    text: '个人学术轨迹',
+                    subtext: '子标题',
+                    x:'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                animation: true,
+                tooltip: {
+                    trigger: 'item',
+                    show: true,
+                    backgroundColor:'rgba(8,39,85,.8)',
+                    borderWidth:1,
+                    borderColor:'#2d7bbd',
+                    padding:[10,20],
+                    borderRadius:0,
+                    textStyle:{
+                        fontSize:'18px',
+                        fontFamily:'electronicFont',
+                        color:'#fff'
+                    },
+                    formatter:function(params, ticket, callback){
+    	            if(params.seriesType=="scatter") {
+    	                return "线路："+params.data.name+""+params.data.value;
+    	            }else if(params.seriesType=="lines"){
+    	                return params.data.fromName+">"+params.data.toName
+    	            }else{
+    	                return params.name;
+    	            }
+    	        } 
+                },
+                geo: {
+                    map: 'china',
+                    roam:true,
+                    label: {
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#103f7b',
+                            borderColor: '#073168'
+                        },
+                        emphasis: {
+                            areaColor: '#03306b'
+                        }
+                    }
+                },
+                //配置属性
+                series:series 
+            };
+    // echarts 初始化
+    var chart = echarts.init(document.getElementById('main')); 
+
+    // echarts 配置
+    chart.setOption(option)
+</script>
+    </body>
+</html>
