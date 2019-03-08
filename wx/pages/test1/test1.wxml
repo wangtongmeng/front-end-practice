@@ -1,4 +1,0 @@
-
-<!-- This is our View -->
-<view> Hello {{name}}! </view>
-<button bindtap="changeName"> Click me! </button>
