@@ -1,9 +1,11 @@
 swiper {
-  width:100%;height:600rpx;
+  width: 100%;
+  height: 600rpx;
 }
 
 swiper image {
-  width:100%;height:600rpx;
+  width: 100%;
+  height: 600rpx;
 }
 
 .post-container {
@@ -57,4 +59,22 @@ swiper image {
   letter-spacing: 2rpx;
   margin-left: 20rpx;
   margin-bottom: 20rpx;
+}
+
+.post-like {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 26rpx;
+  margin-left: 20rpx;
+}
+
+.post-like-image {
+  height: 32rpx;
+  width: 32rpx;
+  margin-right: 16rpx;
+}
+
+.post-like-font {
+  margin-right: 40rpx;
 }
