@@ -1,5 +1,5 @@
 <view>
-  <swiper indicator-dots="true" autoplay="true" interval="5000">
+  <swiper vertical='{{false}}' indicator-dots="{{true}}" autoplay="{{true}}" interval="5000">
     <swiper-item>
       <image src='/images/wx.png'></image>
     </swiper-item>
@@ -10,20 +10,23 @@
       <image src='/images/iqiyi.png'></image>
     </swiper-item>
   </swiper>
+  
 
-  <view class='post-container'>
-    <view class='post-author-date'>
-      <image class='post-author' src='/images/avatar/1.png'></image>
-      <text class='post-date'>Sep 18 2016</text>
+  <block wx:key="1" wx:for="{{posts_content}}"  wx:for-item="item" wx:for-index="index">
+    <view class='post-container'>
+      <view class='post-author-date'>
+        <image class='post-author' src='{{item.avatar}}'></image>
+        <text wx:if="{{item.text_condition}}" class='post-date'>{{item.date}}</text>
+      </view>
+      <text class='post-title'>{{item.title}}</text>
+      <image class='post-image' src='{{item.imgSrc}}'></image>
+      <text class='post-content'>{{item.content}}</text>
+      <view class='post-like'>
+        <image class='post-like-image' src='../../images/icon/chat.png'></image>
+        <text class='post-like-font'>{{item.collection}}</text>
+        <image class='post-like-image' src='../../images/icon/chat.png'></image>
+        <text class='post-like-font'>{{item.reading}}</text>
+      </view>
     </view>
-    <text class='post-title'>正是虾肥蟹壮时</text>
-    <image class='post-image' src='/images/post/crab.png'></image>
-    <text class='post-content'>菊黄蟹正肥，品尝秋之味。徐志摩把，“看初花的荻芦”和“到楼外楼吃蟹”，并列为秋天来杭州不能错过的风雅之事；用林妹妹嗯话讲是</text>
-    <view class='post-like'>
-      <image class='post-like-image' src='../../images/icon/chat.png'></image>
-      <text class='post-like-font'>96</text>
-      <image class='post-like-image' src='../../images/icon/chat.png'></image>
-      <text class='post-like-font'>112</text>
-    </view>
-  </view>
+  </block>
 </view>
