@@ -2,7 +2,7 @@
 <view class='container'>
   <image class='user-avatar' src='/images/avatar/1.png'></image>
   <!-- 默认图片宽高： width:300px height:225px -->
-  <text class='user-name'>hello，童梦</text>
+  <text class='user-name'>欢迎光临</text>
   <view class='moto-container' bind:tap="onTap">
     <text class="moto">开启小程序之旅</text>
   </view>
