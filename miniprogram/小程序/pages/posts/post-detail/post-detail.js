@@ -42,6 +42,27 @@ Page({
       duration: 1000,
       icon:'success'
     })
+  },
+
+  onShareTap: function (event) {
+    var itemList = [
+      "分享到微博好友",
+      "分享到朋友圈",
+      "分享到QQ",
+      "分享到微博"
+    ]
+    wx.showActionSheet({
+      itemList: itemList,
+      itemColor: '#405f80',
+      success: function (res) {
+        // res.cancel 用户是不是点击了取消按钮
+        // res.tapIndex 数组元素的序号，从 0 开始
+        wx.showModal({
+          title: '用户' + itemList[res.tapIndex],
+          content: '用户是否取消？' + res.cancel + "现无分享功能，望以后会有"
+        })
+      }
+    })
   }
 
 
