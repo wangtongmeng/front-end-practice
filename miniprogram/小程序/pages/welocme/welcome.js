@@ -9,12 +9,10 @@ Page({
     // 没有箭头
     wx.redirectTo({
       url: '../posts/posts',
+    }),
+    // 如果要跳转到带有 tab 栏的页面，必须使用 switchTab，否则优先使用其他
+    wx.switchTab({
+      url: '../posts/posts',
     })
-  },
-  // onUnload: function () {
-  //   console.log('welcom page is unload')
-  // },
-  // onHide: function () {
-  //   console.log('welcome page is hide')
-  // }
+  }
 })
