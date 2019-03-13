@@ -9,6 +9,7 @@ var server = http.createServer()
 //    响应
 //      一个请求对应一个响应，如果一个请求的过程中，已经结束响应了，则不能重复发送响应。
 //      没有请求就没有响应。
+// Apache 服务器软件默认有一个 www 目录，所有存放在 www 目录中的资源都可以通过网址来浏览
 server.on('request', function (req, res) {
   var url = req.url
   if (url === '/') {
