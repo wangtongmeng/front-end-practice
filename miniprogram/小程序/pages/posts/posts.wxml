@@ -20,7 +20,7 @@
   <block wx:key="1" wx:for="{{posts_content}}"  wx:for-item="item" wx:for-index="index">
     <!-- template -->
     <view catch:tap="onPostTap" data-postId="{{item.postId}}" data-post-name="name">
-      <template is="postItem"   data="{{...item}}" />
+      <template is="postItem" data="{{...item}}" />
     </view>
   </block>
 </view>

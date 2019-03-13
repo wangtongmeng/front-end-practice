@@ -3,10 +3,7 @@ var postsData = require('../../data/posts-data.js')
 
 Page({
 
-  data: {
-    date: 'Sep 18 2019',
-    title: '正是虾肥蟹壮时'
-  },
+  data: {},
 
   onLoad: function(options) {
    
