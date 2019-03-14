@@ -2,4 +2,6 @@ text {
   font-family: MicroSoft Yahei;
   /* 字体默认取的是操作系统的字体，最后字体设置上 */
   font-size: 24rpx;
+  /* 文字颜色一般不是纯黑，太刺眼 */
+  color: #666;
 }
