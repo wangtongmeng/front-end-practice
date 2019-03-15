@@ -12,7 +12,7 @@ Page({
     isEmpty: true
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     var category = options.category
     this.data.navigateTitle = category
 
@@ -34,13 +34,27 @@ Page({
     util.http(dataUrl, this.processDoubanData)
   },
 
-  onScrollLower: function (event) {
+  // onScrollLower: function (event) {
+  //   var nextUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20"
+  //   util.http(nextUrl, this.processDoubanData)
+  //   wx.showNavigationBarLoading()
+  // },
+  onReachBottom: function(event) {
     var nextUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20"
     util.http(nextUrl, this.processDoubanData)
-
+    wx.showNavigationBarLoading()
   },
 
-  processDoubanData: function (moviesDouban) {
+  onPullDownRefresh: function(event) {
+    var refreshUrl = this.data.requestUrl + '?start=0&count=20'
+    this.data.movies = []
+    this.data.isEmpty = true
+    this.data.totalCount = 0
+    util.http(refreshUrl, this.processDoubanData)
+    wx.showNavigationBarLoading()
+  },
+
+  processDoubanData: function(moviesDouban) {
     var movies = []
 
     for (var idx in moviesDouban.subjects) {
@@ -72,9 +86,11 @@ Page({
     this.setData({
       movies: totalMovies
     })
+    wx.hideNavigationBarLoading()
+    wx.stopPullDownRefresh()
   },
 
-  onReady: function (event) {
+  onReady: function(event) {
     wx.setNavigationBarTitle({
       title: this.data.navigateTitle,
     })
