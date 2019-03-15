@@ -51,6 +51,13 @@ Page({
       app.globalData.g_isPlayingMusic = false
       app.globalData.g_currentMusicPostId = null
     })
+    wx.onBackgroundAudioStop(() => {
+      this.setData({
+        isPlayingMusic: false
+      })
+      app.globalData.g_isPlayingMusic = false
+      app.globalData.g_currentMusicPostId = null
+    })
   },
   onCollectionTap: function (event) {
     var postsCollected = wx.getStorageSync('posts_collected')

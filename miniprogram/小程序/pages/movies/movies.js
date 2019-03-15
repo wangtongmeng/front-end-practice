@@ -6,7 +6,10 @@ Page({
   data: {
     inTheaters: {},
     comingSoon: {},
-    top250: {}
+    top250: {},
+    searchResult: {},
+    containerShow: true,
+    searchPanelShow: false
   },
 
   onLoad: function (event) {
@@ -27,6 +30,13 @@ Page({
     })
   },
 
+  onMovieTap: function (event) {
+    var movieId = event.currentTarget.dataset.movieid
+    wx.navigateTo({
+      url: 'movie-detail/movie-detail?id=' + movieId
+    })
+  },
+
   getMovieListData: function (url, settedKey, categoryTitle) {
     wx.request({
       url: url,
@@ -44,6 +54,26 @@ Page({
     })
   },
 
+  onBindFocus: function (event) {
+    this.setData({
+      containerShow: false,
+      searchPanelShow: true
+    })
+  },
+
+  onBindConfirm: function (event) {
+    var text = event.detail.value
+    var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text
+    this.getMovieListData(searchUrl, "searchResult", "")
+  },
+
+  onCancelImgTap: function (event) {
+    this.setData({
+      containerShow: true,
+      searchPanelShow: false,
+      searchResult: {}
+    })
+  },
 
   processDoubanData: function (moviesDouban, settedKey, categoryTitle) {
     var movies = []
