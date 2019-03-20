@@ -24,7 +24,8 @@ class HTTP {
         let code = res.statusCode.toString()
         if (code.startsWith('2')) {
           // 回调函数传递
-          params.success(res.data)
+          // 利用 && 判断是否传入了 success 回调函数
+          params.success && params.success(res.data)
         } else {
           // 服务器异常
           // 根据文档，模拟 4xx 的错误情况
