@@ -1,2 +1,2 @@
-<v-like like="{{classic.like_status}}" count="{{classic.fav_nums}}"/>
-<text>{{text}}</text>
+<v-like  bind:like="onLike" like="{{classic.like_status}}" count="{{classic.fav_nums}}"/>
+<v-movie img="{{classic.image}}" content="{{classic.content}}" />
