@@ -18,7 +18,7 @@
   border-bottom: 1px solid #f5f5f5;
 }
 
-.epsoide {
+.episode {
   margin-left: 20rpx;
   margin-top: 4rpx;
 }

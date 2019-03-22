@@ -14,6 +14,13 @@
         // 这里不需要 success 的结果
      })
    }
+
+   getClassicLikeStatus(artID, category, sCallBack) {
+       this.request({
+        url: `classic/${category}${artID}/favor`,
+        success: sCallBack
+       })
+   }
  }
 
  export {LikeModel}

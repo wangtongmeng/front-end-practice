@@ -25,12 +25,12 @@ Component({
   methods: {
     onLeft: function (event) {
         if (!this.properties.latest) {
-            this.tirggerEvent('left', {}, {})
+            this.triggerEvent('left', {}, {})
         }
     },
     onRight: function (event) {
         if (!this.properties.first) {
-            this.tirggerEvent('left', {}, {})        
+            this.triggerEvent('right', {}, {})        
         }
     }
   }
