@@ -26,12 +26,18 @@ Component({
    */
   methods: {
     onPlay: function(event) {
-      this.setData({
-        playing: true
-      })
-      mMgr.title = this.properties.title
-      mMgr.src = this.properties.src
-      console.log(this.data.musicSrc)
+      if (!this.data.playing) {
+        this.setData({
+          playing: true
+        })
+        mMgr.title = this.properties.title
+        mMgr.src = this.properties.src
+      } else {
+        this.setData({
+          playing: false
+        })
+        mMgr.pause()
+      }
       
     }
   }
