@@ -33,7 +33,7 @@
 .author{
   font-size:20rpx;
   color:#999999;
-  margin-top:-5rpx;
+  margin-top:10rpx;
   margin-bottom: 10rpx;
   text-overflow:ellipsis;
   white-space: nowrap;

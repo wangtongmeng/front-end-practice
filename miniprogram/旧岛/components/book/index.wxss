@@ -16,8 +16,41 @@
 }
 
 .description {
-  width:100%;
+  width:216rpx;
   position:absolute;
   bottom: 0;
   background-color: #fff;
+  padding: 5rpx 10rpx 8rpx 15rpx;
+  font-size: 24rpx;
+  display: flex;
+  flex-direction: column;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.title {
+  margin-top: 10rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.author {
+  font-size: 20rpx;
+  color: #999999;
+  margin-bottom: 10rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.foot {
+  font-size: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.footer {
+  color: #666666;
 }
