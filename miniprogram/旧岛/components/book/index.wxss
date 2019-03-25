@@ -1,0 +1,23 @@
+/* components/book/book.wxss */
+.container {
+  margin-top: 30rpx;
+  display: flex;
+  position: relative;
+  box-shadow: 2px 2px 3px #e3e3e3;
+  flex-direction: column;
+  width: 240rpx;
+  height: 360rpx;
+}
+
+.container image {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+}
+
+.description {
+  width:100%;
+  position:absolute;
+  bottom: 0;
+  background-color: #fff;
+}

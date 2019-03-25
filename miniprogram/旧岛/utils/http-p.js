@@ -8,34 +8,35 @@ const tips = {
 }
 
 class HTTP {
-  request(params) {
-    if (!params.method) {
-      params.method = "GET"
-    }
+  request({url, data={}, method='GET'}){
+    return new Promise((resolve, reject)=>{
+        this._request(url, resolve, reject, data, method)
+    })
+  }
+
+  _request(url,resolve, reject, data={}, method='GET') {
     wx.request({
-      url: config.api_base_url + params.url,
-      method: params.method,
-      data: params.data,
+      url: config.api_base_url + url,
+      method: method,
+      data: data,
       header: {
         'content-type': 'application/json',
         'appkey': config.appkey
       },
       success: (res) => {
-        let code = res.statusCode.toString()
+        const code = res.statusCode.toString()
         if (code.startsWith('2')) {
           // 回调函数传递
           // 利用 && 判断是否传入了 success 回调函数
-          params.success && params.success(res.data)
+          resolve(res.data)
         } else {
-          // 服务器异常
-          // 根据文档，模拟 4xx 的错误情况
-          let error_code = res.data.error_code
+          reject()
+          const error_code = res.data.error_code
           this._show_error(error_code)
         }
       },
       fail: (err) => {
-        // api 调用失败
-        // 断网后，可看到效果
+        reject()
         this._show_error(1)
       }
     })
