@@ -1,0 +1,82 @@
+/* pages/book-detail/book-detail.wxss */
+
+.container {
+  background-color: #f5f5f5;
+  width: 100%;
+}
+
+.head {
+  background-color: #fff;
+  padding-top: 40rpx;
+  padding-bottom: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  color: #2f2f2f;
+  margin-top: 20rpx;
+  font-size: 38rpx;
+  font-weight: 600;
+}
+
+.author {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.head image {
+  width: 200rpx;
+  height: 300rpx;
+  box-shadow: 2px 2px 3px #e3e3e3;
+}
+
+.sub-container {
+  width: 690rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30rpx;
+  background-color: #fff;
+  padding: 30rpx;
+}
+
+.headline {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #2f2f2f;
+  margin-bottom: 20rpx;
+}
+
+.comment-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.comment-container v-tag {
+  margin-right: 15rpx;
+  margin-bottom: 10rpx;
+}
+
+.num {
+  margin-left: 5px;
+  font-size: 22rpx;
+  color: #aaa;
+}
+
+/* .comment-container > v-tag:nth-child(1) > view {
+  background-color: #fffbdd;
+}
+
+.comment-container > v-tag:nth-child(2) > view {
+  background-color: #eefbff;
+} */
+
+.ex-tag1 {
+  background-color: #fffbdd !important;
+}
+
+.ex-tag2 {
+  background-color: #eefbff !important;
+}
