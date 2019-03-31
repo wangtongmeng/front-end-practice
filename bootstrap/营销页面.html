@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>营销页面</title>
+  <link rel="stylesheet" href="./lib/bootstrap-3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./css2/main.css" />
+  <link rel="stylesheet" href="./lib/animate.css" />
+</head>
+
+<body>
+  <!-- 导航 -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <!--小屏幕导航按钮和logo-->
+      <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="index.html" class="navbar-brand">SUNTANG广道</a>
+      </div>
+      <!--小屏幕导航按钮和logo-->
+      <!--导航-->
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#banner">首页</a></li>
+          <li><a href="#advantage">产品优势</a></li>
+          <li><a href="index.html">关于广道</a></li>
+          <li><a href="index.html">应用场景</a></li>
+          <li><a href="index.html">客户案例</a></li>
+        </ul>
+      </div>
+      <!--导航-->
+    </div>
+  </nav>
+  <!-- 导航 -->
+
+  <!-- banner -->
+  <section id="banner" class="banner">
+
+  </section>
+  <!-- banner -->
+
+  <!-- advantage -->
+  <section id="advantage" class="advantage">
+    <div class="container">
+      <div class="row">
+        <h3>产品优势</h3>
+      </div>
+      <div class="row">
+        <div class="advantage-item col-md-4">
+          <img src="./images2/icon-1.png" alt="">
+          <p class="title">免担责</p>
+          <p class="discription">防止恶意蹭网的人，发布一些不良信息，如果安装了这个设备，可以实现实名上网，发现问题可以落实到个人，不需要场所背责，减少场所责任</p>
+        </div>
+        <div class="advantage-item col-md-4">
+          <img src="./images2/icon-2.png" alt="">
+          <p class="title">实名上网</p>
+          <p class="discription">手机认证是为了实名上网。就和去网吧上网，每次上网都需要出示什么证，住酒店每次需要出示身份证，一样的道理。实名上网对普通用户没有</p>
+        </div>
+        <div class="advantage-item col-md-4">
+          <img src="./images2/icon-3.png" alt="">
+          <p class="title">统一管理</p>
+          <p class="discription">如果酒店有多个的路由设备，每个设备都有一个单独的SSID，非常不方便管理，本设备可以将多个SSID整合对外提供一个SSID，方</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- advantage -->
+
+  <script src="./lib/jquery/jquery-3.3.1.min.js"></script>
+  <script src="./lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <script src="./lib/jquery.singlePageNav.min.js"></script>
+  <script src="./lib/wow.min.js"></script>
+  <script>
+    $(function () {
+      /*导航跳转效果插件*/
+      $('.nav').singlePageNav({
+        offset: 70
+      });
+      /*小屏幕导航点击关闭菜单*/
+      $('.navbar-collapse a').click(function () {
+        $('.navbar-collapse').collapse('hide');
+      });
+      new WOW().init();
+    })
+  </script>
+</body>
+
+</html>

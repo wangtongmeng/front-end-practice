@@ -1,0 +1,39 @@
+body {
+  font-family: 'Microsoft YaHei', sans-serif;
+}
+
+/* 导航 */
+.navbar-default {
+  border: none;
+}
+.navbar-collapse,
+nav.navbar.navbar-default.navbar-fixed-top {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+nav.navbar.navbar-default.navbar-fixed-top {
+  height: 70px;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #fff;
+  height: 70px;
+  line-height: 35px;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+  color: #ee7824;
+  border-bottom: 2px solid #ee7824;
+}
+
+/* banner */
+.banner {
+  background: url("../images2/banner-slide-0.png");
+  background-size: cover;
+  height: 806px;
+}
+
+/* advantage */
+.advantage {
+  height: 690px;
+  background: #fff;
+}
