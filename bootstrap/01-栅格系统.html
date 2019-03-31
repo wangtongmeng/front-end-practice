@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>栅格系统</title>
+    <link href="./lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .row div {
+        border: 1px solid #333333;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 栅格系统 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-sm-6">col-md-8</div>
+        <div class="col-md-4 col-sm-6">col-md-4</div>
+      </div>
+    </div>
+    <br>
+    <!-- 布局容器 -->
+    <div class="container" style="background: #ddd;">container</div>
+    <div class="container-fluid"  style="background: #ddd;">container-fluid</div>
+    <br>
+    <!-- 列组合 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">col-md-4</div>
+        <div class="col-md-4">col-md-4</div>
+        <div class="col-md-4">col-md-4</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">col-xs-6</div>
+        <div class="col-xs-6">col-xs-6</div>
+      </div>
+    </div>
+    <br>
+    <!-- 列偏移 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">col-md-3</div>
+        <div class="col-md-2">col-md-2</div>
+      </div>
+      <div class="row">
+          <div class="col-md-3 col-md-offset-3">col-md-3 col-md-offset-3</div>
+          <div class="col-md-2 col-md-offset-2">col-md-2 col-md-offset-2</div>
+        </div>
+    </div>
+    <br>
+    <!-- 列嵌套 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-8">8</div>
+            <div class="col-md-4">4</div>
+          </div>
+        </div>
+        <div class="col-md-4">col-md-4</div>
+      </div>
+    </div>
+    <br>
+    <!-- 列排序 -->
+    <div class="container">
+      <div class="row">
+        <div class="row">
+          <div class="col-md-3">col-md-3</div>
+          <div class="col-md-2">col-md-2</div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-md-push-2">col-md-3 col-md-push-2</div>
+          <div class="col-md-2 col-md-pull-3">col-md-2 col-md-pull-3</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <!-- 跨设备组合 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-3 col-xs-6">8</div>
+        <div class="col-md-4 col-sm-9 col-xs-6">4</div>
+      </div>
+    </div>
+    <br>
+    <!-- 清浮动 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-sm-3">col-xs-6 <br> col-sm-3 </div>
+        <div class="col-xs-6 col-sm-3">col-xs-6 col-sm-3</div>
+        <div class="col-xs-6 col-sm-3">col-xs-6 col-sm-3</div>
+        <div class="col-xs-6 col-sm-3">col-xs-6 col-sm-3</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-3">col-xs-6 <br> col-sm-3 </div>
+        <div class="col-xs-6 col-sm-3">col-xs-6 col-sm-3</div>
+        <div class="clearfix visible-xs"></div>
+        <div class="col-xs-6 col-sm-3">col-xs-6 col-sm-3</div>
+        <div class="col-xs-6 col-sm-3">col-xs-6 col-sm-3</div>
+      </div>
+    </div>
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="./lib/jquery/jquery-3.3.1.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="./lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>
