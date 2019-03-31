@@ -59,7 +59,130 @@
     as an addition to the document.
     <p>as <span class="small">an</span> addition <strong>an</strong> <em>an</em> document</p>
   </div>
-  
+  <br>
+  <!-- 对齐 -->
+  <div class="container">
+    <div class="row">
+      <p class="text-left">Left aligned text.</p>
+      <p class="text-center">Center aligned text.</p>
+      <p class="text-right">Right aligned text.</p>
+      <p class="text-justify">Justified text.Justified text.Justified text.Justified text.Justified text.Justified
+        text.Justified text.Justified text.Justified text.Justified text.Justified text.Justified text.</p>
+      <p class="text-nowrap">No wrap text.No wrap text.No wrap text.No wrap text.No wrap text.No wrap text.No wrap
+        text.No wrap text.No wrap text.No wrap text.No wrap text.No wrap text.</p>
+    </div>
+  </div>
+  <br>
+  <!-- 改变大小写 -->
+  <div class="container">
+    <p class="text-lowercase">Lowercased text.</p>
+    <p class="text-uppercase">Uppercased text.</p>
+    <p class="text-capitalize">Capitalized text.</p>
+  </div>
+  <br>
+  <!-- 缩略语 -->
+  <div class="container">
+    <abbr title="attribute">attr</abbr>
+    <abbr title="HyperText Markup Language" class="initialism">HTML</abbr>
+    <abbr title="HyperText Markup Language" class="initialism">html</abbr>
+  </div>
+  <br>
+  <!-- 地址 -->
+  <div class="container">
+    <address>
+      <strong>Twitter, Inc.</strong><br>
+      1355 Market Street, Suite 900<br>
+      San Francisco, CA 94103<br>
+      <abbr title="Phone">P:</abbr> (123) 456-7890
+    </address>
+
+    <address>
+      <strong>Full Name</strong><br>
+      <a href="mailto:#">first.last@example.com</a>
+    </address>
+  </div>
+  <br>
+  <!-- 引用 -->
+  <div class="container">
+    <blockquote>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    </blockquote>
+    <blockquote>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+      <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+    </blockquote>
+    <blockquote class="blockquote-reverse">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+      <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+    </blockquote>
+  </div>
+  <br>
+  <!-- 列表 -->
+  <div class="container">
+    <div class="row">
+      <ul>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <ul>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Lorem ipsum dolor sit amet</li>
+        </ul>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+      </ul>
+    </div>
+    <div class="row">
+      <ol>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+      </ol>
+    </div>
+    <div class="row">
+      <ul class="list-unstyled">
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <ul>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Lorem ipsum dolor sit amet</li>
+        </ul>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+      </ul>
+    </div>
+    <div class="row">
+      <ul class="list-inline">
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Lorem ipsum dolor sit amet</li>
+      </ul>
+    </div>
+    <div class="row">
+        <dl>
+            <dt>Lorem ipsum</dt>
+            <dd>Lorem ipsum dolor sit amet</dd>
+          </dl>
+    </div>
+    <div class="row">
+        <dl class="dl-horizontal">
+            <dt>Lorem ipsum</dt>
+            <dd>Lorem ipsum dolor sit amet</dd>
+          </dl>
+    </div>
+  </div>
   <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
   <script src="./lib/jquery/jquery-3.3.1.min.js"></script>
   <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
