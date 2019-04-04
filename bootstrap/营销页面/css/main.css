@@ -1,0 +1,211 @@
+@media (min-width: 1200px){
+  .container {
+      max-width: 1357px;
+  }
+}
+
+/* 导航 */
+#navbarTogglerDemo02 {
+  justify-content: flex-end;
+}
+
+.bg-dark {
+  background-color: #000!important;
+  opacity: 0.7;
+}
+/* benner 轮播 */
+#banner .carousel-item img {
+  max-height: 806px;
+}
+
+/* 产品优势 */
+.advantage {
+  background: #fff;
+  text-align: center;
+  padding-bottom: 11.5rem;
+}
+
+.advantage-title {
+  font-size: 2.25rem;
+}
+
+.advantage-title > .line {
+  max-width: 100%;
+  display: inline-block;
+  padding:5.125rem 0 1.25rem 0;
+  border-bottom: 4px solid #ee7824;
+  margin-bottom: 4.5rem;
+}
+
+.advantage-item img {
+  margin: 0 auto 2.25rem;
+}
+
+.advantage-item .title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 2.75rem;
+}
+.advantage-item .discription {
+  color: #666666;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-align: left;
+}
+/* 关于广道 */
+
+#about {
+  background: url("../images/about-bg-2.png") no-repeat;
+  background-size: cover;
+  color: #fff;
+}
+
+#about .discription > .wrapper {
+  margin: 160px 10.1% 80px 0;
+}
+#about .discription h3 { 
+  font-size: 46px;
+  margin-bottom: 72px;
+}
+
+#about .discription p {
+  font-size: 14px;
+  line-height: 30px;
+  margin-bottom: 16px;
+  /* margin-right: 46px; */
+}
+
+
+@media (max-width:990px) {
+  #about {
+    background: url("../images/about-bg-3.png") no-repeat;
+    background-size: cover;
+    color: #fff;
+  }
+}
+@media (max-width:768px) {
+  #about {
+    background: url("../images/about-bg.png");
+    background-size: cover;
+  }
+  
+}
+#about .discription {
+  background: #178be0;
+}
+
+#about .certificate .single,
+#about .certificate .multi {
+  margin-left: 36px;
+}
+
+#about .certificate .single {
+  margin-bottom: 34px;
+}
+
+#about .certificate .single img {
+  width: 30%;
+}
+
+#about .certificate .multi img{
+  width: 45%;
+}
+/* 应用场景 */
+
+#apply{}
+
+#apply .title {
+  font-size: 2.25rem;
+}
+
+
+#apply .title > .line {
+  max-width: 100%;
+  display: inline-block;
+  padding:5.125rem 0 1.25rem 0;
+  border-bottom: 4px solid #ee7824;
+  margin-bottom: 4.5rem;
+}
+
+#apply .apply-imgs {
+  margin-bottom:3.75rem;
+}
+#apply .apply-imgs img {
+padding-bottom: 2.5rem;
+}
+/* 客户案例 */
+#example {
+  background: url("../images/example-bg.png") no-repeat;
+  background-size: cover;
+}
+
+#example .container {
+  position: relative;
+}
+
+#example .title {
+  margin-top:3.75rem;
+  position: absolute;
+  left: 0;
+  color: #fff;
+  font-size:2rem;
+}
+
+#example .carousel-item  {
+  height: 613px;
+}
+
+#example .carousel-item .content {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#example .carousel-item .content > p {
+  text-indent: 2em ;
+}
+
+/* footer */
+footer {
+  margin-bottom: 6.25rem;
+}
+footer .info {
+  color: #fff;
+  background: #1c2126;
+}
+footer .info .logo {
+  padding-top: 3.125rem;
+  padding-bottom: 2.625rem;
+}
+
+.nav-section {
+  display: flex;
+  flex-direction: row;
+  font-size: 24px;
+}
+
+.nav-section .phone img {
+  height: 30px;
+  width: 30px;
+}
+
+footer .info ul {
+  flex: 8;
+  color: #999;
+}footer .info ul > li {
+  list-style: none;
+  font-size: 0.875rem;
+  height: 1.875rem;
+}
+
+footer .info ul > li > a {
+  color: #999;
+}
+footer .copyright {
+  background: #000;
+  color: #939393;
+  padding: 2rem 0;
+  text-align: center;
+}
