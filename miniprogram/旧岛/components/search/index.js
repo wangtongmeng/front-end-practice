@@ -8,7 +8,12 @@ Component({
 	/**
 	 * 组件的属性列表
 	 */
-	properties: {},
+	properties: {
+		more: {
+			type: String,
+			observer: '_load_more'
+		}
+	},
 
 	/**
 	 * 组件的初始数据
@@ -19,6 +24,7 @@ Component({
 		dataArray: [],
 		searching: false,
 		q: '',
+		loading: false
 	},
 
 	attached() {
@@ -37,6 +43,23 @@ Component({
 	 * 组件的方法列表
 	 */
 	methods: {
+		_load_more(){
+			if(!this.data.q) {
+				return
+			}
+			if(this.data.loading) {
+				return
+			}
+			const length = this.data.dataArray.length
+			this.data.loading = true
+			bookModel.search(length, this.data.q).then(res => {
+				const tempArray = this.data.dataArray.concat(res.books)
+				this.setData({
+					dataArray: tempArray,
+				})
+				this.data.loading = false // 若 wxml 没绑定，可直接复制改变；若wxml绑定了，需要更新，则需要使用 setData
+			})
+		},
 		onCancel(event) {
 			this.triggerEvent('cancel', {}, {})
 		},
