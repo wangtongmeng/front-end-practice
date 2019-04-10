@@ -45,3 +45,7 @@
 		</block>
 	</view>
 </view>
+
+<v-loading class="loading-center" wx:if="{{loadingCenter}}"></v-loading>
+<v-loading class="loading" wx:if="{{loading}}"></v-loading>
+<text wx:if="{{noneResult}}" class="empty-tip">没有搜索到书籍</text>

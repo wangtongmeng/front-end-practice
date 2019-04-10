@@ -26,6 +26,7 @@ Component({
 		searching: false,
 		q: '',
 		loading: false,
+		loadingCenter: false
 	},
 
 	attached() {
@@ -52,25 +53,28 @@ Component({
 				return
 			}
 			if (this.hasMore()) {
-				this.data.loading = true
+				this._locked()
 				bookModel.search(this.getCurrentStart(), this.data.q).then(res => {
 					const tempArray = this.data.dataArray.concat(res.books)
 					this.setMoreData(res.books)
-					this.data.loading = false // 若 wxml 没绑定，可直接复制改变；若wxml绑定了，需要更新，则需要使用 setData
+					this._unLocked()
+				}, ()=>{
+					this._unLocked()
 				})
 			}
 		},
 		onCancel(event) {
+			this.initialize()
 			this.triggerEvent('cancel', {}, {})
 		},
 		onDelete(event) {
-			this.setData({
-				searching: false,
-			})
+			this.initialize()
+			this._closeResult()
 		},
 		onConfirm(event) {
 			this._showResult()
-			this.initialize()
+			this._showLoadingCenter()
+			// this.initialize()
 			const q = event.detail.value || event.detail.text
 			bookModel.search(0, q).then(res => {
 				this.setMoreData(res.books)
@@ -79,6 +83,19 @@ Component({
 					q,
 				})
 				keywordModel.addToHistory(q)
+				this._hideLoadingCenter()
+			})
+		},
+
+		_showLoadingCenter() {
+			this.setData({
+				loadingCenter: true
+			})
+		},
+
+		_hideLoadingCenter() {
+			this.setData({
+				loadingCenter: false
 			})
 		},
 
@@ -88,12 +105,27 @@ Component({
 			})
 		},
 
+		_closeResult() {
+			this.setData({
+				searching: false,
+			})
+		},
+
 		_isLocked() {
 			return this.data.loading ? true : false
 		},
 
 		_locked() {
-			this.data.loading = true
+			this.setData({
+				loading: true
+			})
+		},
+
+		_unLocked() {
+			// this.data.loading = false  // 若 wxml 没绑定，可直接复制改变；若wxml绑定了，需要更新，则需要使用 setData
+			this.setData({
+				loading: false
+			})
 		}
 	},
 })
