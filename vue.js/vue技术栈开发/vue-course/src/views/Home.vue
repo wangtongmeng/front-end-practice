@@ -26,9 +26,10 @@ export default {
 	},
 	beforeRouteLeave (to, from, next) {
 		// 例如，用户一个页面编辑，突然点击跳转页面，这时需要提醒用户还未保存编辑
-		const leave = confirm('您确认要离开吗？')
-		if (leave) next()
-		else next(false)
+		// const leave = confirm('您确认要离开吗？')
+		// if (leave) next()
+		// else next(false)
+		next()
 	},
   methods: {
     handleClick (type) {

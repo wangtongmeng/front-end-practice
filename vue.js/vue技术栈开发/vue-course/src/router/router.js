@@ -29,6 +29,9 @@ export default [
 		component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
 		props: {
 			food: 'banana'
+		},
+		meta: {
+			title: '关于'
 		}
 	},
 	{
