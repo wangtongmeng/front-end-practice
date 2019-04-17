@@ -17,6 +17,19 @@ export default {
 			default: 'apple'
 		}
 	},
+	beforeRouteEnter (to, from, next) {
+		// this，虽然进入了组件内钩子，但此时页面还没有渲染，所以没有 this
+		next(vm => {
+			// 如果要使用组件实例，可以在 next 中使用
+			// console.log(vm)
+		})
+	},
+	beforeRouteLeave (to, from, next) {
+		// 例如，用户一个页面编辑，突然点击跳转页面，这时需要提醒用户还未保存编辑
+		const leave = confirm('您确认要离开吗？')
+		if (leave) next()
+		else next(false)
+	},
   methods: {
     handleClick (type) {
       if (type === 'back') this.$router.back() // 回退1
