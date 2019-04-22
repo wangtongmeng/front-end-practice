@@ -4,11 +4,12 @@
     <button @click="handleClick('back')">返回上一页</button>
     <button @click="handleClick('push')">跳转指定路由parent</button>
     <button @click="handleClick('replace')">替换到parent</button>
+		<button @click="getInfo">请求数据</button>
   </div>
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
   name: 'home',
 	props: {
@@ -49,7 +50,10 @@ export default {
       // this.$router.go(-1) // 回退1
       // this.$router.go(1) // 向前1
 
-    }
+		},
+		getInfo () {
+
+		}
   }
 }
 </script>
