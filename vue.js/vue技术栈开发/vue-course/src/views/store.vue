@@ -1,7 +1,9 @@
 <template>
 	<div>
-		<a-input @input="handleInput" />
-		<p>{{ inputValue }} -> lastLetter is {{ inputValueLastLetter }}</p>
+		<!-- <a-input :value="stateValue" @input="hanldeStateValueChange" /> -->
+		<a-input v-model="stateValue" />
+		<p>{{ stateValue }}</p>
+		<p>{{ stateValue }} -> lastLetter is {{ inputValueLastLetter }}</p>
 		<!-- <a-show :content="inputValue" /> -->
 		<!-- <p>appName: {{ appName }}, appNameWithVersion: {{ appNameWithVersion }}</p> -->
 		<p>appName: {{ appName }}</p>
@@ -37,8 +39,17 @@ export default {
 		...mapState({
 			appVersion: state => state.appVersion,
 			// todoList: state => state.todo ? state.todo.todoList: []
-			todoList: state => state.user.todo ? state.user.todo.todoList: []
+			todoList: state => state.user.todo ? state.user.todo.todoList: [],
+			// stateValue: state => state.stateValue
 		}),
+		stateValue: {
+			get () {
+				return this.$store.state.stateValue
+			},
+			set (val) {
+				this.SET_STATE_VALUE(val)
+			}
+		},
 		// ...mapGetters([
 		// 	'appNameWithVersion',
 		// 	'firstLetter'
@@ -59,7 +70,8 @@ export default {
 	},
 	methods: {
 		...mapMutations([
-			'SET_APP_NAME'
+			'SET_APP_NAME',
+			'SET_STATE_VALUE'
 		]),
 		...mapMutations('user', [
 			'SET_USER_NAME',
@@ -86,8 +98,9 @@ export default {
 			this.updateAppName()
 		},
 		changeUserName () {
-			// this.SET_USER_NAME('vue-course')
-			this.$store.dispatch('updateAppName')
+			this.SET_USER_NAME('vue-course')
+			// this.$store.dispatch('updateAppName')
+			// this.$store.state.user.userName = 'haha' // 错误的方法
 		},
 		registerModule () {
 			// this.$store.registerModule('todo', {
@@ -96,6 +109,9 @@ export default {
 					todoList: ['学习1', '学习2']
 				}
 			})
+		},
+		hanldeStateValueChange (val) {
+			this.SET_STATE_VALUE(val)
 		}
 	}
 }
