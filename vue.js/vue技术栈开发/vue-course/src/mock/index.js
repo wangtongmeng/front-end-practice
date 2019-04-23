@@ -1,5 +1,6 @@
 import Mock from 'mockjs'
+import { getUserInfo } from './response/user'
 
-// 具体 mock 操作
+Mock.mock(/\/getUserInfo/, {name: 'lison'})
 
 export default Mock
