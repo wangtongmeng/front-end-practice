@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { getUserInfo } from '@/api/user'
+
 export default {
   name: 'home',
 	props: {
@@ -52,7 +53,9 @@ export default {
 
 		},
 		getInfo () {
-
+			getUserInfo({ userId: 21 }).then(res => {
+				console.log(res)
+			})
 		}
   }
 }
