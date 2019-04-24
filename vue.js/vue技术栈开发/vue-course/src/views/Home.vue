@@ -4,7 +4,8 @@
     <button @click="handleClick('back')">返回上一页</button>
     <button @click="handleClick('push')">跳转指定路由parent</button>
     <button @click="handleClick('replace')">替换到parent</button>
-		<button @click="getInfo">请求数据</button>
+		<button @click="getInfo">请求数据</button><br>
+		<img :src="url">
   </div>
 </template>
 
@@ -17,6 +18,11 @@ export default {
 		food: {
 			type: String,
 			default: 'apple'
+		}
+	},
+	data () {
+		return {
+			url: ''
 		}
 	},
 	beforeRouteEnter (to, from, next) {
@@ -55,6 +61,7 @@ export default {
 		getInfo () {
 			getUserInfo({ userId: 21 }).then(res => {
 				console.log(res)
+				this.url = res.data.img
 			})
 		}
   }

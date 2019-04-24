@@ -1,6 +1,19 @@
 import Mock from 'mockjs'
 import { getUserInfo } from './response/user'
 
-Mock.mock(/\/getUserInfo/, {name: 'lison'})
+const Random = Mock.Random
+
+Mock.mock(/\/getUserInfo/, getUserInfo)
+
+Mock.setup({
+  timeout: 0 // 响应时间
+})
+
+Random.extend({
+  fruit () {
+    const fruit = ['apple', 'peach', 'lemon']
+    return this.pick(fruit)
+  }
+})
 
 export default Mock
