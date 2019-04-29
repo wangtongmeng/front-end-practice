@@ -1,0 +1,4 @@
+<!--pages/classic/classic.wxml-->
+<view>
+  <like-cmp like="{{true}}" count="200"></like-cmp>
+</view>

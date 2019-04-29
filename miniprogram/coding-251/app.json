@@ -12,7 +12,7 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "旧岛小样",
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "black",  
     "navigationStyle": "default"
   },
   "tabBar": {

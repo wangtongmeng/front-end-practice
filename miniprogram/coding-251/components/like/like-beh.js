@@ -27,8 +27,6 @@ let likeBehavior = Behavior({
         behavior: behavior
       }, {})
     },
-
-    
   }
 })
 
