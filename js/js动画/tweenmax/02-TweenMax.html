@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>TweenMax demon</title>
+        <script src="minified/TweenMax.min.js"></script>
+        <!--www.tweenmax.com.cn演示实例-->
+        
+		<!-- Demo styles -->
+		<style>
+			body {
+				background: #fff;
+				font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+				font-size: 14px;
+				color: #000;
+				margin: 0 10px;
+				padding: 0;
+			}
+			p{
+				margin-bottom:20px;
+			}
+			.box {
+				width:50px;
+				height:50px;
+				position:relative;
+				border-radius:6px;
+				margin-top:4px;
+				display:inline-block
+			  }
+		    .green{
+				background-color:#6fb936;
+			  }
+		</style>
+	</head>
+	<body>
+    <p>对目标的CSS属性进行动画需要使用CSSPlugin插件， 由于TweenMax 包含了CSSPlugin，因此无需另外加载。</p>
+		<div class="box green"> </div>
+		<script>
+			TweenMax.to('.box', 3, {
+				left: 500,
+			});
+		</script>
+	</body>
+</html>
