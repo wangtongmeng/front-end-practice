@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  <canvas id="drawing" width="200" height="200">画一些东西</canvas>
-  <script>
-    var drawing = document.getElementById('drawing')
-    if (drawing.getContext) {
-      var context = drawing.getContext("2d")
-      
-      context.beginPath()
-      context.arc(100, 100, 99, 0, 2 * Math.PI, false)
-      context.moveTo(194, 100)
-      context.arc(100, 100, 94, 0, 2 * Math.PI, false)
-      context.stroke()
-
-    }
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body onload="draw()">
+    <canvas id="canvas" width="800" height="200">画一些东西</canvas>
+    <script>
+      function draw() {
+        var ctx = document.getElementById('canvas').getContext('2d')
+        ctx.font = '48px serif'
+        ctx.strokeText("Hello world", 10, 50);
+      }
+    </script>
+  </body>
 </html>
