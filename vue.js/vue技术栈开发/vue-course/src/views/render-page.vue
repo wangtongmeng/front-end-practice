@@ -1,6 +1,10 @@
 <template>
 	<div>
-		<list :list="list" :render="renderFunc"></list>
+		<list :list="list">
+			<!-- 作用插槽配合具名插槽使用 -->
+			<!-- <count-to slot="aa" slot-scope="count" :end-val="count.number"></count-to> -->
+			<count-to slot-scope="count" :end-val="count.number"></count-to>
+		</list>
 	</div>
 </template>
 <script>
@@ -8,7 +12,8 @@ import List from '_c/list'
 import CountTo from '_c/count-to'
 export default {
 	components: {
-		List
+		List,
+		CountTo
 	},
 	data () {
 		return {

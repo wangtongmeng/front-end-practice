@@ -11,6 +11,7 @@ Vue.prototype.$bus = Bus
 
 const handleClick = event => {
 	console.log(event)
+	// 实现 .stop 修饰符的功能
 	event.stopPropagation();
 }
 
