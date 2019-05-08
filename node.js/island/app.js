@@ -15,11 +15,17 @@ const app = new Koa()
 
 // 注册中间件，推荐匿名写法
 app.use((ctx, next) => {
-	console.log('hello world')
+	// 洋葱模型
+	console.log(1);
+	
 	next()
+	console.log(2);
+	
 })
 app.use((ctx, next) => {
-  console.log('hello world2')
+	console.log(3);
+	next()
+	console.log(4);
 })
 
 // 前端发送 HTTP，KOA 接收 HTTP
