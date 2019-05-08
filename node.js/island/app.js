@@ -14,17 +14,17 @@ const app = new Koa()
 // app.use(test)
 
 // 注册中间件，推荐匿名写法
-app.use((ctx, next) => {
+app.use(async (ctx, next) => {
 	// 洋葱模型
 	console.log(1);
 	
-	next()
+	await next()
 	console.log(2);
 	
 })
-app.use((ctx, next) => {
+app.use(async (ctx, next) => {
 	console.log(3);
-	next()
+	await next()
 	console.log(4);
 })
 
