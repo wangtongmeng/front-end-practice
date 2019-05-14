@@ -1,3 +1,5 @@
+import { login } from '@/api/user'
+
 const state = {
 	userName: 'Lison'
 }
@@ -17,12 +19,19 @@ const mutations = {
 const actions = {
 	updateUserName ({ commit, state, rootState, dispatch}) {
 
+	},
+	login ( { commit }, { userName, password }) {
+		login({ userName, password }).then(res => {
+			console.log(res)
+		}).catch(error => {
+			console.log(err)
+		})
 	}
 }
 
 export default {
 	// 模块使用命名空间，会让模块更加密闭，不会收到污染
-	namespaced: true,
+	// namespaced: true,
 	state,
 	getters,
 	mutations,
