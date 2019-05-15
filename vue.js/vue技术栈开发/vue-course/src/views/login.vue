@@ -23,6 +23,13 @@ export default {
 			this.login({
 				userName: this.userName,
 				password: this.password
+			}).then(() => {
+				console.log('success')
+				this.$router.push({
+					name: 'home'
+				}).catch(error => {
+					console.log(error)
+				})
 			})
 		}
 	}

@@ -1,4 +1,5 @@
 import { login } from '@/api/user'
+import { setToken } from '@/lib/util'
 
 const state = {
 	userName: 'Lison'
@@ -21,10 +22,17 @@ const actions = {
 
 	},
 	login ( { commit }, { userName, password }) {
-		login({ userName, password }).then(res => {
-			console.log(res)
-		}).catch(error => {
-			console.log(err)
+		return new Promise((resolve, reject) => {
+			login({ userName, password }).then(res => {
+				if (res.code === 200 && res.data.token){
+					setToken(res.data.token)
+					resolve()
+				} else {
+					reject(new Error('错误'))
+				}
+			}).catch(error => {
+				reject(error)
+			})
 		})
 	}
 }

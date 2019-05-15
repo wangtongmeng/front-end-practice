@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './router'
-import { setTitle } from '@/lib/util'
+import { setTitle, getToken } from '@/lib/util'
 
 Vue.use(Router)
 
@@ -13,13 +13,20 @@ const router = new Router({
 const HAS_LOGINED = false
 
 router.beforeEach((to, from, next) => {
-	to.meta && setTitle(to.meta.title)
-	if (to.name !== 'login') {
-		if (HAS_LOGINED) next()
-		else next({ name: 'login'})
+	// to.meta && setTitle(to.meta.title)
+	// if (to.name !== 'login') {
+	// 	if (HAS_LOGINED) next()
+	// 	else next({ name: 'login'})
+	// } else {
+	// 	if (HAS_LOGINED) next({ name: 'home'})
+	// 	else next()
+	// }
+	const token = getToken()
+	if (token) {
+		//
 	} else {
-		if (HAS_LOGINED) next({ name: 'home'})
-		else next()
+		if (to.name === 'login') 	next()
+		else next({ name: 'login' })
 	}
 })
 
