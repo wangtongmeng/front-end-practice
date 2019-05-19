@@ -1,21 +1,19 @@
-class Adaptee {
-  specificRequest () {
-    return '德国标准插头'
-  }
+function readonly (target, name, descriptor) {
+  descriptor.writable = false
+  return descriptor
 }
-
-class Target {
+class Person {
   constructor () {
-    this.Adaptee = new Adaptee()
+    this.first = 'A'
+    this.last = 'B'
   }
-  request () {
-    let info = this.Adaptee.specificRequest()
-    return `${info} - 转换器 - 中国标准插头`
+
+  @readonly
+  name () {
+    return `${this.first} ${this.last}`
   }
 }
 
-// 测试
-let target = new Target()
-let res = target.request()
-console.log(res)
-
+var p = new Person()
+console.log(p.name())
+p.name = function () {return '1'}
