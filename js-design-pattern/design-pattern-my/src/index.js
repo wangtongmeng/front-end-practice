@@ -1,19 +1,25 @@
-function readonly (target, name, descriptor) {
-  descriptor.writable = false
-  return descriptor
-}
-class Person {
-  constructor () {
-    this.first = 'A'
-    this.last = 'B'
+class ReadImg {
+  constructor (fileName) {
+    this.fileName = fileName
+    this.loadFromDisk() // 初始化即从硬盘中加载，模拟
   }
-
-  @readonly
-  name () {
-    return `${this.first} ${this.last}`
+  display () {
+    console.log('display... ' + this.fileName)
+  }
+  loadFromDisk () {
+    console.log('loading... ' + this.fileName)
   }
 }
 
-var p = new Person()
-console.log(p.name())
-p.name = function () {return '1'}
+class ProxyImg {
+  constructor (fileName) {
+    this.readImg = new ReadImg(fileName)
+  }
+  display () {
+    this.readImg.display()
+  }
+}
+
+// 测试
+let proxyImg = new ProxyImg('1.png')
+proxyImg.display()
