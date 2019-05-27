@@ -20,3 +20,10 @@ export const login = ({ userName, password }) => {
 		}
 	})
 }
+
+export const authorization = () => {
+	return axios.request({
+		url: '/users/authorization',
+		method: 'get'
+	})
+}

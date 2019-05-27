@@ -5,12 +5,14 @@
     <button @click="handleClick('push')">跳转指定路由parent</button>
     <button @click="handleClick('replace')">替换到parent</button>
 		<button @click="getInfo">请求数据</button><br>
+		<button @click="handleLogout">退出登录</button>
 		<img :src="url">
   </div>
 </template>
 
 <script>
 import { getUserInfo } from '@/api/user'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'home',
@@ -40,6 +42,9 @@ export default {
 		next()
 	},
   methods: {
+		...mapActions([
+			'logout'
+		]),
     handleClick (type) {
       if (type === 'back') this.$router.back() // 回退1
       // else if (type === 'push') this.$router.push('/parent')
@@ -63,6 +68,12 @@ export default {
 				console.log(res)
 				this.url = res.data.img
 			})
+		},
+		handleLogout () {
+				this.logout()
+				this.$router.push({
+					name: 'login'
+				})
 		}
   }
 }

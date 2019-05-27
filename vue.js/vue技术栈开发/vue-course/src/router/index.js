@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './router'
-import { setTitle, getToken } from '@/lib/util'
+import store from '@/store'
+import { setTitle, setToken, getToken } from '@/lib/util'
 
 Vue.use(Router)
 
@@ -23,7 +24,13 @@ router.beforeEach((to, from, next) => {
 	// }
 	const token = getToken()
 	if (token) {
-		//
+		store.dispatch('authorization', token).then(() => {
+			if (to.name === 'login') next({ name: 'home' })
+			else next()
+		}).catch(() => {
+			setToken('') // 需要清空 token，若 token 过期，跳转 login，token 存在，从而进入死循环
+			next({ name: 'login' })
+		})
 	} else {
 		if (to.name === 'login') 	next()
 		else next({ name: 'login' })
