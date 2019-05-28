@@ -11,7 +11,7 @@ const router = new Router({
 })
 
 // to from 都是路由对象，to 跳转后页面的路由对象，from，跳转前的路由对象，next 函数是跳转时要用到。
-const HAS_LOGINED = false
+const HAS_LOGINED = true
 
 router.beforeEach((to, from, next) => {
 	// to.meta && setTitle(to.meta.title)
