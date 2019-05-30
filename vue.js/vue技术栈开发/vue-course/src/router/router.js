@@ -9,7 +9,7 @@ export default [
 		children: [
 			{
 				path: 'home',
-				component: Home
+				component: () => import('@/views/folder-tree/folder-tree.vue')
 			}
 		]
 	},

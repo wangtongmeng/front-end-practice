@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "clonedeep": "^2.0.0",
     "core-js": "^2.6.5",
     "countup": "^1.8.2",
     "countup.js": "^2.0.4",

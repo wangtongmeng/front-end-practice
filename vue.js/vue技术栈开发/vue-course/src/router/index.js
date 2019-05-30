@@ -14,27 +14,27 @@ const router = new Router({
 const HAS_LOGINED = true
 
 router.beforeEach((to, from, next) => {
-	// to.meta && setTitle(to.meta.title)
-	// if (to.name !== 'login') {
-	// 	if (HAS_LOGINED) next()
-	// 	else next({ name: 'login'})
-	// } else {
-	// 	if (HAS_LOGINED) next({ name: 'home'})
-	// 	else next()
-	// }
-	const token = getToken()
-	if (token) {
-		store.dispatch('authorization', token).then(() => {
-			if (to.name === 'login') next({ name: 'home' })
-			else next()
-		}).catch(() => {
-			setToken('') // 需要清空 token，若 token 过期，跳转 login，token 存在，从而进入死循环
-			next({ name: 'login' })
-		})
+	to.meta && setTitle(to.meta.title)
+	if (to.name !== 'login') {
+		if (HAS_LOGINED) next()
+		else next({ name: 'login'})
 	} else {
-		if (to.name === 'login') 	next()
-		else next({ name: 'login' })
+		if (HAS_LOGINED) next({ name: 'home'})
+		else next()
 	}
+	// const token = getToken()
+	// if (token) {
+	// 	store.dispatch('authorization', token).then(() => {
+	// 		if (to.name === 'login') next({ name: 'home' })
+	// 		else next()
+	// 	}).catch(() => {
+	// 		setToken('') // 需要清空 token，若 token 过期，跳转 login，token 存在，从而进入死循环
+	// 		next({ name: 'login' })
+	// 	})
+	// } else {
+	// 	if (to.name === 'login') 	next()
+	// 	else next({ name: 'login' })
+	// }
 })
 
 // 导航被确认之前(所有导航钩子都ok了)，所有组件内守卫和异步路由组件被解析之后被调用

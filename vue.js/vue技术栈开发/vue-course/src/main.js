@@ -6,7 +6,7 @@ import Bus from './lib/bus'
 import CountTo from '_c/count-to'
 import iview from 'iview'
 import 'iview/dist/styles/iview.css'
-// if (process.env.NODE_ENV !== 'production') require('./mock')
+if (process.env.NODE_ENV !== 'production') require('./mock')
 
 Vue.config.productionTip = false
 Vue.prototype.$bus = Bus
