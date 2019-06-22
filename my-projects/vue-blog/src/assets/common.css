@@ -1,0 +1,45 @@
+body {
+  font: 14px/1.6 Arial, "Microsoft YaHei", "黑体", "宋体", sans-serif;
+  color: #333;
+  margin: 0;
+}
+html,
+body,
+#app {
+  height: 100%;
+}
+a {
+  text-decoration: none;
+  color: #333333;
+}
+.el-button {
+  color: #38424e;
+  border: 1px solid rgba(56, 66, 78, 0.6);
+  background: #fff;
+  border-radius: 4px;
+}
+input {
+  line-height: 40px;
+  border: 1px solid #eaeaea;
+  padding: 0 10px;
+  border-radius: 4px;
+  outline: none;
+}
+input:focus {
+  border-color: rgba(56, 66, 78, 0.6);
+}
+.el-button.el-button--medium {
+  font-size: 13px;
+  padding: 0 8px;
+  font-weight: normal;
+  line-height: 28px;
+}
+.el-button:hover {
+  color: #fff;
+  background-color: rgba(56, 66, 78, 0.6);
+}
+.el-input.is-active .el-input__inner,
+.el-input__inner:focus,
+.el-textarea__inner:focus {
+  border-color: rgba(56, 66, 78, 0.6);
+}

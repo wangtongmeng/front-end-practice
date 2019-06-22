@@ -1,0 +1,248 @@
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .page {
+  width: 1000px;
+  height: 670px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(64, 64, 64, 0.7);
+}
+body .page header .logo {
+  display: flex;
+  align-items: center;
+  background: #D43C33;
+  padding: 0 10px;
+  width: 100%;
+  height: 60px;
+  position: relative;
+  border-radius: 5px 5px 0 0 ;
+}
+body .page header .logo .topsvg {
+  width: 142px;
+  height: 25px;
+}
+body .page header .logo .icon {
+  transform: scale(0.15);
+  fill: white;
+  position: absolute;
+  right: -47px;
+  top: -42px;
+}
+body .page header .logo p {
+  justify-content: flex-end;
+  color: white;
+  display: inline-block;
+  padding: 5px 11px;
+  line-height: 20px;
+  position: absolute;
+  right: 20px;
+  top: calc(50% - 12px);
+  font-size: 16px;
+}
+body .page .content {
+  height: 100%;
+  display: flex;
+}
+body .page .content aside {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+body .page .content aside .newSong {
+  text-align: center;
+  padding: 19px 0;
+  color: #333333;
+  font-size: 18px;
+  cursor: pointer;
+  background: #ece9e6;
+  background: linear-gradient(to top, #e6e6e6, #ffffff);
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #c8c8c8;
+}
+body .page .content aside .newSong.active {
+  background: #d4d4d4;
+}
+body .page .content aside .newSong:hover {
+  color: #bb3927;
+  cursor: pointer;
+}
+body .page .content aside #songList-container {
+  border-right: 1px solid #d8d8d8;
+  overflow: auto;
+  height: 391px;
+}
+body .page .content aside #songList-container .songList {
+  text-align: left;
+  border-top: 1px solid #999;
+}
+body .page .content aside #songList-container .songList li {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0px 10px 10px;
+  font-size: 14px;
+}
+body .page .content aside #songList-container .songList li.active {
+  background: #d4d4d4;
+}
+body .page .content aside #songList-container .songList li:nth-child(2n+1) {
+  background: #efefef;
+}
+body .page .content aside #songList-container .songList li:nth-child(2n) {
+  background: #f6f6f6;
+}
+body .page .content aside #songList-container .songList li.active {
+  background: #c8c8c8;
+}
+body .page .content aside #songList-container .songList li:hover {
+  color: #bb3927;
+  cursor: pointer;
+}
+body .page .content aside .uploadArea {
+  flex: 1;
+}
+body .page .content aside .uploadArea .draggable {
+  height: 100%;
+  width: 200px;
+  border: 2px dashed #ddd;
+  border-radius: 4px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+body .page .content aside .uploadArea .draggable p {
+  line-height: 20px;
+  font-size: 16px;
+  color: #777;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+body .page .content main {
+  flex-grow: 1;
+  padding-left: 20px;
+  padding-top: 20px;
+  background: #fafafa;
+}
+body .page .content main .form {
+  width: 60%;
+  font-size: 14px;
+}
+body .page .content main .form .row {
+  margin: 20px 0;
+  display: flex;
+}
+body .page .content main .form .row.actions {
+  margin-left: calc(4em + 5px);
+  display: flex;
+  justify-content: space-between;
+}
+body .page .content main .form .row label {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 4em;
+  text-align: right;
+  margin-right: 5px;
+  font-size: 16px;
+}
+body .page .content main .form input[type=text],
+body .page .content main .form textarea {
+  padding: 3px 10px;
+  border-radius: 5px;
+  border: 1px solid #bbb;
+  height: 40px;
+  width: 90%;
+  color: #333;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  font-size: 16px;
+}
+body .page .content main .form textarea {
+  width: 90%;
+  height: 150px;
+  border-radius: 5px;
+  resize: none;
+  font-size: 14px;
+}
+body .page .content main .form input[type=button],
+body .page .content main .form input[type=submit],
+body .page .content main .form button {
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid #ba2502;
+  cursor: pointer;
+  width: 45%;
+  color: #ba2502;
+  background: #fff;
+  transition: all ease .3s;
+}
+body .page .content main .form input[type=button]:hover,
+body .page .content main .form input[type=submit]:hover,
+body .page .content main .form button:hover {
+  background: #bb2a26;
+  color: white;
+  cursor: pointer;
+}
+body .page .content main .form input[type=button]:focus,
+body .page .content main .form input[type=submit]:focus,
+body .page .content main .form button:focus {
+  outline: none;
+}
+.clickable {
+  cursor: pointer;
+}
+/* loading */
+@keyframes loading {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.1);
+  }
+}
+.site-loading {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+.site-loading.active {
+  visibility: visible;
+}
+.site-loading::before {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 100px;
+  background: #ddd;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  border-radius: 50%;
+  animation: loading 1s infinite alternate-reverse linear;
+}
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 5px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.1);
+}

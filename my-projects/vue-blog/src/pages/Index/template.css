@@ -1,0 +1,40 @@
+#index .item {
+  display: grid;
+  grid: auto auto / 80px 1fr;
+  margin: 20px 0;
+}
+#index .item .avatar {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  justify-self: center;
+  margin-left: 0;
+  text-align: center;
+}
+#index .item .avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+#index .item .avatar figcaption {
+  font-size: 12px;
+  color: #999;
+}
+#index .item h3 {
+  grid-column: 2;
+  grid-row: 1;
+}
+#index .item h3 > span {
+  color: #999;
+  font-size: 12px;
+  font-weight: normal;
+}
+#index .item p {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 0;
+}
+#index .pagination {
+  display: grid;
+  justify-items: center;
+  margin-bottom: 30px;
+}

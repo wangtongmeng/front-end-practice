@@ -1,0 +1,65 @@
+#my .user-info,
+#user .user-info {
+  display: grid;
+  grid: auto auto / 80px 1fr;
+  margin-top: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ebebeb;
+}
+#my .user-info .avatar,
+#user .user-info .avatar {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+#my .user-info h3,
+#user .user-info h3 {
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 10px;
+}
+#my .item,
+#user .item {
+  display: grid;
+  grid: auto auto auto / 80px 1fr;
+  margin: 20px 0;
+}
+#my .item .date,
+#user .item .date {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  justify-self: center;
+  text-align: center;
+}
+#my .item .date span,
+#user .item .date span {
+  display: block;
+  color: #999;
+}
+#my .item .date .day,
+#user .item .date .day {
+  font-size: 40px;
+}
+#my .item h3,
+#user .item h3 {
+  grid-column: 2;
+  grid-row: 1;
+}
+#my .item p,
+#user .item p {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 0;
+}
+#my .item .actions,
+#user .item .actions {
+  grid-column: 2;
+  grid-row: 3;
+  font-size: 12px;
+}
+#my .item .actions a,
+#user .item .actions a {
+  color: rgba(56, 66, 78, 0.6);
+}

@@ -1,0 +1,112 @@
+.page-2 {
+    overflow: hidden;
+}
+.bgHot{
+    background: url("../img/bg-hotSong.jpg") center center;
+    position: relative;
+    width: 100vw;
+    height: 38.77vw;
+    display: block;
+    background-size: cover;
+    z-index: -2;
+}
+.bgHot::after{
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 38.77vw;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: -1;
+}
+.bgHot >.spriteHot{
+    background: url("../img/sprite.png") center center;
+    background-size: cover;
+    position: absolute;
+    width: 37.8666vw;
+    height: 17.8666vw;
+    top: 6.66vw;
+    left: 2.66vw;
+    z-index: 1;
+}
+.bgHot > .hotTime{
+    display: block;
+    z-index: 1;
+    position: absolute;
+    color: #ecddcb;
+    font-size: 12px;
+    left: 5.333vw;
+    top: 27vw;
+}
+
+.song-list {
+    margin-top: 18px;
+}
+.song-list > li > h3{
+    font-size: 17px;
+}
+.song-list > li > p{
+    font-size: 12px;
+    color: #888;
+}
+.song-list > li{
+    display: flex;
+    position: relative;
+    margin-left: 10px;
+    padding-bottom: 6px;
+    padding-top: 5px;
+    border-bottom: 1px solid #E2E2E3;
+}
+.song-list .playButton{
+    position: absolute;
+    right:8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.song-list .icon-play{
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    fill: #AAA;
+}
+.song-list .icon-sq{
+    fill: #FE672E;
+}
+
+ul.song-list{
+    margin-top: 3px;
+    margin-bottom: 12px;
+}
+ul.song-list > li{
+    display: flex;
+    border-bottom: none;
+    padding-bottom: -6px;
+}
+ul.song-list > li > span{
+    width: 7vw;
+    align-self: center;
+    font-size: 16px;
+    color: #9e9999;
+}
+ul.song-list > li:nth-child(1) > span,
+ul.song-list > li:nth-child(2) > span,
+ul.song-list > li:nth-child(3) > span{
+    color: #df3536;
+}
+
+ul.song-list > li > div{
+    padding-bottom: 6px;
+    border-bottom: 1px solid #f1f1f2;
+    width: 90vw;
+}
+
+.hotdn{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.hotView{
+    font-size: 14px;
+    color: #999;
+}

@@ -1,0 +1,39 @@
+#login,
+#register {
+  display: grid;
+  justify-content: center;
+  padding-top: 30px;
+}
+#login h4,
+#register h4 {
+  margin: 10px 0 5px;
+}
+#login p,
+#register p {
+  margin: 5px 0;
+}
+#login input,
+#register input {
+  width: 400px;
+}
+#login .error,
+#register .error {
+  font-size: 12px;
+  color: #f00;
+}
+#login button,
+#register button {
+  margin-top: 30px;
+  justify-self: start;
+}
+#login .notice,
+#register .notice {
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+  margin-top: 30px;
+}
+#login .notice a,
+#register .notice a {
+  color: #38424e;
+}
