@@ -1,39 +1,20 @@
-.show {
-  opacity: 1;
-  animation: show-item 2s ease-in forwards;
-}
-
-.hide {
+.fade-enter,.fade-appear {
   opacity: 0;
-  animation: hide-item 2s ease-in forwards;
 }
-
-@keyframes show-item {
-  0% {
-    opacity: 0;
-    color: red
-  }
-  50% {
-    opacity: 0.5;
-    color: green;
-  }
-  100% {
-    opacity: 1;
-    color: blue;
-  }
+.fade-enter-active, .fade-appear-active {
+  opacity: 1;
+  transition: opacity 1s ease-in;
 }
-
-@keyframes hide-item {
-   0% {
-     opacity: 1;
-     color: red
-   }
-   50% {
-     opacity: 0.5;
-     color: green;
-   }
-   100% {
-     opacity: 0;
-     color: blue;
-   }
+.fade-enter-done {
+  opacity: 1;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+.fade-exit-done {
+  opacity: 0;
 }
