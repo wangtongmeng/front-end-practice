@@ -1,26 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <div id="div1">div1</div>
-    <ul id=ul1>
-        <li>f1</li>
-        <li>f2</li>
-        <li>f3</li>
-        <li>f4</li>
-        <li>f5</li>
-    </ul>
-    <div id="div2">div2</div>
-    <script>
-        var ul1 = document.getElementById('ul1')
-        console.log(ul1.children, ul1.childNodes, ul1.childElementCount)
-        console.log(ul1.firstElementChild, ul1.lastElementChild)
-        console.log(ul1.previousElementSibling, ul1.nextElementSibling)
-    </script>
-</body>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>测试</title>
+    <style type="text/css">
+      .box {
+        width: 60px;
+        height: 104px;
+        margin: 50px auto;
+        background-color: #ee7824;
+        position: relative;
+      }
+      .box::before {
+        content: " ";
+        width: 0;
+        height: 0;
+        border-left: 30px solid #ee7824;
+        border-top: 52px solid transparent;
+        border-bottom: 52px solid transparent;
+        position: absolute;
+        right: -30px;
+        top: 0;
+      }
+      .box::after {
+        content: " ";
+        width: 0;
+        height: 0;
+        border-right: 30px solid #ee7824;
+        border-top: 52px solid transparent;
+        border-bottom: 52px solid transparent;
+        position: absolute;
+        left: -30px;
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+  </body>
 </html>
