@@ -3,7 +3,6 @@
     <label v-if="label">{{label}}</label>
     <slot></slot>
     <p v-if="errorMessage">{{errorMessage}}</p>
-    {{form.rules}}
   </div>
 </template>
 
