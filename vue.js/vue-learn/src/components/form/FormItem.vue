@@ -36,7 +36,7 @@ export default {
       // npm i async-validator -S
       const desc = {[this.prop]: rules}
       const schema = new Schema(desc)
-      // return 的是校验结果的 Promise
+      // return 的是校验结果的 Promise 
       return schema.validate({[this.prop]: value}, errors => {
         if (errors) {
           this.errorMessage = errors[0].message
