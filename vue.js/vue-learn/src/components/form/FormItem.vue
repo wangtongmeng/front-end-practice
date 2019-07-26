@@ -25,7 +25,10 @@ export default {
     }
   },
   mounted() {
-    this.$on('validate', this.validate)
+    // this.$on('validate', this.validate) 不对的写法 validate返回promise，由于没有catch捕获错误，会报错
+    this.$on('validate', () => { // 用函数包裹一下，返回值就不是promise，就不存在报错的情况了
+      this.validate()
+    })
   },
   methods: {
     validate() {

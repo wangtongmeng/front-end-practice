@@ -20,6 +20,8 @@
   import MyForm from './Form'
   import MyFormItem from './FormItem'
   import MyInput from './Input'
+  import create from '@/utils/create.js'
+  import Notice from '@/components/notice/Notice'
   export default {
     components: {
       MyForm,
@@ -46,7 +48,12 @@
       submitForm(form) {
         this.$refs[form].validate(valid => {
           if (valid) {
-            alert('校验成功！')
+            const notice = create(Notice, {
+              title: 'xxx',
+              message: valid ? '请求登录！': '校验失败！',
+              duration: 1000
+            })
+            notice.show()
           } else {
             alert('校验失败！')
           }

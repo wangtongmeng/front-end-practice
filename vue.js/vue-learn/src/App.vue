@@ -1,18 +1,12 @@
 <template>
   <div id="app">
-    <FormSample></FormSample>
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
-
-<script>
-import FormSample from './components/form'
-export default {
-  name: 'app',
-  components: {
-    FormSample
-  }
-}
-</script>
 
 <style>
 </style>
