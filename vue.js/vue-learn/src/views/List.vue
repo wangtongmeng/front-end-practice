@@ -1,6 +1,10 @@
 <template>
   <div>
-    list
+    <ul>
+      <li>
+        列表项<router-link to="/detail/1">详情</router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
