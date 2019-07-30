@@ -12,7 +12,7 @@ class VueRouter {
         this.app = new Vue({
             data: {
                 current: '/'
-            }
+            }   
         })
     }
 
@@ -46,6 +46,17 @@ class VueRouter {
                 }, [
                     this.$slots.default
                 ])
+            }
+        })
+
+        // <router-view></router-view>
+        Vue.component('router-view', {
+            render(h) {
+                // h(tag, data, children)
+                console.log(this.app)
+                console.log(this.routeMap[this.app.current])
+                const comp = this.routeMap[this.app.current]
+                return h(comp)
             }
         })
     }
