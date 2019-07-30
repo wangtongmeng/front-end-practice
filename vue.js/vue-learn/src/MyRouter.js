@@ -51,10 +51,9 @@ class VueRouter {
 
         // <router-view></router-view>
         Vue.component('router-view', {
-            render(h) {
+            render: (h) => { // 这里用箭头函数是为了保留this指向
                 // h(tag, data, children)
-                console.log(this.app)
-                console.log(this.routeMap[this.app.current])
+                // console.log(this.routeMap[this.app.current])
                 const comp = this.routeMap[this.app.current]
                 return h(comp)
             }
