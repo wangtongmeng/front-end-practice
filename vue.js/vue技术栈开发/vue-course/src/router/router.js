@@ -59,6 +59,11 @@ export default [
 		component: () => import('@/views/menu-page.vue')
 	},
 	{
+		path: '/optimize',
+		name: 'optimize',
+		component: () => import('@/views/optimize.vue')
+	},
+	{
 		path: '/parent',
 		name: 'parent',
 		component: () => import('@/views/parent.vue'),
