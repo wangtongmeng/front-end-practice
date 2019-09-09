@@ -15,13 +15,13 @@ const HAS_LOGINED = true
 
 router.beforeEach((to, from, next) => {
 	to.meta && setTitle(to.meta.title)
-	// if (to.name !== 'login') {
-	// 	if (HAS_LOGINED) next()
-	// 	else next({ name: 'login'})
-	// } else {
-	// 	if (HAS_LOGINED) next({ name: 'home'})
-	// 	else next()
-	// }
+	if (to.name !== 'login') {
+		if (HAS_LOGINED) next()
+		else next({ name: 'login'})
+	} else {
+		if (HAS_LOGINED) next({ name: 'home'})
+		else next()
+	}
 	// const token = getToken()
 	// if (token) {
 	// 	store.dispatch('authorization', token).then(() => {
