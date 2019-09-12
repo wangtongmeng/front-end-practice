@@ -1,0 +1,26 @@
+{
+  "name": "vue-best",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "core-js": "^2.6.5",
+    "element-ui": "^2.4.5",
+    "js-cookie": "^2.2.1",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.11.0",
+    "@vue/cli-service": "^3.11.0",
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.0.3",
+    "svg-sprite-loader": "^4.1.6",
+    "vue-cli-plugin-element": "^1.0.1",
+    "vue-template-compiler": "^2.6.10"
+  }
+}
