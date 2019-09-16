@@ -1,6 +1,7 @@
 import React from 'react'
 import JsxTest from './components/JsxTest'
 import StateMgt from './components/StateMgt'
+import EventHandle from './components/EventHandle'
 
 // class App extends Component {
 //   render() {
@@ -17,7 +18,8 @@ function App() {
   return (
     <div>
       {/* <JsxTest /> */}
-      <StateMgt></StateMgt>
+      {/* <StateMgt></StateMgt> */}
+      <EventHandle></EventHandle>
     </div>
   )
 }
