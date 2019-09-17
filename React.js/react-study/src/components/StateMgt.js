@@ -88,8 +88,11 @@ class Clock extends Component {
 			// 通过 setState 更新状态
 			this.setState({
 				date: new Date(),
+			}, () => {
+				// 每次状态更新就通知父组件
+				this.props.change(this.state.date)
 			})
-		})
+		}, 1000)
 	}
 
 	componentWillUnmount () {
@@ -104,7 +107,7 @@ class Clock extends Component {
 export default function StateMgt () {
 	return (
 		<div>
-			<Clock></Clock>
+			<Clock change={date => console.log(date.toLocaleTimeString())}></Clock>
 			<ClockFunc></ClockFunc>
 		</div>
 	)

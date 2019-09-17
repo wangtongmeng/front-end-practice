@@ -29,6 +29,7 @@ export default class EventHandle extends Component {
       <div>
         <input type="text" value={this.state.name} onChange={this.handleChange}></input>
         {/* <input type="text" value={this.state.name} onChange={e => this.handleChange(e)}></input> */}
+        {this.state.name}
       </div>
     )
   }
