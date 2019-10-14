@@ -9,8 +9,8 @@ function App(props) {
     <div>
       <h2>{props.title}</h2>
       {/* <JsxTest />     */}
-      {/* <StateMgt />   */}
-      <EventHandle />
+      <StateMgt />  
+      {/* <EventHandle /> */}
     </div>
   )
 }
