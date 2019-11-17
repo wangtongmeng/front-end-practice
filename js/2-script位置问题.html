@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>script位置问题</title>
+		<script>
+			// let box = document.getElementById('box');
+			// console.log(box); //=>null
+			// box.style.color = 'red'; //=> Uncaught TypeError: Cannot read property 'style' of null
+			// // =>注意事项：放到头部，可能导致无法获取到需要操作的元素
+
+			window.onload = function() {
+        // 事件：当页面中的结构和内容都加载完成才会执行这里面的代码
+        // jq中也有对应的方法 $(docuemnt).ready(function(){}) // dom结构加载完执行
+				let box = document.getElementById('box');
+				box.style.color = 'green';
+			};
+		</script>
+	</head>
+	<body>
+		<div id="box">内容</div>
+
+		<script>
+			// 经常放到body最后面，是为了保证也页面结构加载完成才去做这些事情
+			let box = document.getElementById('box');
+			box.style.color = 'red';
+		</script>
+	</body>
+</html>
