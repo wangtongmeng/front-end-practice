@@ -10,7 +10,11 @@ import VCharts from 'v-charts'
 Vue.use(ElementUI);
 Vue.use(VCharts)
 
+import './directive/directive'
+
 Vue.config.productionTip = false
+
+
 
 new Vue({
   router,

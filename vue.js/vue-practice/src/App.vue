@@ -7,6 +7,8 @@
 </template>
 <script>
 import layout from "@c/layout/Layout";
+import unescape from "unescape";
+
 export default {
   components: {
     layout
