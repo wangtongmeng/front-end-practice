@@ -24,6 +24,11 @@ const routes = [
     path: '/directive',
     name: 'directive',
     component: () => import('@views/vue-basic/directive/directive.vue')
+  },
+  {
+    path: '/vue-multipane',
+    name: 'vue-multipane',
+    component: () => import('@views/vue-multipane/VueMultipane.vue')
   }
 ]
 

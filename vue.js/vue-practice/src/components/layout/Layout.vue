@@ -40,8 +40,12 @@
             <el-menu-item index="2-1">
               <router-link tag="li" to="/element-ui">element-ui</router-link>
             </el-menu-item>
+            <el-menu-item index="2-2">
+              <router-link tag="li" to="/vue-multipane">vue-multipane</router-link>
+            </el-menu-item>
           </el-submenu>
         </el-menu>
+        
       </el-aside>
       <!-- content-main -->
       <el-main class="layout-content-main">
