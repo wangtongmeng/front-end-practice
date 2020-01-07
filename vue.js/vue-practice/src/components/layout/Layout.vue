@@ -21,7 +21,6 @@
           text-color="#fff"
           active-text-color="#ffd04b"
           :default-openeds="['1', '3']"
-          unique-opened
         >
           <el-submenu index="0">
               <template slot="title"><i class="el-icon-s-platform"></i>vue知识</template>
@@ -34,6 +33,9 @@
             <el-menu-item index="1-1">
               <router-link tag="li" to="/v-chart">v-chart</router-link>
             </el-menu-item>
+            <el-menu-item index="1-2">
+              <router-link tag="li" to="/echarts">echarts</router-link>
+            </el-menu-item>
           </el-submenu>
           <el-submenu index="2">
             <template slot="title"><i class="el-icon-s-platform"></i>UI组件</template>
@@ -42,6 +44,9 @@
             </el-menu-item>
             <el-menu-item index="2-2">
               <router-link tag="li" to="/vue-multipane">vue-multipane</router-link>
+            </el-menu-item>
+            <el-menu-item index="2-3">
+              <router-link tag="li" to="/vue-components">自定义组件</router-link>
             </el-menu-item>
           </el-submenu>
         </el-menu>

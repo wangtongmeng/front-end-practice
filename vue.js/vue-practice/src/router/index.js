@@ -16,6 +16,11 @@ const routes = [
     component: () => import('@views/v-chart/VChart.vue')
   },
   {
+    path: '/echarts',
+    name: 'echarts',
+    component: () => import('@views/echarts/echarts.vue')
+  },
+  {
     path: '/element-ui',
     name: 'element-ui',
     component: () => import('@views/element-ui/ElementUi.vue')
@@ -29,6 +34,11 @@ const routes = [
     path: '/vue-multipane',
     name: 'vue-multipane',
     component: () => import('@views/vue-multipane/VueMultipane.vue')
+  },
+  {
+    path: '/vue-components',
+    name: 'vue-components',
+    component: () => import('@views/vue-components/VueComponents.vue')
   }
 ]
 

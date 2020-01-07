@@ -1,0 +1,14 @@
+.img-wrapper {
+  text-align: center;
+}
+
+.animate-1 {
+  animation: swing1 1s ease-in-out infinite;
+  transform: rotate(-5deg);
+  transform-origin: top center;
+}
+@keyframes swing1 {
+  0% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg);}
+  100% { transform: rotate(-5deg);}
+}

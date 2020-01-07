@@ -9,6 +9,7 @@
   "dependencies": {
     "core-js": "^3.4.3",
     "echarts": "^4.5.0",
+    "echarts-china-cities-js": "^0.1.1",
     "element-ui": "^2.13.0",
     "unescape": "^1.0.1",
     "v-charts": "^1.19.0",

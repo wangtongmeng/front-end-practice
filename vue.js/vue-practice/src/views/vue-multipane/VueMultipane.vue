@@ -1,21 +1,22 @@
 <template>
   <div class="wrapper">
-    <Multipane>
+    multipane
+    <!-- <Multipane>
       <div>Pane 1</div>
       <multipane-resizer></multipane-resizer>
       <div>Pane 2</div>
       <multipane-resizer></multipane-resizer>
       <div>Pane 3</div>
-    </Multipane>
+    </Multipane> -->
   </div>
 </template>
 
 <script>
-import { Multipane, MultipaneResizer } from "vue-multipane";
+// import { Multipane, MultipaneResizer } from "vue-multipane";
 export default {
   components: {
-    MultiPane,
-    MultiPaneResizer
+    // MultiPane,
+    // MultiPaneResizer
   },
   props: {},
   data() {
