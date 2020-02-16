@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<!-- 删除lang="en" 后，页面就不会提示是否翻译此页面了 -->
+<!-- <html lang="en"> -->
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
+    <!-- 禁止用户手动缩放缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalabel=no" />
+
+    <!-- 
+      在react框架中，所有的逻辑都是在js中完成的（包括页面接口的创建），如果想给当前的页面导入一些css样式或img图片等内容，我们有两种方式：
+        1.在js中基于ES6 modules模块规范，使用import导入，这样webpack在编译合并js时，会把导入的资源文件等插入到页面的结构中（绝对不能在js管控的结构中通过相对目录./或者../，导入资源，因为在webpack编译时，地址就不在是之前的地址了）
+        2.如果不想在js中导入（js中导入的资源最后 都会基于webpack编译），我们也可以把资源手动的在html中导入，但是html最后也要基于webpack编译，导入的地址也不建议写相对地址，而是使用 "%PUBLIC_URL% 写成绝对地址
+      <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> 
+    -->
+
+    <title>React App</title>
+    <!-- 使用第2中方法导入资源 --> 
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/reset.min.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
