@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .parent,
+    .parent2 {
+      /* column-count: 4;
+      column-width: 300px; */
+      columns: 4 300px;
+
+      column-gap: 10px;
+      /* 
+      column-rule-width: 5px;
+      column-rule-color: tomato;
+      column-rule-style: double; */
+      column-rule: 5px tomato double;
+    }
+
+    .col1,
+    .col2,
+    .col3,
+    .col4,
+    .col5 {
+      height: 300px;
+    }
+
+    .col1,
+    .col6 {
+      background-color: hotpink;
+    }
+
+    .col2,
+    .col7 {
+      background-color: lightblue;
+    }
+
+    .col3,
+    .col8 {
+      background-color: green;
+    }
+
+    .col4,
+    .col9 {
+      background-color: yellow;
+    }
+
+    .col5 {
+      background-color: tomato;
+
+      column-span: all;
+    }
+
+    .col6,
+    .col7,
+    .col8,
+    .col9 {
+      column-fill: balance;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="col1"></div>
+    <div class="col2"></div>
+    <div class="col3"></div>
+    <div class="col4"></div>
+  </div>
+  <div class="parent2">
+    <div class="col5"></div>
+  </div>
+  <div class="parent">
+    <div class="col6">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe consectetur modi illum nostrum!
+      Laboriosam corporis magnam nisi non tenetur sit facilis distinctio repudiandae quidem! Numquam et nam placeat
+      similique molestias?</div>
+    <div class="col7">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo consectetur culpa fugit neque, nemo
+      adipisci itaque saepe pariatur, eveniet totam, reiciendis ab officiis iusto tenetur cumque beatae quos nihil
+      dignissimos?Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad dicta repellendus quo repellat, molestiae
+      maxime, quos optio sit placeat nostrum asperiores id in! Laborum beatae, adipisci voluptatum quos veniam cumque?
+    </div>
+    <div class="col8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus nihil sunt laborum amet
+      ducimus quia minus aliquam aut itaque voluptatum dolorum ipsum dicta, maxime quaerat hic, temporibus laboriosam
+      vitae libero?</div>
+    <div class="col9">sfsfwse</div>
+  </div>
+</body>
+
+</html>

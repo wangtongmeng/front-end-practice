@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style>
+    .parent {
+      height: 300px;
+    }
+
+    .left,
+    .center,
+    .right {
+      height: 300px;
+
+      float: left;
+    }
+
+    .left,
+    .right {
+      /* 定宽 */
+      width: 300px;
+    }
+
+    .left {
+      background-color: #c9394a;
+      /* 将当前元素从当前行，移动到上一行同一个位置 */
+      margin-left: -100%;
+    }
+
+    .center {
+      /* 为父级元素宽度的100% */
+      width: 100%;
+      background-color: green;
+    }
+
+    .right {
+      background-color: #ccc;
+
+      margin-left: -300px;
+    }
+
+    .inner {
+      height: 300px;
+      background-color: hotpink;
+
+      margin-left: 300px;
+      margin-right: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="center">
+      <div class="inner">内容</div>
+    </div>
+    <div class="left">左</div>
+    <div class="right">右</div>
+  </div>
+</body>
+
+</html>

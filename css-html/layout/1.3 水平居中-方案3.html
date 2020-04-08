@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>水平居中</title>
+  <style>
+    .parent {
+      width: 100%;
+      height: 200px;
+      background: #ccc;
+
+      position: relative;
+    }
+    .child {
+      width: 200px;
+      height: 200px;
+      background: #c9394a;
+      /* 
+        把当前元素设置为绝对定位后：
+          如果父级元素没有开启定位，当前元素时相对于页面定位的
+          如果父级元素开启了定位，当前元素相对于父级元素定位
+       */
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      /* transform: translateX(-100px); */
+
+    }
+  </style>
+</head>
+<body>
+  <div class="parent">
+    <div class="child">水平居中布局</div>
+  </div>
+</body>
+</html>

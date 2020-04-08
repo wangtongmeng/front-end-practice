@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圣杯布局</title>
+  <style>
+    .left, .center, .right {
+      height: 300px;
+    }
+
+    .left, .right {
+      /* 定宽 */
+      width: 300px;
+    }
+    .left {
+      background-color: #c9394a;
+
+      float: left;
+    }
+
+    .right {
+      background-color: green;
+
+      float: right;
+    }
+
+    .center {
+      background-color: #ccc;
+
+      margin: 0 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="left">左</div>
+  <!-- float元素提前，这样不会换行 -->
+  <div class="right">右</div>
+  <div class="center">中</div>
+
+  <!-- 缺点对搜索引擎不友好，把center放到最前面对搜索引擎最友好 -->
+  <!-- <div class="center">中</div>
+  <div class="left">左</div>
+  <div class="right">右</div> -->
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>水平居中</title>
+  <style>
+    .parent {
+      width: 100%;
+      height: 200px;
+      background: #ccc;
+      /* 
+        text-align属性：是为文本内容设置对齐方式
+          left：左对齐
+          center：居中对齐
+          riht：右对齐
+       */
+      text-align: center;
+    }
+    .child {
+      width: 200px;
+      height: 200px;
+      background: #c9394a;
+      /* 
+        display属性：
+          block：块级元素
+          inline：内联元素（text-align有效，width和height无效）
+          inline-block：行内块级元素（块级+内联）
+       */
+      display: inline-block;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="parent">
+    <div class="child">水平居中布局</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>两列布局</title>
+  <style>
+    .left, .right {
+      height: 300px;
+    }
+    .left {
+      /* 定宽 */
+      width: 300px;
+      background-color: #c9394a;
+      /* 当前元素脱离文档流 */
+      float: left;
+    }
+    .right {
+      background-color: #ccc;
+
+      margin-left: 300px;
+    }
+
+    .inner {
+      height: 300px;
+      background-color: green;
+
+      /* clear: both; */ /* 子元素使用 clear: both 会影响到float元素 */ 
+    }
+  </style>
+</head>
+<body>
+  <div class="left"></div>
+  <div class="right">
+    <div class="inner"></div>
+  </div>
+</body>
+</html>

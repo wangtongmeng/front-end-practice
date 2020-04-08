@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>垂直居中</title>
+  <style>
+    .parent {
+      width: 200px;
+      height: 600px;
+      background: #ccc;
+
+      position: relative;
+    }
+    .child {
+      width: 200px;
+      height: 200px;
+      background: #c9394a;
+
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
+</head>
+<body>
+  <div class="parent">
+    父级文本
+    <div class="child">垂直居中布局</div>
+  </div>
+</body>
+</html>
