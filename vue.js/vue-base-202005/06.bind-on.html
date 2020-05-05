@@ -1,0 +1,102 @@
+<!-- 动态绑定样式和绑定style属性 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 动态绑定样式和绑定style属性 都是可以放 对象或数组两种格式 -->
+    <!-- :是v-bind的简写形式 -->
+    <!-- <div class="red" :class="['hello', red]"></div> -->
+    <!--渲染结果 <div class="red hello hello"></div> -->
+
+    <!-- <div class="red" :class="{red:true,green:false}"></div> -->
+    <!--渲染结果 <div class="red red"></div> -->
+
+    <div :style="{color: 'red'}">xxx</div>
+    <div :style="[{color: 'red'},s]">xxx</div>
+    <!--渲染结果 <div id="app"><div style="color: red;">xxx</div> <div style="color: red; font-size: 10px;">xxx</div></div> -->
+
+    <!-- 其他指令 事件绑定也是通过指令的方式 -->
+    <!-- @是v-on的简写形式 -->
+    <!-- <div v-on::click></div>   -->
+    <!-- vue里面的事件绑定 直接绑定给当前元素 div.addEventListener（与react不同，react是通过事件委托） -->
+    <!-- <div @click="fn">点击</div> -->
+    <!-- <div @click="fn($event)">点击</div> -->
+    <!-- 事件是绑定给元素的 而且内部是原生事件 -->
+
+    <!-- 指令的修饰符 .stop(阻止冒泡) .prevent(组织默认行为) .self(只在自己身上触发，不在父身上触发) .once(只绑定一次) .passive(提高滚动事件的效率，当前没有阻止默认行为) -->
+    <!-- <a href="http://www.baidu.com">
+      <div @click.prevent="fn($event)">点击</div>
+    </a> -->
+    <!-- 可以执行事件源参数位置 -->
+    <!-- <div @click.prevent="fn(1,2,$event)">点击</div> -->
+
+    <!-- v-model 双向绑定 语法糖 -->
+    <!-- {{msg}} -->
+    <!-- <input type="text" :value="msg" @input="handleInput"> -->
+    <!-- v-model 是 <input type="text" :value="msg" @input="(e) => msg = e.target.value"> 的语法糖-->
+    <!-- <input type="text" v-model="msg"> -->
+    <!-- v-model 可以用在复选框？ 会把value变成checked 会把@input变成 @change -->
+
+    <!-- input textarea select radio checkbox -->
+    <!-- {{selected}}
+    <select v-model="selected">
+      <option value="" disabled>请选择</option>
+      <option v-for="o in opts" :key="o.value" :value="o.value">{{o.name}}</option>
+    </select> -->
+    <!-- 多选 按住ctrl键多选，不常用-->
+    <!-- {{multiSelected}}
+    <select v-model="multiSelected" multiple>
+      <option value="" disabled>请选择</option>
+      <option v-for="o in opts" :key="o.value" :value="o.value">{{o.name}}</option>
+    </select> -->
+
+    <!-- checkbox 以前是通过name分类 现在可以通过v-model来分类 -->
+    {{checked}}
+    游泳<input type="checkbox" v-model="checked">
+    洗澡<input type="checkbox" v-model="checked">
+    睡觉<input type="checkbox" v-model="checked">
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: "#app",
+      data() {  
+        return {
+          red: 'hello',
+          s: {
+            fontSize: '10px'
+          },
+          msg: 'hello',
+          opts: [{value:1,name:'a'},{value:2,name:'b'}],
+          selected: '',
+          multiSelected:[],
+          checked: ''
+        }
+      },
+      methods: {
+        // 如果调用时添加() 需要手动传入事件源
+        fn(e) { // 这里的this指向的都是当前实例 内部使用了bind方法绑定了this，如果再去绑定this是不生效的
+          console.log(this)
+          console.log(e.target, e.currentTarget) // 都是<div>点击</div>，所以不是事件委托
+        },
+        // 指定事件源位置
+        // fn(a,b,e){ // 这里的this指向的都是当前实例 内部使用了bind方法绑定了this，如果再去绑定this是不生效的
+        //   console.log(this)
+        //   console.log(e.target, e.currentTarget) // 都是<div>点击</div>，所以不是事件委托
+        // },
+        handleInput(e) {
+          this.msg = e.target.value
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

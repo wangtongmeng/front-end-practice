@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // console.log(typeof 1) // "number"
+    // console.log(typeof '1') // "string"
+    // console.log(typeof true) // "boolean"
+    // console.log(typeof undefined) // "undefined"
+    // console.log(typeof null) // "object"
+    // console.log(typeof Symbol()) // "symbol"
+
+    // console.log(typeof []) // "object"
+    // console.log(typeof {}) // "object"
+    // console.log(typeof /a/) // "object"
+    // console.log(typeof function () {}) // "function"
+  </script>
+  <script>
+    // console.log(12 instanceof Number) // false
+    // console.log(new Number(12) instanceof Number) // true
+    // console.log(/^$/ instanceof RegExp) // true
+    // console.log([] instanceof Array) // true
+    // console.log([] instanceof Object) // true
+
+    // let arr = []
+    // arr.__proto__ = Object.prototype
+    // console.log(arr instanceof Array) / false
+
+    // function Fn() {}
+    // Fn.prototype.__proto__ = Array.prototype
+    // let f = new Fn() // 原型链：f -> Fn.prototype -> Array.prototype -> Object.prototype
+  </script>
+  <script>
+    // let arr = []
+    // console.log(arr.constructor === Array) // true
+    // let n = 12
+    // console.log(n.constructor === Number) // true
+
+    // Array.prototype.constructor = null
+    // console.log(arr.constructor === Array) // false
+  </script>
+</body>
+</html>

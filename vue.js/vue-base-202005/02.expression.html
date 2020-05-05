@@ -1,0 +1,57 @@
+<!-- vue中的响应式特点 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 双花括号中可以放又返回结果的表达式，不能放js语法 -->
+
+    <!-- 当前这个表达式 最后会被编译成函数 _xxx(2) -->
+    {{1+1}}
+    <!-- 不能放js语法 因为最终会讲返回值传递给函数 -->
+    {{msg === 'hello' ? true: false}}
+    <!-- 函数返回结果 -->
+    <!-- live Serve 可以帮助启动服务 -->
+    
+
+    {{msg.b}} {{arr}}
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el:"#app",
+      data(){
+        // 1. 响应式的规则
+        // 会递归的去循环vue中的属性（浪费性能的地方）会给每个属性都增加getter和setter，当属性变化时会更新视图
+        // 重写了数组中的方法，当调用数组方法时会触发更新，也会对数组中的每一项进行监控
+
+        // 问题
+        // 对象只监控了默认自带的属性，新增属性是不生效的
+        // 数组 数组中的索引发生变化 或 数组的长度发生变化 不会触发视图更新
+        // 会监控数组中的引用类型
+        return {
+          // 对象
+          // msg: { a: 1 } 不生效
+          msg: { a: 1, b: undefined }, // 生效
+
+          // 数组
+          arr: [1,2,3,{a:1}]
+        }
+      }
+    })
+
+    // vm.arr[3].a = 100 // 对象的自带属性只要是引用类型都是可以监听到的，这里的{a:1}也是被监听的
+
+    // vm.msg.b = 100 // 如果data中提前定义来b属性，则生效
+    // vm.arr.length-- // 应该不生效，但生效了， 需要查文档
+    // vm.arr[0] = 100 // 应该不生效，但生效了， 需要查文档
+    // vm.$set(vm.arr,0,100) // 生效，内部采用的就是splice方法
+    // vm.$delete(vm.arr,0) // 生效
+    // vue2中的缺陷 vue3.0中通过proxy进行了解决
+  </script>
+</body>
+</html>

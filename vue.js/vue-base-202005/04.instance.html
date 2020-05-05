@@ -1,0 +1,47 @@
+<!-- vue中实例常见属性 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      // el:"#app",
+      template: '<div>{{msg}}</div>',
+      data() {
+        return {
+          msg: 'hello'
+        }
+      }
+    })
+    // 1. $mount()
+    // vm.$mount() // 挂载 如果不传递参数 表示手动挂载，可以挂载到页面的任何地方，以前的写法只能放到app中
+    // document.body.appendChild(vm.$el)
+    vm.$mount('#app') // 如果传参，则会将id为app的元素替换掉
+
+    // 2. $options
+    console.log(vm.$options) // 用户传入组件实例的参数的所有的选项 和 vue中的内置属性
+
+    
+    // 3. $watch
+    vm.$watch('msg', function (newValue, oldValue) {
+      console.log(newValue) // 批量更新 456，内部使用queueWatcher
+    })
+    vm.msg = 'world'
+    vm.msg = 123
+    vm.msg = 456
+
+    // vm.$data = vm._data
+    // vm.$nextick vm.$set vm.$delete vm.$options vm.$mount
+
+  </script>
+</body>
+
+</html>
