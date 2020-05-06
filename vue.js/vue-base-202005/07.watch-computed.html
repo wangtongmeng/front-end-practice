@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    全选反选 <input type="checkbox">
+    <hr>
+    <input type="checkbox" v-for="check in checks" v-model="check.check">
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: "#app",
+      data() {
+        return {
+          msg: {a:1},
+          // 对象是可以触发视图更新的，如果是这样[true]修改true，索引是不会更新的
+          checks:[{check:true},{check:true},{check:true}]
+        }
+      },
+      methods: {
+        fn(){
+          console.log('这是methods中的函数')
+        }
+      },
+      // watch的三种写法 函数 对象 字符串
+      watch: {
+        "msg.a"(newValue,oldValue){
+          console.log(newValue,oldValue) // 100 1
+        }
+        /*对象的写法*/
+        // 如果监控的属性值是对象，则没有老值
+        // 这里监控的是msg，由于msg的值是对象，所以需要深度监控，采用对象的写法
+        // msg: {
+        //   handler(newValue, oldValue) {
+        //     console.log(newValue, oldValue) // 如果是对象类型无法获取老值
+        //     console.log(newValue === oldValue) // true
+        //   },
+        //   deep: true // 如果当前属性增加了deep:true就会在内部再去对这个对象取值
+        // }
+        /*多个对象*/
+        // msg: [
+        //   {
+        //     handler(newValue, oldValue) {
+        //       console.log(newValue, oldValue)
+        //     },
+        //     deep: true
+        //   },
+        //   {
+        //     handler(newValue, oldValue) {
+        //       console.log(newValue, oldValue) // {a:100} undefined
+        //     },
+        //     immediate: true // 立即执行 
+        //   },
+        //   'fn'
+        // ]
+      }
+    })
+    setTimeout(() => {
+      vm.msg.a = 100
+    }, 1000)
+    
+  </script>
+</body>
+
+</html>

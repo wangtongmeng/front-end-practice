@@ -59,10 +59,14 @@
 
     <!-- checkbox 以前是通过name分类 现在可以通过v-model来分类 -->
     {{checked}}
-    游泳<input type="checkbox" v-model="checked">
-    洗澡<input type="checkbox" v-model="checked">
-    睡觉<input type="checkbox" v-model="checked">
-  </div>
+    游泳<input type="checkbox" v-model="checked" value="游泳">
+    洗澡<input type="checkbox" v-model="checked" value="洗澡">
+    睡觉<input type="checkbox" v-model="checked" value="睡觉">
+    <!-- radio原理一样 textarea -->
+    {{msg}} 
+    <!-- lazy表示懒更新 .number 只能输入数字 .trim-->
+    <input v-model.lazy="msg">
+  </div> 
   <script src="./node_modules/vue/dist/vue.js"></script>
   <script>
     let vm = new Vue({
@@ -77,7 +81,7 @@
           opts: [{value:1,name:'a'},{value:2,name:'b'}],
           selected: '',
           multiSelected:[],
-          checked: ''
+          checked: []
         }
       },
       methods: {
