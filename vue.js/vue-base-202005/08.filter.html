@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    {{timer | format('YYYY:MM:DD')}}
+
+    {{timer | format('YYYY:MM:DD hh:mm:ss')}}
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script src="./node_modules/moment/moment.js"></script>
+  <script>
+    // 过滤器就是将原数据进行格式化显示，而不改变原数据
+    // filter也可通过方法或计算属性来代替
+    // 做一些时间格式化 加一些货币符号
+
+    // 全局过滤器 局部过滤器
+
+    // 全局过滤器 多个vue实例都可以用
+    Vue.filter('format', function (timer, formatter) {
+      // filter 没有this
+      return moment(timer).format(formatter)
+    })
+    let vm = new Vue({
+      el:"#app",
+      // filter 局部过滤器
+      data(){
+        return {timer: 1231231231231}
+      }
+    })
+  </script>
+</body>
+</html>

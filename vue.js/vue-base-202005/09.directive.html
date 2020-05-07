@@ -1,0 +1,42 @@
+<!-- 指令 -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+      <!-- 日历组件 点击输入框 可以显示下面的面板 -->
+			<!-- <input type="text"  @focus="show" @blur="hide"/> 不能用blur离开输入框就失去焦点了，没法选中 -->
+			<div v-click-outside="hide">
+        <input type="text"  @focus="show" @blur="hide"/>
+        <div v-if="isShow">
+          显示面板
+          时间
+        </div>
+      </div>
+		</div>
+		<script src="./node_modules/vue/dist/vue.js"></script>
+		<script>
+			let vm = new Vue({
+				el: '#app',
+				data() {
+          return { 
+            msg: 'hello',
+            isShow: false
+          };
+        },
+        methods: {
+          show() {
+            this.isShow = true
+          },
+          hide() {
+            this.isShow = false
+          }
+        }
+			});
+		</script>
+	</body>
+</html>
