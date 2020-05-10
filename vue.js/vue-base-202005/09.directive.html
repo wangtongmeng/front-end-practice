@@ -8,34 +8,88 @@
 	</head>
 	<body>
 		<div id="app">
-      <!-- 日历组件 点击输入框 可以显示下面的面板 -->
+			<!-- 日历组件 点击输入框 可以显示下面的面板 -->
 			<!-- <input type="text"  @focus="show" @blur="hide"/> 不能用blur离开输入框就失去焦点了，没法选中 -->
 			<div v-click-outside="hide">
-        <input type="text"  @focus="show" @blur="hide"/>
-        <div v-if="isShow">
-          显示面板
-          时间
-        </div>
-      </div>
+				<input type="text" @focus="show" />
+				<div v-if="isShow">
+					显示面板 时间
+				</div>
+			</div>
+			<!-- 自动获取焦点，原生的可以。vue中不行，先会把模板编译，之后在插入到页面中，插入完成后,focus已经完成了,再插入就失效了 -->
+			<!-- <input type="text" autofocus="true"> -->
+			<input type="text" v-focus />
 		</div>
 		<script src="./node_modules/vue/dist/vue.js"></script>
 		<script>
+			// 全局指令 局部指令
+			// Vue.directives()
 			let vm = new Vue({
 				el: '#app',
+				// 局部指令
+				directives: {
+					// 名字，v-省略，可使用中划线或驼峰的形式
+					// el 使用指令的元素 bindings绑定的数据，vnode当前的虚拟节点
+					// clickOutside(el, bindings, vnode){
+					//   // this 是window
+					//   // console.log(this, el, bindings, vnode.context) //  vnode.context 当前的上下文，也就是实例，利用它来和当前组件通信
+					//   // 指令有生命周期 钩子函数
+					//   // bind 当指令绑定上的时候 会执行一次
+					//   // inserted 插入的时候
+					//   // update 当引入的数据变化时会执行一个钩子
+					//   // componentUpdate
+					//   // unbind
+					//   // 默认写成一个函数的话 bind + update
+					//   document.addEventListener('click', function (e) {
+					//     if (!el.contains(e.target)) {
+					//       let method = bindings.expression
+					//       // vm.hide()
+					//       vnode.context[method]()
+					//     }
+					//   })
+					// }
+					clickOutside: {
+						bind(el, bindings, vnode) {
+							el.handler = function (e) {
+								if (!el.contains(e.target)) {
+									let method = bindings.expression;
+									// vm.hide()
+									vnode.context[method]();
+								}
+							};
+							// 添加操作
+							document.addEventListener('click', el.handler);
+						},
+						unbind(el) {
+							// 卸载指令
+							document.removeEventListener('click', el.handler);
+						},
+					},
+					focus: {
+						// inserted(el, bindings, vnode) {
+						// 	el.focus();
+						// },
+						bind(el, bindings, vnode) {
+							Vue.nextTick(() => {
+								el.focus();
+							});
+						},
+					},
+				},
 				data() {
-          return { 
-            msg: 'hello',
-            isShow: false
-          };
-        },
-        methods: {
-          show() {
-            this.isShow = true
-          },
-          hide() {
-            this.isShow = false
-          }
-        }
+					return {
+						msg: 'hello',
+						isShow: false,
+					};
+				},
+				methods: {
+					show() {
+						this.isShow = true;
+					},
+					hide() {
+						this.isShow = false;
+					},
+				},
 			});
 		</script>
 	</body>

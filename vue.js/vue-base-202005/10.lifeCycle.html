@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    // vue的初始化过程中 会让用户传入很多函数，会在不同的时间点被调用
+    // new Vue()
+    // 初始化事件&声明周期:事件指的是 $on $off $emit 这些，并不是methods等。声明周期指的是组件的爸爸儿子是谁
+    // beforeCreate
+    // 初始化注入&校验：对数据进行响应式处理，初始化props watch等
+    // created
+    // ...
+    // render函数
+    // beforeMount
+    // 创建 vm.$el并用其替换"el"
+    // mounted
+    // beforeUpdate
+    // 虚拟DOM重新渲染并应用更新：diff操作
+    // updated
+    // 当调用vm.$destroyed函数时：移除所有的监听器watcher 属性 事件的解绑
+    // beforeDestroy
+    // 接触绑定 销毁子组件及事件监听器
+    // destroyed
+
+    // 声明周期中都会有this 指向的是当前实例
+    // 声明周期是同步执行的
+    let vm = new Vue({
+      el:"#app",
+      beforeCreate() { // 创建前
+        // 初始化之前 没有进行数据观测 只是调用了初始化父子关系 及 内部的事件
+        // 一般情况下会混入公共逻辑 vue.mixin
+        console.log('before create', this)
+        // debugger
+      },
+      created() { // 没有真实的挂载元素 只是初始化数据 无法获取到dom元素的
+        console.log('created')
+      },
+      // render执行之前，会调用beforeMount
+      beforeMount() { // 在第一次调用render之前执行
+        console.log('before mount')
+      },
+      // template: '<div>hello</div>', // template会变成render方法
+      render(){
+        console.log('render')
+      },
+      mounted() { // 创建出真实的dom 替换掉老的节点 vm.$el 替换掉el
+        // vm.$el 渲染的真实dom
+        console.log('挂载完成')
+      },
+      // beforeUpdate和updated用的不多 更新前和更新后的事情可以放在watch中去做
+      beforeUpdate() { // 可以做一些合并更新的操作
+        console.log('更新前')
+      },
+      updated(){ // 不用再更新数据了，会造成死循环
+        console.log('更新后')
+      },
+      // 手动调用vm.$destroy()或路由组件切换时会调用
+      beforeDestroy() { // 做自定义事件的解绑 $off 可以取消dom的事件绑定 定时器的清理
+        console.log('销毁前')
+      },
+      destroyed() { // 基本用不到
+        console.log('销毁完成')
+      },
+      data(){
+        return {msg: 'hello'}
+      }
+    })
+    vm.$destroy() // 手动销毁 只是移除监听
+  </script>
+</body>
+</html>
