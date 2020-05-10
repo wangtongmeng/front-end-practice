@@ -30,11 +30,21 @@
 
     // 声明周期中都会有this 指向的是当前实例
     // 声明周期是同步执行的
+    Vue.mixin({ // 全局方法 globalApi里面有
+      beforeCreate() {
+        console.log('初始化前的公共逻辑')
+      },
+    })
+    // 导致这个方法来源不知道怎么来的 这是个问题 Vue3.0 compositionApi 来解决这个问题
+    // 面试题 ajax应该在哪里发请求(异步请求一定是在mounted之后会执行)：可以在created beforeMount mounted，如果希望发完请求操作dom，只能在mounted中
+    // 如果开发的是前端vue项目 可以统一放在mounted中 便于维护
+    // 服务端渲染的vue 不支持 mounted 在服务器中没有dom概念
     let vm = new Vue({
       el:"#app",
+      // [mixin的beforeCreate,组件的beforeCreate] 调用生命周期钩子是依次执行
       beforeCreate() { // 创建前
         // 初始化之前 没有进行数据观测 只是调用了初始化父子关系 及 内部的事件
-        // 一般情况下会混入公共逻辑 vue.mixin
+        // 一般情况下会混入公共逻辑 vue.mixin 写插件会用到
         console.log('before create', this)
         // debugger
       },
