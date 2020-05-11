@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .cart {
+        background: red;
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+	</head>
+	<body>
+		<div id="app">
+      <!-- (0:div, 1:div, 2:div) this.$refs -->
+      <div v-for="(p, index) in products" ref="lists">
+        <img :src="p" alt="">
+        <button @click="addCart(index)">添加购物车</button>
+      </div>
+      <transition>
+        <div class="animate" v-if="isShow"></div>
+      </transition>
+      <div class="cart"></div>
+    </div>
+		<script src="./node_modules/vue/dist/vue.js"></script>
+		<script>
+			let vm = new Vue({
+				el: '#app',
+				data() {
+					return {
+            isShow: false, // 默认控制动画的属性
+            currentIndex: -1, // 我当前点击的是谁
+						products: [
+							'https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2213244297,14939061&fm=26&gp=0.jpg',
+							'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=113479199,67743898&fm=26&gp=0.jpg',
+						],
+					};
+        },
+        methods: {
+          addCart(index){
+             
+          }
+        }
+			});
+		</script>
+	</body>
+</html>

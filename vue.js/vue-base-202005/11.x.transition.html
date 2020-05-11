@@ -9,38 +9,22 @@
       background: red;
       width: 100px;
       height: 100px;
-    }
-    /* 定义颜色初始化时的状态 进入的一瞬间 */
-    /* .v-enter {
-      background: blue;
-    } */ /*默认v-开头*/
-    .fade-enter {
-      background: blue;
-    }
-    .fade-enter-active {
-      transition: all 2s linear;
-    }
-    .fade-enter-to {
-      background: yellow;
-    }
-    /* 当动画结束后 会去掉所有样式 */
-    .fade-leave { /* 只是为了美感而生 */
-      background: purple;
-    }
-    .fade-leave-active {
-      transition: all 2s linear;
-    }
-    .fade-leave-to {
-      background: blue;
-    }
-    /* 消失 */
+    } 
   </style>
 </head>
 <body>
   <div id="app">
     <!-- vue中的动画 (当dom 显示或隐藏时 vue可以管理动画) v-for v-if v-show-->
     <button @click="change">点我</button>
-    <transition name="fade">
+    <transition
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+    >
+    <!-- 一般情况下，使用js动画，只会用到enter部分
+    @before-leave=""
+      @leave=""
+      @after-leave="" -->
       <div class="box" v-show="isShow"></div>
     </transition>
   </div>
@@ -56,7 +40,20 @@
       methods: {
         change(){
           this.isShow = !this.isShow
-        }
+        },
+        beforeEnter(el){
+          el.style.background = 'yellow'
+        },
+        enter(el, done){
+          el.style.background = 'blue'
+          setTimeout(() => {
+            done()
+          }, 1000)
+        },
+        afterEnter(el){
+          el.style.background = 'pink'
+        },
+        
       }
     })
   </script>
