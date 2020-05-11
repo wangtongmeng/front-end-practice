@@ -30,11 +30,19 @@
 
     // 声明周期中都会有this 指向的是当前实例
     // 声明周期是同步执行的
-    Vue.mixin({ // 全局方法 globalApi里面有
+    Vue.mixin({ // 全局方法 globalApi里面有 应用场景：抽离公共方法 + 编写插件，例如vuex、vue-router
       beforeCreate() {
         console.log('初始化前的公共逻辑')
       },
+      methods: {},
+      data(){
+        return {aa: 'world'}
+      },
+      mounted() {
+        console.log('混合的')
+      }
     })
+    // 子组件在初始化时会将mixin和对象合并，每个组件都会调用_init()方法，在这个方法里进行合并
     // 导致这个方法来源不知道怎么来的 这是个问题 Vue3.0 compositionApi 来解决这个问题
     // 面试题 ajax应该在哪里发请求(异步请求一定是在mounted之后会执行)：可以在created beforeMount mounted，如果希望发完请求操作dom，只能在mounted中
     // 如果开发的是前端vue项目 可以统一放在mounted中 便于维护
@@ -56,8 +64,9 @@
         console.log('before mount')
       },
       // template: '<div>hello</div>', // template会变成render方法
-      render(){
+      render(h){
         console.log('render')
+        return h('div', this.msg + this.aa)
       },
       mounted() { // 创建出真实的dom 替换掉老的节点 vm.$el 替换掉el
         // vm.$el 渲染的真实dom
@@ -82,6 +91,10 @@
       }
     })
     vm.$destroy() // 手动销毁 只是移除监听
+    // 父子组件声明周期执行顺序
+    // 1.父组件先进行 beforeCreate created beforeMount  父组件的render
+    // 2.渲染子组件 beforeCreate created BeforeMount mounted
+    // 3.父组件的mounted
   </script>
 </body>
 </html>

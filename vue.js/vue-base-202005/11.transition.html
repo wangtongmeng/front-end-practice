@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      background: red;
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- vue中的动画 (当dom 显示或隐藏时 vue可以管理动画) v-for v-if v-show-->
+    <button @click="change">点我</button>
+    <div class="box" v-show="isShow"></div>
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el:"#app",
+      data(){
+        return {
+          isShow: true
+        }
+      },
+      methods: {
+        change(){
+          this.isShow = !this.isShow
+        }
+      }
+    })
+  </script>
+</body>
+</html>
