@@ -1,49 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      .cart {
-        background: red;
-        width: 50px;
-        height: 50px;
-      }
-    </style>
-	</head>
-	<body>
-		<div id="app">
-      <!-- (0:div, 1:div, 2:div) this.$refs -->
-      <div v-for="(p, index) in products" ref="lists">
-        <img :src="p" alt="">
-        <button @click="addCart(index)">添加购物车</button>
-      </div>
-      <transition>
-        <div class="animate" v-if="isShow"></div>
-      </transition>
-      <div class="cart"></div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    img {
+      width: 200px;
+      height: 150px;
+    }
+
+    .cart {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background: red;
+      width: 50px;
+      height: 50px;
+    }
+
+    .animate {
+      position: absolute;
+      width: 200px;
+      height: 150px;
+      transition: 1s linear;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- (0:div, 1:div, 2:div) this.$refs -->
+    <div v-for="(p, index) in products" ref="lists">
+      <img :src="p" alt="">
+      <button @click="addCart(index)">添加购物车</button>
     </div>
-		<script src="./node_modules/vue/dist/vue.js"></script>
-		<script>
-			let vm = new Vue({
-				el: '#app',
-				data() {
-					return {
-            isShow: false, // 默认控制动画的属性
-            currentIndex: -1, // 我当前点击的是谁
-						products: [
-							'https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2213244297,14939061&fm=26&gp=0.jpg',
-							'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=113479199,67743898&fm=26&gp=0.jpg',
-						],
-					};
+    <transition @enter="enter" @after-enter="aferEnter">
+      <div class="animate" v-if="isShow"></div>
+    </transition>
+    <div class="cart" ref="cart"></div>
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          isShow: false, // 默认控制动画的属性
+          currentIndex: -1, // 我当前点击的是谁
+          products: [
+            'https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2213244297,14939061&fm=26&gp=0.jpg',
+            'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=113479199,67743898&fm=26&gp=0.jpg',
+          ],
+        };
+      },
+      methods: {
+        enter(el, done) { // 让当前这个div 获取当前点击的是哪一个
+          let div = this.$refs.lists[this.currentIndex]
+          // console.log(div)
+          // 将刚才需要创建的定位元素定位过去
+          // 获取元素距离页面的位置
+          let {x,y} = div.getBoundingClientRect()
+          // console.log(x,y)
+          el.style.left = x + 'px'
+          el.style.top = y + 'px'
+          el.style.background = `url(${this.products[this.currentIndex]})`
+          el.style.backgroundSize = "100% 100%"
+          // done()
+
+          let {x:cartX,y:cartY} = this.$refs.cart.getBoundingClientRect() // 如果是一个元素，则取到的是当前dom元素；如果是v-for就是一个对象
+          el.style.transform = `translate3d(${cartX - x}px,${cartY - y}px,0) scale(0,0)` // scale 缩放
+          el.addEventListener('transitionend', done)
         },
-        methods: {
-          addCart(index){
-             
-          }
+        aferEnter(el){
+          this.isShow = false
+        },
+        addCart(index) {
+          this.isShow = true // 切换显示效果
+          this.currentIndex = index
         }
-			});
-		</script>
-	</body>
+      }
+    });
+  </script>
+</body>
+
 </html>
