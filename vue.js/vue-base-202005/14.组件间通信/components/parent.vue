@@ -7,6 +7,7 @@
 <script>
 import Son1 from './son1'
 export default {
+  name: 'parent',
   components: {
     Son1
   },
