@@ -8,3 +8,6 @@ npm install @vue/cli -g
 ```bash
 npm install @vue/cli-service-global -g
 ```
+## 传递方法
+- props + emit / 同步数据 v-model/.sync
+- provide、inject 但是会造成单向数据流混乱 自己实现工具库的话 需要采用这个方式
