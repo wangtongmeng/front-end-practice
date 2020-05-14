@@ -25,7 +25,7 @@
 
     <!-- 1.如果父子组件 想同步数据 可以使用 传递属性+自定义事件的方式(语法糖 v-model/.sync) -->
     <!-- 2.将父组件的方法直接传递给子组件调用 -->
-    <Son2></Son2>
+    <Son2 @eat="eat"></Son2>
   </div>
 </template>
 <script>
@@ -53,7 +53,11 @@ export default {
       // methods中的函数 已经被bind过了 不能再更改了
       console.log(this.$options.name); // parent，this指向parent组件
       this.mny += value;
-    }
+    },
+    // $parent $children
+    eat(){
+      console.log('parent 中的 eat方法')
+    },
   }
 };
 // 数据传递的关系 父子传递 子父传递 平级传递 跨级传递

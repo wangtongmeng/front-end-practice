@@ -1,7 +1,9 @@
 <template>
   <div>
     <!-- <Parent></Parent> -->
-    <my-parent></my-parent>
+
+    <!-- $parent $children -->
+    <my-parent @eat="eat"></my-parent>
   </div>
 </template>
 
@@ -18,9 +20,18 @@ import Parent from './components/parent'
       // 'myParent': Parent // 驼峰的，template中可以用驼峰的myParent，也可以用中划线的my-parent
       'my-parent': Parent
     },
+    methods: {
+      // $parent $children
+    // eat(){
+    //   console.log('app 中的 eat方法')
+    // },
+    // $dispatch
+    eat(value){
+      console.log('app 中的eat方法', value)
+    }
+    }
   }
 </script>
 
 <style scoped>
-
 </style>
