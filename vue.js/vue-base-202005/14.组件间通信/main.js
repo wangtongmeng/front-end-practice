@@ -7,18 +7,33 @@ console.log(App) // 运行时，打印出来的对象，template已经被编译�
 
 // 向上派发事件 只要组件上绑定过此事件就会触发
 Vue.prototype.$dispatch = function (eventName, componentName, value) {
-   let parent = this.$parent
-   while (parent) {
-     // 触发指定组件的事件 而不是全部向上找
-     if(parent.$options.name === componentName) {
-       parent.$emit(eventName, value) // 没有绑定触发 不会有任何影响
-       break
-     }
-     parent = parent.$parent
-   }
+  let parent = this.$parent
+  while (parent) {
+    // 触发指定组件的事件 而不是全部向上找
+    if (parent.$options.name === componentName) {
+      parent.$emit(eventName, value) // 没有绑定触发 不会有任何影响
+      break
+    }
+    parent = parent.$parent
+  }
 }
 Vue.prototype.$broadcast = function (eventName, componentName, value) {
-  
+  // 需要找到所有儿子组件进行触发
+  let children = this.$children // 获取的是数组
+  function broadcast(children) {
+    for (let i = 0; i < children.length; i++) {
+      let child = children[i]
+      if (componentName === child.$options.name) { // 找到了同名组件
+        child.$emit(eventName, value)
+        return
+      } else {
+        if(child.$children){
+          broadcast(child.$children)
+        }
+      }
+    }
+  }
+  broadcast(children)
 }
 
 new Vue({
@@ -26,7 +41,7 @@ new Vue({
   // render(h){
   //   return h(App)
   // }
-  render: h=>h(App) // 官方用法
+  render: h => h(App) // 官方用法
   // ...App // 因为App组件中也有render方法
 })
 
