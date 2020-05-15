@@ -6,12 +6,19 @@ console.log(App) // 运行时，打印出来的对象，template已经被编译�
 // 默认使用的是 runtime-only，所以这里不能使用template
 
 // 向上派发事件 只要组件上绑定过此事件就会触发
-Vue.prototype.$dispatch = function (eventName, value) {
+Vue.prototype.$dispatch = function (eventName, componentName, value) {
    let parent = this.$parent
    while (parent) {
-     parent.$emit(eventName, value) // 没有绑定触发 不会有任何影响
+     // 触发指定组件的事件 而不是全部向上找
+     if(parent.$options.name === componentName) {
+       parent.$emit(eventName, value) // 没有绑定触发 不会有任何影响
+       break
+     }
      parent = parent.$parent
    }
+}
+Vue.prototype.$broadcast = function (eventName, componentName, value) {
+  
 }
 
 new Vue({

@@ -3,7 +3,9 @@
     <!-- <Parent></Parent> -->
 
     <!-- $parent $children -->
+    <!-- parent.$on('eat) parent.$emit('eat') 自己绑的自己触发 -->
     <my-parent @eat="eat"></my-parent>
+    <button @click="$broadcast('drink','grandson','xxx')">触发grandson中的drink方法</button>
   </div>
 </template>
 
@@ -27,7 +29,7 @@ import Parent from './components/parent'
     // },
     // $dispatch
     eat(value){
-      console.log('app 中的eat方法', value)
+      console.log('parent绑定的eat方法', value)
     }
     }
   }

@@ -56,7 +56,7 @@ export default {
     },
     // $parent $children
     eat(){
-      console.log('parent 中的 eat方法')
+      console.log('son2绑定的eat方法')
     },
   }
 };

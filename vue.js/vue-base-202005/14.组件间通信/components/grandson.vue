@@ -5,7 +5,8 @@
     <!-- $parent $children -->
     <button @click="$parent.$emit('eat')">触发son2的事件</button>
     <button @click="$parent.$parent.$emit('eat')">触发parent的事件</button>
-    <button @click="$dispatch('eat', '饭')">通过$dispatch 触发parent的事件</button>
+    <!-- <button @click="$dispatch('eat', '饭')">通过$dispatch 触发parent的事件</button> -->
+    <button @click="$dispatch('eat', 'son2', '饭')">通过$dispatch 触发son2的事件</button>
 
   </div>
 </template>
@@ -14,6 +15,7 @@
 // $children指代的子组件
 // element-ui 内部的机制 就是触发事件时只要父亲绑定过这个方法就触发
 export default {
+  name: 'grandson',
   inject: ['parent']
 }
 </script>
