@@ -17,6 +17,7 @@ Vue.prototype.$dispatch = function (eventName, componentName, value) {
     parent = parent.$parent
   }
 }
+// 向下通知某个组件 进行触发事件
 Vue.prototype.$broadcast = function (eventName, componentName, value) {
   // 需要找到所有儿子组件进行触发
   let children = this.$children // 获取的是数组
