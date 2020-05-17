@@ -16,3 +16,7 @@ npm install @vue/cli-service-global -g
 - $attrs $listeners 表示的是所有的属性和方法的集合 可以使用v-bind 或者 v-on传递
 - ref evnetBus slot插槽的用法
 - 表单组件 异步组件和菜单组件 弹框组件 render函数的使用 vue-lazyload组件
+
+兄弟组件通信
+如果是兄弟组件间获取数据 找到兄弟的共同父亲来通信
+eventBus 事件车 发布订阅模式 在任何组件中订阅，在其他组件中触发事件
