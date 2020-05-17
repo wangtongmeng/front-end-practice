@@ -9,7 +9,10 @@
 import myDialog from './components/my-dialog'
 export default {
   components: {
-    myDialog
+    myDialog,
+  },
+  mounted () {
+    this.$bus.$emit('监听事件','hello')
   },
   methods: {
     change() {
