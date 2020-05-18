@@ -1,6 +1,16 @@
 <template>
   <div>
-    <myDialog ref="dialog"></myDialog>
+    <myDialog ref="dialog">
+      <!-- 普通插槽 -->
+      <!-- hello world -->
+
+      <!-- 具名插槽 -->
+      <!-- 内部原理 {header:div,footer:div} -->
+      <!-- 新版本写法 不能放在div上 -->
+      <template v-slot:header>header</template>
+      <!-- 老版本的写法 slot="" -->
+      <div slot="footer">footer</div>
+    </myDialog>
     <button @click="change">点我</button>
   </div>
 </template>
@@ -13,6 +23,9 @@ export default {
   },
   mounted () {
     this.$bus.$emit('监听事件','hello')
+    this.$bus.$on('父', function () {
+      console.log('被触发')
+    })
   },
   methods: {
     change() {
