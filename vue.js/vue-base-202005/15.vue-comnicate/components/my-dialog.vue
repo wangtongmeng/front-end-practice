@@ -7,7 +7,8 @@
     <!-- 具名插槽 -->
     <!-- 内部原理 {header:div,footer:div} 渲染的时候会根据name找到要渲染的dom -->
     <div><slot name="header"></slot></div>
-    <div><slot name="footer"></slot></div>
+    这是一个弹框
+    <div><slot name="footer" :isShow="isShow" a="a" b="b"></slot></div>
   </div>
 </template>
  

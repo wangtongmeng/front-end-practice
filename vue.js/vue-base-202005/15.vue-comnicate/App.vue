@@ -7,9 +7,17 @@
       <!-- 具名插槽 -->
       <!-- 内部原理 {header:div,footer:div} -->
       <!-- 新版本写法 不能放在div上 -->
-      <template v-slot:header>header</template>
+      <!-- 插槽的数据默认使用的是当前组件的父级数据 -->
+      <!-- <template v-slot:header>{{msg}}</template> -->
+      <!-- 简写 -->
+      <template #:header>{{msg}}</template>
+      <!-- 作用域插槽 希望用当前组件的数据 只能采用作用域插槽将数据传递出来-->
+      <!-- <template v-slot:footer="{a,b,isShow}">footer {{a}} {{b}} {{isShow}}</template> -->
       <!-- 老版本的写法 slot="" -->
-      <div slot="footer">footer</div>
+      <!-- <div slot="header">header</div>
+      <div slot="footer">footer</div> -->
+      <!-- <template slot="footer" slot-scope="{a}">{{a}}</template> -->
+      <div slot="footer" slot-scope="{a}">{{a}}</div>
     </myDialog>
     <button @click="change">点我</button>
   </div>
@@ -20,6 +28,11 @@ import myDialog from './components/my-dialog'
 export default {
   components: {
     myDialog,
+  },
+  data() {
+    return {
+      msg: 'hello'
+    }
   },
   mounted () {
     this.$bus.$emit('监听事件','hello')
