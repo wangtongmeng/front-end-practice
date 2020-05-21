@@ -35,8 +35,11 @@ export default {
         password: ''
       },
       rules: {
-        username: [{ required: true, message: '请输入活动名称' }],
-        password: [{ required: true, message: '请选择活动区域' }]
+        username: [
+          { required: true, message: '请输入用户名' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符' }
+        ],
+        password: [{ required: true, message: '请输入密码' }]
       }
     }
   },

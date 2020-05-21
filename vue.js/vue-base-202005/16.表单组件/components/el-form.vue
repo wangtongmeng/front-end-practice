@@ -8,6 +8,11 @@
 export default {
   // 可以默认和当前组件标签一致
   name: 'el-form',
+  provide(){
+    return {
+      elForm: this
+    }
+  },
   props: {
     model: {
       type: Object,
@@ -17,7 +22,23 @@ export default {
   },
   methods: {
     validate () {
-      
+      // 看一下 所有的form-item 是否符合规范
+      // 调用一下所有的form-item validate方法 看是否通过就可以了
+      let children = this.$children
+      let arr = []
+      function findFormItem(children) {
+        children.forEach(child => {
+          if(child.$options.name === 'el-form-item'){
+            arr.push(child)
+          }
+          if(child.$children){
+            findFormItem(child.$children)
+          }
+        })
+        
+      }
+      findFormItem(children)
+      console.log(arr)
     }
   }
 }
