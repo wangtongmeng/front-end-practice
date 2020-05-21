@@ -48,7 +48,7 @@ export default {
       this.$refs['ruleForm'].validate(valid => {
         if (valid) {
           alert('submit!')
-        } else {
+        } else { 
           console.log('error submit!!')
           return false
         }

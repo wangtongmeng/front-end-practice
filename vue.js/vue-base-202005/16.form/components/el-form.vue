@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form @submit.prevent>
       <slot></slot>
     </form>
 </template>
@@ -21,7 +21,7 @@ export default {
     rules: Object
   },
   methods: {
-    validate () {
+    async validate (cb) {
       // 看一下 所有的form-item 是否符合规范
       // 调用一下所有的form-item validate方法 看是否通过就可以了
       let children = this.$children
@@ -38,7 +38,12 @@ export default {
         
       }
       findFormItem(children)
-      console.log(arr)
+      try {
+        await Promise.all(arr.map(child=>child.validate()))
+        cb(true)
+      } catch (e) {
+        cb(false)
+      }
     }
   }
 }
