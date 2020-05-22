@@ -26,7 +26,16 @@
 </template>
 
 <script>
-export default {}
+import elMenu from './components/el-menu'
+import elMenuItem from './components/el-menu-item'
+import elSubmenu from './components/el-submenu'
+export default {
+  components: {
+    'el-menu': elMenu,
+    'el-menu-item': elMenuItem,
+    'el-submenu': elSubmenu
+  }
+}
 </script>
 
 <style lang="scss" scoped>

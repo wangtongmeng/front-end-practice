@@ -1,7 +1,10 @@
 <template>
-  <div>
-
-  </div>
+  <li>
+    <div><slot name="title"></slot></div>
+    <ul>
+      <slot name="default"></slot>
+    </ul>
+  </li>
 </template>
 
 <script>
