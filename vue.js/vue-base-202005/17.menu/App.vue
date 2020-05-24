@@ -1,39 +1,44 @@
 <template>
   <div>
-    <el-menu>
-      <el-menu-item>根1</el-menu-item>
-      <el-submenu>
-        <template slot="title">根2</template>
-        <el-menu-item index="2-1">根2-1</el-menu-item>
-        <el-menu-item index="2-1">根2-2</el-menu-item>
-      </el-submenu>
-      <el-menu-item>根3</el-menu-item>
-      <el-menu-item>根4</el-menu-item>
-    </el-menu>
-    <!-- <ul>
-      <li>根1</li>
-      <li>
-        <div>根2</div>
-        <ul>
-          <li>根2-1</li>
-          <li>根2-2</li>
-        </ul>
-      </li>
-      <li>根3</li>
-      <li>根4</li>
-    </ul> -->
+    <my-menu :data="data"></my-menu>
   </div>
 </template>
 
 <script>
-import elMenu from './components/el-menu'
-import elMenuItem from './components/el-menu-item'
-import elSubmenu from './components/el-submenu'
+import myMenu from './my-menu'
 export default {
   components: {
-    'el-menu': elMenu,
-    'el-menu-item': elMenuItem,
-    'el-submenu': elSubmenu
+    'my-menu': myMenu
+  },
+  data() {
+    return {
+      data: [
+        { title: '根 1', id: 1 },
+        {
+          title: '根 2',
+          id: 2,
+          children: [
+            {
+              title: '根 2-1',
+              id: 21,
+              children: [
+                { title: '根2-1-1', id: 211 },
+                { title: '根2-1-2', id: 212 }
+              ]
+            }
+          ]
+        },
+        { title: '根 3', id: 3 },
+        {
+          title: '根 4',
+          id: 4,
+          children: [
+            { title: '根 4-1', id: 41 },
+            { title: '根 4-2', id: 42 }
+          ]
+        }
+      ]
+    }
   }
 }
 </script>
