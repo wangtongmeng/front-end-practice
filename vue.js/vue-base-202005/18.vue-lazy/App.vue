@@ -2,7 +2,7 @@
   <div class="box">
     <li v-for="img in imgs" :key="img">
       <!-- <img :src="img" alt="" class="img"> -->
-      <img class="img" v-lazy="img">
+      <!-- <img class="img" v-lazy="img"> -->
     </li>
   </div>
 </template>
@@ -49,7 +49,7 @@ export default {
   width: 400px;
 }
 .img {
-  width: 400px;
+  width: 400px; 
   height: 400px;
 }
 </style>
