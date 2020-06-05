@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			/*
+			 * 基本数据类型（值类型）
+			 *  number string boolean null undefined
+			 * 引用数据类型
+			 *  object: {} [] /^$/ new Date() Math  ...
+			 *  function
+			 * ES6中新增
+			 *  Symbol 唯一值
+			 */
+
+			// => Number
+			// typeof 检测数据类型
+			// 把其他数据类型转化为Number类型时，不能转换就是NaN
+			// console.log(typeof NaN) // "number" 不是一个有效数字，但属于number数字类型
+			// NaN==NaN也是
+			// console.log(isNaN(0)) // false
+			// console.log(isNaN('A')) // true
+			// console.log(isNaN('10')) // false
+
+			// console.log(isNaN('12px')) // true
+			// console.log(Number('12px')) // NaN
+
+			// => Object
+			// 对象的属性名一定不能是引用类型值，默认会把引用类型值转换为字符串进行处理
+			// let a = {
+			//   x: 100
+			// }
+			// let b = function fn() {}
+			// let obj = {
+			//   0: 100,
+			//   true: 'xxx'
+			// }
+			// obj[a] = 1000
+			// obj[b] = 2000
+			// console.log(obj)
+			// 0: 100
+			// [object Object]: 1000
+			// function fn() {}: 2000
+			// true: "xxx"
+			// 引用类型作为对象的属性名一定是字符串
+
+			// console.log(obj[0], obj['1']) // 100
+			// console.log(obj[true], obj['true']) // xxx
+
+			// 面试题，考察点：对象属性名不能是引用类型
+			// let a = {
+			//   x: 100
+			// }
+			// let b = {
+			//   y: 100
+			// }
+			// let obj = {}
+			// obj[a] = 'hello' // obj["[object Object]"]="hello"
+			// obj[b] = 'world' // obj["[object Object]"]="world"
+			// console.log(obj[a] === obj[b]) // true
+			// console.log(obj) // {[object Object]: "world"} 对象的属性名都通过Object.prototype.toString()转换成字符串了"[object Object]"
+
+			// 数组是特殊的对象
+
+			// example 1
+			// let a = {},
+			//     b = '0',
+			//     c = 0
+			// a[b] = 'hello'
+			// a[c] = 'world'
+			// console.log(a[b]) // 'world'
+      // example 2
+      // Symbol 不会变成字符串
+			// let a = {},
+			//     b = Symbol('1'),
+			//     c = Symbol('1')
+			// a[b] = 'hello'
+			// a[c] = 'world'
+			// console.log(a[b]) // 'hello'
+			// example 3
+			let a = {},
+				b = {
+					n: '1',
+				},
+				c = {
+					m: '2',
+				};
+			a[b] = 'hello';
+			a[c] = 'world';
+      console.log(a[b]); // 'world'
+      
+      // 数组、对象中常用方法
+      // 查看对象中的方法，结合mdn
+      // Object.prototype
+      // dir(Object)
+      // 查看数组中的方法，结合mdn
+      // Array.prototype
+      // dir(Array)
+		</script>
+	</body>
+</html>
