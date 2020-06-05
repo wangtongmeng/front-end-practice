@@ -5,8 +5,12 @@ import store from './store'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-
 Vue.use(ElementUI);
+
+import VueFormGenerator from 'vue-form-generator'
+import 'vue-form-generator/dist/vfg.css'
+Vue.use(VueFormGenerator)
+
 
 Vue.config.productionTip = false
 
