@@ -13,7 +13,7 @@
 
 <script>
 // 这个组件只是过渡的 它不需要使用这些属性
-// props 和 $attrs是互斥的。如果在props里用了 attr里就会减少
+// props 和 $attrs是互斥的。如果在props里用 了 attr里就会减少
 // $attr是响应式的 父亲变了 数据也会更新
 import T from './t'
 export default {

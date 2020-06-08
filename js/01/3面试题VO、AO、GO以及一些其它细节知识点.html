@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		// JS运算符优先级 同等级 从左到右，typeof typeof xx 是从右到左
+		// https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+		// let 声明的变量 一定是全局变量
+		// arguments 内置实参集合
+		// 逻辑与、逻辑或在项目中的应用
+		{
+			/*阿里面试题*/
+			let a = {
+				n: 10,
+			};
+			let b = a;
+			b.m = b = {
+				n: 20,
+			};
+			console.log(a);
+			console.log(b);
+		} {
+			/*360面试题*/
+			let x = [12, 23];
+
+			function fn(y) {
+				y[0] = 100;
+				y = [100];
+				y[1] = 200;
+				console.log(y);
+			}
+			fn(x);
+			console.log(x);
+		} {
+			var x = 10;
+			~ function (x) {
+				console.log(x);
+				x = x || 20 && 30 || 40;
+				console.log(x);
+			}();
+			console.log(x);
+		}
+	</script>
+	<script>
+		// 非严格模式下
+		// function fn(x, y) {
+		// 	console.log(x, y, arguments); // 10, 20 {0:10,1:20}
+		// 	arguments[0] = 100;
+		// 	y = 200;
+		// 	console.log(x, y, arguments); // 100, 200 {0:100,1:200}
+		// }
+		// fn(10, 20);
+
+		// 严格模式下，阻断了映射机制
+		'use strict'; // 写在函数内的第一行/全局代码的第一行
+		function fn(x, y) {
+			console.log(x, y, arguments); // 10, 20 {0:10,1:20}
+			arguments[0] = 100;
+			y = 200;
+			console.log(x, y, arguments); // 10, 200 {0:100,1:20}
+		}
+		fn(10, 20);
+	</script>
+</body>
+
+</html>
