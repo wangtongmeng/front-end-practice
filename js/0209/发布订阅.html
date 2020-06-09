@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+	设计模式：更好的管理项目中的代码，方便维护，方便团队协作，方便扩展...
+
+	发布订阅：灵感来源于DOM2事件池机制
+	   事件池：我们可以向事件池中追加方法（追加多个不同的方法），当后期事件触发的时候，按照顺序会把这些方法依次执行（也可以从事件池中移除方法）
+		   =>addEventListener
+		   =>removeEventListener
+
+	   模拟一个事件池：我们自己可以把要执行的方法，依次加入到池子中 on（也可以从池子中移除 off），当某个条件到达的时候，我们通知池子中的方法依次执行 emit...
+
+	vue：$emit / $on
+	redux：subscribe
+	...
+ -->
+  <script src="./EventBus.js"></script>
+  <script>
+    function fn1(){console.log(1);}
+		function fn2(){console.log(2);}
+		function fn3(){
+			console.log(3);
+			EB.$off('AA',fn1);
+			EB.$off('AA',fn2);
+		}
+		function fn4(){console.log(4);}
+		function fn5(){console.log(5);}
+		function fn6(){console.log(6);}
+		EB.$on('AA',fn1);
+		EB.$on('AA',fn2);
+		EB.$on('AA',fn3);
+		EB.$on('AA',fn4);
+		EB.$on('AA',fn5);
+		EB.$on('AA',fn6);
+  </script>
+  <!-- <script src="./jquery.min.js"></script> -->
+  <script>
+    // jq中的发布订阅
+    // // 创建一个事件池
+    // let $plan = $.Callbacks()
+    // // 向事件池中追加方法（没有做去重处理）
+    // function fn1(n, m) {
+    //   console.log(1, n, m)
+    // }
+
+    // function fn2(n, m) {
+    //   console.log(2, n, m)
+    // }
+
+    // function fn3(n, m) {
+    //   console.log(3, n, m)
+    // }
+    // $plan.add(fn1)
+    // $plan.add(fn2)
+    // $plan.add(fn3)
+    // // 通知事件池中的方法执行
+    // setTimeout(() => {
+    //   $plan.fire(10, 20)
+    // }, 1000)
+  </script>
+</body>
+
+</html>
