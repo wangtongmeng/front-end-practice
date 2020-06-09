@@ -11,6 +11,9 @@ import VueFormGenerator from 'vue-form-generator'
 import 'vue-form-generator/dist/vfg.css'
 Vue.use(VueFormGenerator)
 
+import { RecycleScroller } from 'vue-virtual-scroller'
+Vue.component('RecycleScroller', RecycleScroller)
+
 
 Vue.config.productionTip = false
 
