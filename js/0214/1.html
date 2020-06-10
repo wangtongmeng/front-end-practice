@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+	<title></title>
+	<!-- IMPORT CSS -->
+</head>
+
+<body>
+	<div class="box"></div>
+	<div class="box"></div>
+
+
+	<!-- IMPORT JS -->
+	<!-- <script src="js/zepto.min.js"></script> 
+	<script>
+		// window.$===Zepto
+	</script>
+	<script src="js/jquery.js"></script>
+	<script>
+		// 在导入JQ后，把jQuery赋值给$之前
+		// =>  _$ = window.$ = Zepto
+		// => window.$=jQuery
+		let j = $.noConflict();
+		// if (window.$ === jQuery) {
+		// window.$ = _$ = Zepto  把$的使用权交给了Zepto
+		//}
+		//return jQuery;
+		// j===jQuery
+		j();
+	</script> -->
+
+	<script src="js/jquery.min.js"></script>
+	<script>
+		// $('.box')每一次执行都是创建一个JQ类的新实例（JQ对象）
+		// => $('.box') !== $('.box')  两个不同的实例，开辟了两个堆内存
+		// =============函数的多种角色：普通函数/构造函数(类)/普通对象
+		// => 在控制台输出 jQuery.fn 可以查看原型上的方法，这些方法都可以被实例所调用（此时把JQ看做一个类）
+		// => 但JQ也是一个普通对象，在普通对象上也有很多方法，这些方法和实例没有直接的关系，基于 $.xxx() 调用，例如：$.Callbacks() 或者 $.ajax() 等 =>在控制台输出 dir(jQuery) 可以查看这些方法
+		// let $box = $('.box');
+		// console.dir($box);
+
+		/* 
+		 * $([selector])
+		 *   [selector]支持三种类型
+		 * 		"string" => 基于CSS选择器获取元素  JQ对象（类数组）
+		 *      元素节点 => 把DOM元素转换为JQ对象（JQ类的实例）
+		 *      函数 => $(document).ready(函数) 
+		 */
+		/* $(function () {
+			// 等价于  $(document).ready(function(){})  当DOM结构加载完成执行对应的函数  window.onload =>DOM结构和资源都加载完
+		}); */
+
+		/* // 原生的DOM集合对象（里面的每一项都是原生的DOM对象）
+		let boxList = document.querySelectorAll('.box');
+
+		// 把原生DOM对象转换为JQ对象，这样就可以调取JQ原型上的方法
+		let $boxList = $(boxList);
+		// boxList.addClass('clearfix'); //=>Uncaught TypeError: boxList.addClass is not a function ，addClass是$.fn上的方法，只有JQ对象才能调用
+
+		// 把JQ对象转换为原生DOM对象，这样可以调取原生JS中的方法
+		// => JQ对象[索引]
+		// => JQ对象.get([索引])  特殊性：索引不传，是把整个集合都转换为原生的DOM集合数组  =>原理 [].slice.call(JQ对象)
+		let box1 = $boxList[0];
+		// $boxList.addEventListener(); //=>Uncaught TypeError: $boxList.addEventListener is not a function ，addEventListener是原生JS方法，只有原生的DOM对象才能去调用它   */
+	</script>
+
+	<script>
+		/* $.fn.extend({
+			AAA() {
+				console.log('AAA');
+			},
+			// 自己扩展的方法会覆盖默认的方法
+			addClass() {
+				console.log('ADD-CLASS');
+			}
+		});
+		$('.box').AAA();
+		$('.box').addClass('clearfix'); */
+
+		/* $.fn.extend(true, {
+			AAA: {
+				fn() {
+					console.log('FN');
+				}
+			}
+		}); */
+	</script>
+
+	<script>
+		// =>$.each($('.box'),function(){})
+		// $('.box').each(function(){
+
+		// });
+
+		/* $.each([10, 20, 30], function (index, item) {
+			// 参数顺序和数组的forEach是相反的
+			// this => item
+			console.log(index, item);
+			if (index >= 1) {
+				// 结束当前循环 （数组内置的forEach/map是不支持这种返回false结束循环的）
+				return false;
+			}
+		}); */
+
+		/* $.each({
+			age: 10,
+			name: 'xxx'
+		}, function (key, value) {
+			// this => value	
+			console.log(key, value);
+		}); */
+	</script>
+
+	<script>
+		/* $('.box').on('click', function () {
+
+		}); */
+		// 这些快捷绑定事件的方法，例如：blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup contextmenu 最后回归到 JQ对象.on() 方法上
+		// 不仅如此，其余的事件绑定方法  bind、delegate、one 也都回归到了 on 方法上，所以JQ中的事件绑定核心就是 on 方法 => 核心思想也是发布订阅这一套（自定义事件池）
+		// $('.box').click(function () {});
+	</script>
+</body>
+
+</html>
