@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 闭包的作用，保护、保存
+    let x = 1;
+    function A(y) {
+      let x = 2;
+      function B(z) {
+        console.log(x + y + z);
+      }
+      return B;
+    }
+    let C = A(2);
+    C(3);
+  </script>
+</body>
+
+</html>

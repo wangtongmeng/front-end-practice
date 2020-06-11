@@ -45,6 +45,29 @@
 				console.log(x);
 			}();
 			console.log(x);
+		} {
+			let x = [1, 2],
+				y = [3, 4];
+			~ function (x) {
+				x.push('A');
+				x = x.slice(0);
+				x.push('B');
+				x = y;
+				x.push('C');
+				console.log(x, y);
+			}(x);
+			console.log(x, y);
+		} {
+			let res = parseFloat('left:200px');
+			if (res === 200) {
+				alert(200);
+			} else if (res === NaN) {
+				alert(NaN);
+			} else if (typeof res === 'number') {
+				alert('number');
+			} else {
+				alert('Invalid Number');
+			}
 		}
 	</script>
 	<script>
