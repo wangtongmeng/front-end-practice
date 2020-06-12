@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+	<title></title>
+	<!-- IMPORT CSS -->
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.box {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100px;
+			height: 100px;
+			background: lightblue;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="box" id="box"></div>
+	<!-- IMPORT JS -->
+	<!-- <script src="js/fastclick.js"></script>
+	<script src="js/zepto.min.js"></script> -->
+	<script>
+		/*
+		 * 在移动端，使用click事件存在300MS延迟
+		 *   原因：PC端的click事件是点击（不是单击），dblclick是双击 ；在移动端，浏览器把click事件行为定义为单击（不是点击），也就是间隔一定时间内（300MS）如果只触发一次点击，则为单击，否则则为双击
+		 *   
+		 * fastclick.js主要用来解决移动端click事件行为的300MS延迟的
+		 *   原理：基于事件委托，把指定容器中的click行为统一替换为touch行为，从而去解决300MS延迟的问题
+		 *   使用：FastClick.attach(document.body)
+		 *  
+		 * zepto.js 移动端专用的类库（类似于JQ类库：JQ怎么用，zepto就怎么用，如果使用中报错了，说明zepto没有支持这种写法）
+		 *    1.简化版的JQ，没有处理浏览器兼容，只实现了JQ中最常用的一些方法，所以体积上比JQ小很多
+		 *    2.zepto更懂移动端开发
+		 *      + zepto中的动画或者样式处理是支持CSS3样式和动画的处理的，而JQ在这方面的支持是很弱的 $xxx.css()  $xxx.animate()
+		 *      + JQ中的事件还是以PC事件体制为主，对于移动端的touch/gesture事件没有做进一步的封装处理，而zepto中单独封装了一些关于移动端操作的相关事件行为方法  $xxx.tap/singleTap/doubleTap/longTap/swipe/swipeLeft.../pinchIn/pinchOut...
+		 * 
+		 * hammerjs 国际通用的手势事件库
+		 */
+	</script>
+
+	<script>
+		/*
+		 * 移动端单手指操作事件模型 touch
+		 *   touchstart 手指按下
+		 *   touchmove 手指移动
+		 *   touchend 手指松开
+		 *   touchcancel 因意外原因导致操作中断
+		 * TouchEvent
+		 * 	 ev.changedTouches / ev.touches 都是记录手指操作的相关信息，是一个集合，ev.changedTouches[0]记录第一根手指操作的信息
+		 *   touches在touchend事件中是无法获取的，因为它要求手指必须在屏幕上才可以获取到对应的内容，而changedTouches记录的是手指改变的信息，在三个事件行为中皆可以获取到
+		 */
+		box.addEventListener('touchstart', function (ev) {
+			let point = ev.changedTouches[0];
+			this.startX = point.clientX;
+			this.startY = point.clientY;
+			this.startL = this.offsetLeft;
+			this.startT = this.offsetTop;
+			this.isMove = false;
+		});
+		box.addEventListener('touchmove', function (ev) {
+			let point = ev.changedTouches[0];
+			// 计算手指滑动的偏移差（我们会给予用户一定的操作误差，一般是10px或者30px的滑动内，都不认为是滑动操作）
+			this.changeX = point.clientX - this.startX;
+			this.changeY = point.clientY - this.startY;
+			if (Math.abs(this.changeX) > 10 || Math.abs(this.changeY) > 10) {
+				this.isMove = true;
+				// 控制盒子跟着移动
+				let curL = this.changeX + this.startL,
+					curT = this.changeY + this.startT;
+				this.style.cssText = `left:${curL}px;top:${curT}px`;
+			}
+		});
+		box.addEventListener('touchend', function (ev) {
+			let point = ev.changedTouches[0];
+			if (!this.isMove) {
+				console.log('当前操作为点击操作！');
+				return;
+			}
+			if (Math.abs(this.changeX) >= Math.abs(this.changeY)) {
+				if (this.changeX < 0) {
+					console.log('当前操作为滑动操作：左');
+				} else {
+					console.log('当前操作为滑动操作：右');
+				}
+			} else {
+				if (this.changeY < 0) {
+					console.log('当前操作为滑动操作：上');
+				} else {
+					console.log('当前操作为滑动操作：下');
+				}
+			}
+		});
+
+		// 长按的区分时间：750MS
+
+		// 研究 HTML5 中新增的拖拽事件 drag
+	</script>
+</body>
+
+</html>
