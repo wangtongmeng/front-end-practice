@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+	<title></title>
+	<!-- IMPORT CSS -->
+</head>
+
+<body>
+	<!-- IMPORT JS -->
+	<script>
+		/*
+		 * 解构赋值主要是针对于数组和对象的：真实项目中，一般常用于把从服务器获取的JSON数据进行快速解构，赋值给对应的变量，帮助我们快速拿到对应的结果 
+		 */
+		// let arr = [10, 20, 30, 40];
+
+		/* let [a, b, c, d] = arr;
+		console.log(a, b, c, d); */
+
+		/* let [a, , , b] = arr;
+		console.log(a, b); */
+
+		/* let [a] = arr;
+		console.log(a); */
+
+		/* let [a, ...b] = arr;
+		console.log(a, b); //=>b=[20,30,40] */
+
+		/* let [a] = arr.reverse();
+		console.log(a); */
+
+
+		// 赋值默认值
+		/* let arr = [10];
+		let [a, b = 0] = arr;
+		console.log(a, b); */
+
+		// a/b互换值
+		/* let a = 10,
+			b = 20; */
+
+		/* let c = a;
+		a = b;
+		b = c;
+		console.log(a, b); */
+
+		/* a = a + b;
+		b = a - b;
+		a = a - b;
+		console.log(a, b); */
+
+		/* [b, a] = [a, b];
+		console.log(a, b); */
+	</script>
+
+	<script>
+		/* let obj = {
+			id: 1,
+			name: 'zhangsan',
+			age: 10
+		}; */
+
+		/* 
+		//=>对象解构赋值，创建的变量名需要和属性名保持一致
+		let {
+			id,
+			name,
+			sex
+		} = obj;
+		console.log(id, name, sex); */
+
+		/*
+		//=>赋值默认值 
+		let {
+			sex = 0
+		} = obj;
+		console.log(id, name, sex); */
+
+		// 设置别名
+		/* let age = 0;
+		let {
+			age: age1
+		} = obj;
+		console.log(age1); */
+	</script>
+
+	<script>
+		let data = [{
+			id: 1,
+			name: 'zhanggsan'
+		}, {
+			id: 2,
+			name: 'lisi'
+		}];
+
+		/* let str = ``;
+		data.forEach((item) => {
+			let {
+				id,
+				name
+			} = item || {};
+			str += `<div>
+				<span>${id}</span>
+				<span>${name}</span>
+			</div>`;
+		});*/
+
+		/* let str = ``;
+		data.forEach(({
+			id,
+			name
+		}) => {
+			str += `<div>
+				<span>${id}</span>
+				<span>${name}</span>
+			</div>`;
+		}); */
+	</script>
+
+	<script>
+		/*
+		 * ...运算符
+		 *   1.扩展运算符  let [...arr]=[10,20,30,40]; 
+		 *   2.剩余运算符  函数的形参赋值上 
+		 *   3.展开运算符  展开数组或者对象中的每一项
+		 */
+		/* let fn = (n, ...m) => {
+			// 箭头函数中没有arguments
+			console.log(n, m);
+		};
+		fn(10, 20, 30, 40); */
+
+		// 数组克隆 （展开运算符）
+		/* let arr1 = [10, 20, 30];
+		let arr2 = [...arr1];
+		fn.call(obj,...arr1);  // fn(10,20,30) */
+	</script>
+
+	<script>
+		// Array.from() 把一个类数组集合（Set集合）转换为数组
+		// Array.of() 把一组值转换为数组
+		// ES5中Array常用的一个方法：Array.isArray()验证是否为数组
+
+		// Array.prototype新增的方法
+		// new Array(3).fill(null)  创建集合长度为3，每一项都填充为null
+		// includes
+		// flat() 数组扁平化
+		// entries()，keys()，values()
+		// find / findIndex  =>数组的遍历迭代方法 forEach/map/filter/find/some/every/reduce...
+	</script>
+
+	<script>
+		/* let name = 'zhangsan';
+		let obj = {
+			// name: name
+			name
+		}; */
+
+		// Object.assign([obj1],[obj2]) 合并对象，把[obj2]的信息替换[obj1]
+		// Object.create([obj]) 创建一个空对象，让其__proto__指向[obj]
+		// Object.defineProperty([obj],[key],[options]) 监听一个对象某个属性的处理操作
+		// Object.entries([obj]) 获取一个对象所有的键值对
+		// Object.keys([obj])
+		// Object.values([obj])
+		// Object.freeze([obj]) 冻结对象，让其所有操作都不能进行
+		// Object.is([value1],[value2]) 比较两个值是否相等，比==/===更准确 
+
+		// const创建的变量不能更改变量的指针指向，但是对于对象来说可以操作其堆内存中的信息
+		// const obj = {
+		// 	id: 1
+		// };
+		// obj.id = 2;
+		// console.log(obj);
+	</script>
+
+	<script>
+		// 数组去重
+		// - 对象键值对
+		// - 双循环
+		// - ...
+		// let arr = [1, 1, 1, 2, 3, 2, 3, 4, 5, 3, 2, 1];
+
+		// Set数据结构中的每一项都是唯一的（类数组）
+		// arr = [...new Set(arr)];
+		// console.log(arr);
+		// arr = Array.from(new Set(arr));
+		// console.log(arr);
+
+		// 传统对象结构中 键不能是对象
+		// let n = {
+		// 	x: 10
+		// };
+		// let obj = {
+		// 	id: 1
+		// };
+		// obj[n] = 10;
+
+		// map支持属性名是对象
+		// let n = {
+		// 	x: 10
+		// };
+		// let obj = new Map();
+		// obj.set(n, 10);
+	</script>
+</body>
+
+</html>

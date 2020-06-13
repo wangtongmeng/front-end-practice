@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+	<title></title>
+	<!-- IMPORT CSS -->
+</head>
+
+<body>
+	<!-- IMPORT JS -->
+	<script>
+		/* let arr1 = [10, 20, {
+			name: 'zhangsan'
+		}, /^\d+$/, function () {}]; */
+
+		// 数组克隆
+		// 1.展开运算符（浅克隆：只把第一级克隆一份过来，第二级及以后和原始对象公用相同的堆地址）
+		// let arr2 = [...arr1];
+
+		// 2.slice实现的也是浅克隆
+		// let arr2 = arr1.slice(0);
+
+		// ...
+
+		// 数组深度克隆
+		// 1.基于JSON方法，先把原始对象转换为字符串，在把字符串重新定义为对象，此时实现了内容的深度克隆
+		// 问题：如果对象中的某一项值是正则或者函数，基于JSON.stringify和JSON.parse处理后就不在是正则（变为空对象）或者函数（变为null）了
+		// let arr2 = JSON.parse(JSON.stringify(arr1));
+
+		/* function _type(value) {
+			return Object.prototype.toString.call(value);
+		}
+
+		function _deepClone(obj) {
+			// 如果是null直接返回null
+			if (obj === null) return null;
+			// 如果是基本数据值或者函数，也直接返回即可（函数无需克隆处理）
+			if (typeof obj !== 'object') return obj;
+			// 如果是正则
+			if (_type(obj) === '[object RegExp]') return new RegExp(obj);
+			// 如果是日期格式的数据
+			if (_type(obj) === '[object Date]') return new Date(obj);
+
+			// obj.constructor：找到的是所属类原型上的constructor，而原型上的constructor指向的是当前类本身 =>保证传递进来什么类型的值，我们最后创建的newObj也是对应类型的
+			let newObj = new obj.constructor;
+			for (let key in obj) {
+				if (!obj.hasOwnProperty(key)) break;
+				// 如果某一项的值是引用值吗，我们还需要进一步迭代循环，把引用值中的每一项也进一步克隆 =>深度克隆
+				newObj[key] = _deepClone(obj[key]);
+			}
+			return newObj;
+		}
+
+		let arr1 = [10, 20, {
+			name: 'zhangsan'
+		}, /^\d+$/, function () {}];
+		let arr2 = _deepClone(arr1);
+		console.log(arr2);
+
+		let obj1 = {
+			name: '珠峰',
+			ke: ['就业课', 'WEB高级', '架构师'],
+			teacher: {
+				n: '张仁阳',
+				m: '周啸天'
+			}
+		};
+		let obj2 = _deepClone(obj1);
+		console.log(obj2); */
+
+
+		function _type(value) {
+			return Object.prototype.toString.call(value);
+		}
+
+		function _deepClone(obj) {
+			// 必须保证OBJ是数组或者对象等
+			let newObj = new obj.constructor;
+			for (let key in obj) {
+				if (!obj.hasOwnProperty(key)) break;
+				let item = obj[key],
+					itemType = _type(item);
+				if (item !== null && typeof item === "object") {
+					if (/(RegExp|Date)/.test(itemType)) {
+						newObj[key] = new item.constructor(item);
+						continue;
+					}
+					// 只有对象才需要深层次克隆处理
+					newObj[key] = _deepClone(item);
+					continue;
+				}
+				newObj[key] = item;
+			}
+			return newObj;
+		}
+	</script>
+</body>
+
+</html>
