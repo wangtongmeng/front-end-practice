@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+	<title></title>
+	<!-- IMPORT CSS -->
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.box {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100px;
+			height: 100px;
+			background: lightblue;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- IMPORT JS -->
+	<script>
+		/*
+		 * JS本身是单线程的（浏览器只分配一个线程供JS代码自上而下运行） 
+		 *  =>在JS中大部分操作都是同步编程：当前任务不完成，下一个任务是无法继续执行的，换句话说，任务是逐一执行的
+		 *  =>但是对于某些特殊的需求，也是需要按照异步编程的思维去处理的
+		 *     [浏览器端]
+		 * 		+ 定时器是异步编程
+		 *      + JS中的事件绑定是异步编程
+		 *      + Ajax/Fetch请求的发送（HTTP事务）
+		 *      + Promise设计模式管控异步编程的（包括：async/await...）
+		 *     [Node端]
+		 * 		+ progress.nextTick
+		 *      + setImmediate
+		 *      + FS进行I/O操作可以是异步操作
+		 *     ...
+		 * 
+		 * JS中异步操作的运行机制：事件队列 Event Queue 和 事件循环 Event Loop
+		 */
+
+		/* let n = 0;
+		// 设置定时器的操作是同步的，但是1S干的事情是异步的
+		setTimeout(_ => {
+			n += 10;
+			console.log(n);
+		}, 1000);
+		n += 5;
+		console.log(n); */
+
+		/* setTimeout(() => {
+			console.log(1);
+		}, 20);
+		console.log(2);
+		setTimeout(() => {
+			console.log(3);
+		}, 10);
+		console.log(4);
+		for (let i = 0; i < 90000000; i++) {
+			// do soming  280ms左右
+		}
+		console.log(5);
+		setTimeout(() => {
+			console.log(6);
+		}, 8);
+		console.log(7);
+		setTimeout(() => {
+			console.log(8);
+		}, 15);
+		console.log(9); */
+
+		// ================================
+		/* console.log(1);
+		setTimeout(_ => {
+			console.log(2);
+		}, 50);
+		console.log(3);
+		setTimeout(_ => {
+			console.log(4);
+			// 遇到死循环  =>所有代码执行最后都是在主栈中执行，遇到死循环，主栈永远结束不了，后面啥都干不了了
+			while (1 === 1) {}
+		}, 0);
+		console.log(5); */
+	</script>
+
+	<script src="js/jquery.min.js"></script>
+	<script>
+		/* 
+		 * JS中AJAX的异步性
+		 */
+		/* let $body = $('body');
+		$.ajax({
+			// 随便写了个地址
+			url: './js/fastclick.js',
+			method: 'get',
+			success(result) {
+				// 获取数据后动态创建了一个盒子
+				$body.append(`<div id='box' class='box'></div>`);
+			}
+		});
+		// 基于事件委托可以给动态绑定的元数据进行相关的处理
+		$body.click(function (ev) {
+			let target = ev.target,
+				$target = $(target);
+			if (target.id === 'box') {
+				$target.css('background', 'lightcoral');
+			}
+		}); */
+
+		/* console.log($('#box')); //=>获取不到元素
+		$('#box').click(function () {
+			$(this).css('background', 'lightcoral');
+		}); */
+	</script>
+
+
+	<script>
+		/*
+		 * 核心都是ajax操作：JQ中的$.ajax是帮我们封装好的ajax库；axios也是基于Promise封装的ajax库
+		 * fetch是浏览器内置的发送请求的类（天生就是Promise管控的） 
+		 */
+
+		/* 
+		 * AJAX的状态：xhr.readyState
+		 *   UNSENT 0  创建完XHR默认就是0
+		 *   OPENED 1  已经完成OPEN操作
+		 *   HEADERS_RECEIVED 2 服务器已经把响应头信息返回了
+		 *   LOADING 3  响应主体正在返回中
+		 *   DONE 4 响应主体已经返回
+		 * 
+		 * XHR.OPEN第三个参数控制的同步异步指的是：从当前SEND发送请求，算任务开始，一直到AJAX状态为4才算任务结束（同步是：在此期间所有的任务都不去处理，而异步是：在此期间该干啥干啥）  =>异步在SEND后，会把这个请求的任务放在EventQueue中（宏任务）
+		 */
+		/* let xhr = new XMLHttpRequest;
+		xhr.open('get', './js/fastclick.js', true);
+		// console.log(xhr.readyState); //=>1
+		xhr.onreadystatechange = function () {
+			//=>监听到状态改变后才会触发的事件
+			console.log(xhr.readyState); //=>2,3,4
+		};
+		xhr.send(); */
+
+		/* let xhr = new XMLHttpRequest;
+		xhr.open('get', './js/fastclick.js', true);
+		xhr.send();
+		xhr.onreadystatechange = function () {
+			console.log(xhr.readyState); //=>2.3.4
+		}; */
+
+		/* let xhr = new XMLHttpRequest;
+		xhr.open('get', './js/fastclick.js', false);
+		xhr.send();
+		xhr.onreadystatechange = function () {
+			console.log(xhr.readyState);
+		}; */
+
+		/* let xhr = new XMLHttpRequest;
+		xhr.open('get', './js/fastclick.js', false);
+		xhr.onreadystatechange = function () {
+			console.log(xhr.readyState); //=>4
+		};
+		xhr.send(); */
+	</script>
+</body>
+
+</html>
