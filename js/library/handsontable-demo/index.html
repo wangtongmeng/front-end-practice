@@ -21,6 +21,7 @@
     <div id="example"></div>
   </div>
   <script src="./node_modules/handsontable/dist/handsontable.full.min.js"></script>
+  <script src="./zh-CN.js"></script>
   <script>
     const container = document.getElementById('example');
     const hot = new Handsontable(container, {
@@ -31,6 +32,8 @@
       colWidths: 100,
       width: '100%',
       height: '100%',
+      contextMenu: true,
+      language: 'zh-CN'
     });
   </script>
 </body>
