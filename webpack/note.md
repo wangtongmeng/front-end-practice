@@ -206,3 +206,14 @@ module.exports = {
   ]
 }
 ```
+## 加载图片
+
+file-loader，加载图片，并拷贝到dist目录下
+
+url-loader，将图片解析成base64格式
+
+**安装**
+
+npm install file-loader url-loader -D
+
+图片不是放在本地服务器时，需要加前缀

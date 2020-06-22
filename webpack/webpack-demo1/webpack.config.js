@@ -19,7 +19,7 @@ module.exports = {
     // 服务端口号
     port: 9999,
     // 自动在浏览器打开
-    open: true,
+    // open: true,
     // gzip压缩
     compress: true, // true 启动
     contentBase: 'aa', // aa目录下的静态资源文件可以直接访问
@@ -37,7 +37,7 @@ module.exports = {
       // 根据模板生成新的html文件
       template: path.resolve(__dirname, './index.html'),
       // 生成的新的文件名
-      filename: 'index.html'
+      filename: 'index.html' // 服务器默认会找到根目录下的index.html文件解析
     }),
     new CleanWebpackPlugin(),
   ],
@@ -76,6 +76,19 @@ module.exports = {
         test: /\.less$/,
         use: ['style-loader', 'css-loader', 'less-loader'],
       },
+      {
+        test: /\.(png|jpe?g|gif)/,
+        // use: 'file-loader'
+        use: {
+          loader: 'url-loader', // 10kb以内的通过url-loader转换成base64，大于10kb通过file-loader拷贝一份放在dist目录下
+          options: {
+            // 小于limit值得->base64
+            limit: 10*1024, // 10kb
+            // 输出路径
+            outputPath: 'img' // dist/img/
+          }
+        }
+      }
     ]
   }
 }

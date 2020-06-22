@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+	<title></title>
+	<!-- IMPORT CSS -->
+</head>
+
+<body>
+	<!-- IMPORT JS -->
+	<script>
+		// ctrl+shift+a 多行注释
+		async function async1() {
+			console.log('async1 start');
+			await async2();
+			console.log('async1 end');
+		}
+		async function async2() {
+			console.log('async2');
+		}
+		console.log('script start');
+		setTimeout(function () {
+			console.log('setTimeout');
+		}, 0)
+		async1();
+		new Promise(function (resolve) {
+			console.log('promise1');
+			resolve();
+		}).then(function () {
+			console.log('promise2');
+		});
+		console.log('script end');
+	</script>
+
+	<script>
+		// console.log(1);
+		// setTimeout(_ => { console.log(2); }, 1000);
+		// async function fn() {
+		// 	console.log(3);
+		// 	setTimeout(_ => {  console.log(4); }, 20);
+		// 	return Promise.reject();
+		// }
+		// async function run() {
+		// 	console.log(5);
+		// 	await fn();
+		// 	console.log(6);
+		// }
+		// run();
+		// // 需要执行150MS左右
+		// for (let i = 0; i < 90000000; i++) {}
+		// setTimeout(_ => {
+		// 	console.log(7);
+		// 	new Promise(resolve => {
+		// 		console.log(8);
+		// 		resolve();
+		// 	}).then(_ => { console.log(9); });
+		// }, 0);
+		// console.log(10);
+	</script>
+</body>
+
+</html>
