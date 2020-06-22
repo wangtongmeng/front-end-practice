@@ -85,7 +85,8 @@ module.exports = {
             // 小于limit值得->base64
             limit: 10*1024, // 10kb
             // 输出路径
-            outputPath: 'img' // dist/img/
+            outputPath: 'img', // dist/img/
+            // 图片前缀，常用于将图片放在在线保存网站上，例如七牛
           }
         }
       }
