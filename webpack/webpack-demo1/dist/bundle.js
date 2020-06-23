@@ -86,27 +86,14 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/img1.jpg":
-/*!**********************!*\
-  !*** ./src/img1.jpg ***!
-  \**********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"img/14aa94b419fb8865bb8cb9fb704f2019.jpg\");\n\n//# sourceURL=webpack:///./src/img1.jpg?");
-
-/***/ }),
-
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _img1_jpg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./img1.jpg */ \"./src/img1.jpg\");\n/* import sum from './sum'\r\nimport './index.css'\r\n// 配置less-loader\r\n// import './a.less'\r\nconsole.log(sum(10, 5)) */\r\n\r\n\r\nlet img = new Image()\r\nimg.src = _img1_jpg__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\r\ndocument.body.appendChild(img)\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("/* import sum from './sum'\r\nimport './index.css'\r\n// 配置less-loader\r\n// import './a.less'\r\nconsole.log(sum(10, 5)) */\r\n// import './icon/iconfont.css'\r\n// import url from './img1.jpg'\r\n// let img = new Image()\r\n// img.src = url\r\n// document.body.appendChild(img)\r\n\r\n// let i = document.createElement('i')\r\n// i.className = 'iconfont icon-bianji'\r\n// document.body.appendChild(i)\r\n\r\nclass Son {\r\n  constructor () {\r\n    this.a = 1\r\n  }\r\n}\r\nlet a = new Son()\r\nconsole.log(s.a)\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 

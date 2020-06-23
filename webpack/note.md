@@ -187,6 +187,7 @@ module.exports = {
     }
 }
 ```
+
 ## 打包自动清理输出的目录
 
 clean-webpack-plugin，https://www.npmjs.com/package/clean-webpack-plugin
@@ -197,15 +198,18 @@ npm install --save-dev clean-webpack-plugin
 
 **使用**
 
-```js
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+``` js
+const {
+    CleanWebpackPlugin
+} = require('clean-webpack-plugin');
 module.exports = {
-  //...
-  plugins: [
-    new CleanWebpackPlugin(),
-  ]
+    //...
+    plugins: [
+        new CleanWebpackPlugin(),
+    ]
 }
 ```
+
 ## 加载图片
 
 file-loader，加载图片，并拷贝到dist目录下
@@ -216,4 +220,101 @@ url-loader，将图片解析成base64格式
 
 npm install file-loader url-loader -D
 
+**图片不放在本地服务时**
+
 图片不是放在本地服务器时，需要加前缀
+
+http://www.baidu.com/img/14aa94b419fb8865bb8cb9fb704f2019.jpg
+
+当css、js文件需要使用cdn时，也可以使用publicPath来设置
+
+``` js
+{
+    test: /\.(png|jpe?g|gif)$/,
+    // use: 'file-loader'
+    use: {
+        loader: 'url-loader', // 10kb以内的通过url-loader转换成base64，大于10kb通过file-loader拷贝一份放在dist目录下
+        options: {
+            // 小于limit值得->base64
+            limit: 10 * 1024, // 10kb
+            // 输出路径
+            outputPath: 'img', // dist/img/
+            // 图片前缀，常用于将图片放在在线保存网站上，例如七牛
+            // publicPath: 'http://www.baidu.com/img'
+        }
+    }
+},
+```
+
+**字体图标**只能用file-loader解析，不能使用url-loader
+
+在iconfont网站选择两个图标，添加至项目，选择font class，下载至本地, 复制文件到项目
+
+* iconfont.css
+* iconfont.eot
+* iconfont.svg
+* iconfont.ttf
+* iconfont.woff
+* iconfont.woff2
+
+使用file-loader解析
+
+``` js
+{
+    test: /\.(eot|svg|ttf|woff|woff2)$/,
+    use: 'file-loader'
+}
+```
+
+**解析通过img标签加载的图片(处理html中的图片)**
+```html
+<!-- index.html -->
+<img src="./src/img1.jpg" alt="">
+```
+打包完了还是<img src="./src/img1.jpg" alt="">，控制台：GET http://localhost:9999/src/img1.jpg 404 (Not Found)
+
+html-withimg-loader: 处理html文件中的图片，npm i html-withimg-loader -D
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.html$/,
+        use: 'html-withimg-loader'
+      },
+      {
+        test: /\.css$/i,
+        use: [{
+          loader: MiniExtractPlugin.loader
+        }, {
+          // css文件中less的情况
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2 // 用后面几个加载器来解析
+          }
+        }, 'postcss-loader', 'less-loader'],
+      },
+      {
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        use: {
+          options: {
+            limit: 10*1024,
+            esModule: false, // 使用html-withimg-loader时，要设为false
+            outputPath: 'img',
+          }
+        }
+      },
+    ]
+  }
+}
+```
+
+webpack4使用html-withimg-loader遇到问题 https://blog.csdn.net/weixin_43047070/article/details/104079940
+
+## 打包js
+
+webpack默认可以打包部分js代码，但不能打包所有

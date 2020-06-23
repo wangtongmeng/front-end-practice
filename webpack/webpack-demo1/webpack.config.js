@@ -46,6 +46,10 @@ module.exports = {
     // use 的值可以是"" [] {}
     // loader执行顺序：从下往上，从右往左执行
     rules: [
+      {
+        test: /\.html$/,
+        use: 'html-withimg-loader'
+      },
       // { test: '/\.css$/', use: 'style-loader' },
       // { test: '/\.css$/', use: 'css-loader' },
       // {
@@ -77,18 +81,25 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'less-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif)/,
+        test: /\.(png|jpe?g|gif)$/,
         // use: 'file-loader'
         use: {
           loader: 'url-loader', // 10kb以内的通过url-loader转换成base64，大于10kb通过file-loader拷贝一份放在dist目录下
           options: {
             // 小于limit值得->base64
             limit: 10*1024, // 10kb
+            esModule: false, // https://blog.csdn.net/weixin_43047070/article/details/104079940
             // 输出路径
+            // name: `img/[name].[ext]`,
             outputPath: 'img', // dist/img/
             // 图片前缀，常用于将图片放在在线保存网站上，例如七牛
+            // publicPath: 'http://www.baidu.com/img'
           }
         }
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: 'file-loader'
       }
     ]
   }

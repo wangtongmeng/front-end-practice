@@ -1,7 +1,7 @@
 {
   "name": "webpack-demo1",
   "version": "1.0.0",
-  "description": "",
+  "description": "webpack-learn",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,6 +18,7 @@
     "css-loader": "^3.6.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
+    "html-withimg-loader": "^0.1.16",
     "less": "^3.11.3",
     "less-loader": "^6.1.1",
     "mini-css-extract-plugin": "^0.9.0",
