@@ -743,6 +743,25 @@ cheap-module-source-map(webpack4自带，不需要配置)
 
 ### 根据Mode分离配置环境
 
+```
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "dev:server": "webpack-dev-server"
+  },
+```
+指定webpack配置文件
+```
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --env.development --config ./webpack.base",
+    "build": "webpack --env.production --config ./webpack.base",
+    "dev:server": "webpack-dev-server  --env.development --config ./webpack.base"
+  },
+```
+
+npm i webpack-merge -D
 ### Tree-shaking(生产环境下)
 
 去掉具有副作用的代码 sideEffects
@@ -847,6 +866,8 @@ module.exports = {
 * webpackPreload
 * @babel/plugin-syntax-dynamic-import
 * @babel/preset-react
+
+webpackChunkName，设置懒加载的文件名
 
 ### 打包文件分析工具(生产环境下使用)
 

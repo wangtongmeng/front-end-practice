@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "dev:server": "webpack-dev-server"
+    "dev": "webpack --env.development --config ./webpack.base",
+    "build": "webpack --env.production --config ./webpack.base",
+    "dev:server": "webpack-dev-server  --env.development --config ./webpack.base"
   },
   "sideEffects": [
     "**/*.css"
@@ -44,7 +44,8 @@
     "webpack": "^4.43.0",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^4.2.2"
   },
   "dependencies": {
     "core-js": "^3.6.5",

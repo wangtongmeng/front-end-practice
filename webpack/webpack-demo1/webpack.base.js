@@ -1,11 +1,13 @@
+// webpack公共配置
+const dev = require('./webpack.dev')
+const prod = require('./webpack.prod')
+const merge = require('webpack-merge')
 // 遵循commonjs规范
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniExtractPlugin = require('mini-css-extract-plugin')
-const TerserJSPlugin = require('terser-webpack-plugin'); // 压缩js
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css
+
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack')
 let htmlPlugins = ['index', 'other'].map(chunkName => {
   return new HtmlWebpackPlugin({
@@ -14,9 +16,13 @@ let htmlPlugins = ['index', 'other'].map(chunkName => {
     chunks: [chunkName]
   })
 })
-
-module.exports = {
-  devtool: "cheap-module-eval-source-map",
+// 导出的两种形式：对象或函数。使用函数形式可以接受env参数
+module.exports = env => {
+  console.log('env', env)
+  // 如果是开发环境 base dev 合并
+  // 如果是生产环境 base prod 合并
+  let base = {
+    devtool: "cheap-module-eval-source-map",
   // externals: {
   //   "jquery": "$" // 如果是第三方库jquery就不需要打包
   // },
@@ -36,36 +42,6 @@ module.exports = {
     // 绝对路径
     path: path.resolve(__dirname, 'dist'), //返回绝对路径， __dirname：文件所在目录，与'dist'组成绝对路径
     chunkFilename: '[name].min.js' // 设置异步请求的文件名
-  },
-  devServer: {
-    // 服务端口号
-    port: 9999,
-    // 自动在浏览器打开
-    // open: true,
-    // gzip压缩
-    compress: true, // true 启动
-    hot: true, // 整改页面热更新
-    contentBase: 'aa', // aa目录下的静态资源文件可以直接访问
-    before(app){ // after 以9999端口号创建一个服务，这样没有跨域问题
-      app.get('/api/user', function (req, res) {
-        console.log(res.json({
-          name: 'lisi'
-        }))
-
-      })
-
-    },
-    // proxy: {
-    //   "/api": { // 请求路径以/api开头
-    //     target: 'http://localhost:6000', // 设置请求
-    //     // secure: false, // 代理的服务器是https
-    //     changeOrigin: true, // 把请求头里host的地址改成服务器地址
-    //     pathRewrite: {"/api": ""}, // 重写路径
-    //   }
-    // }
-  },
-  optimization: {
-    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(), // 局部页面热更新，不用整改页面刷新了
@@ -104,7 +80,6 @@ module.exports = {
     // new webpack.ProvidePlugin({
     //   "$": "jquery" // 变量$来自于jquery
     // })
-    // new BundleAnalyzerPlugin()
   ],
   module: {
     // 什么文件转换，怎么转换，需要哪些loader
@@ -249,5 +224,11 @@ module.exports = {
         }
       }
     }
+  }
+  }
+  if (env.development){
+    return merge(base, dev)
+  } else {
+    return merge(base,prod)
   }
 }

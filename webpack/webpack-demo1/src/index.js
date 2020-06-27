@@ -62,7 +62,10 @@ btn.innerHTML = 'BUTTON'
 
 // 懒加载是使用了后才去加载 import()
 btn.addEventListener('click', function () {
-  import(/*webpackChunkName:"c*/"./test").then(({default: m})=>{
+  import(/*webpackChunkName:"c"*/"./test").then(({default: m})=>{
+    // import("./test").then(({default: m})=>{
     p.innerHTML = m(20,10)
   })
 }, false)
+document.body.appendChild(btn)
+document.body.appendChild(p)
