@@ -146,7 +146,7 @@ webpack配置文件的作用是什么？答案在前面
 - 支持多种格式文件
 
 ```js
-webpack.config.js
+// webpack.config.js
 module: {
 		rules: [{
 		+ test: /\.(jpg|png|gif)$/,           // 支持多种格式文件
@@ -168,7 +168,7 @@ url-loader 默认会把图片转换成base64格式，直接放入 bundle.js 中�
 - 图片文件小转成 base64，图片文件大打包成图片名+hash。
 
 ```js
-webpack.config.js
+// webpack.config.js
 module: {
 		rules: [{
 			test: /\.(jpg|png|gif)$/,       
@@ -188,28 +188,20 @@ module: {
 ###  3-3 使用 Loader 打包静态资源（样式篇 - 上）
 
 安装 loader 
-
 ```shell
 npm install style-loader css-loader -D
 ```
-
-css-loader 会分析出几个 css 文件之间的关系，最终合并成一段 css。
-
-style-loader 会把 css-loader 生成的内容挂载到页面的 head 部分。
-
-sass-loader 把预处理器语言转化成 css。
-
-loader 执行顺序：从下到上，从右到左。
-
-css3 的厂商前缀，安装 postcss-loader。
-
-postcss-loader 需要用到 autoprefixer 插件
-
+- css-loader 会分析出几个 css 文件之间的关系，最终合并成一段 css。
+- style-loader 会把 css-loader 生成的内容挂载到页面的 head 部分。
+- sass-loader 把预处理器语言转化成 css。
+- loader 执行顺序：从下到上，从右到左。
+- css3 的厂商前缀，安装 postcss-loader。
+- postcss-loader 需要用到 autoprefixer 插件
 ```shell
 npm install autoprefixer -D
 ```
 
-```json
+```js
 // postcss.config.js
 module.exports = {
   plugins: [
@@ -217,7 +209,6 @@ module.exports = {
   ]
 }
 ```
-
 ### 3-4 使用 Loader 打包静态资源 (样式篇 - 下)
 
 css-loader 常用配置项
