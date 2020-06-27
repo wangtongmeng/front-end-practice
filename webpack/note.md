@@ -742,6 +742,10 @@ cheap-module-source-map(webpack4自带，不需要配置)
 ```
 
 ### 根据Mode分离配置环境
+通常会新建一个build文件夹，用来存放webpack配置，并根据环境拆分文件
+- webpack.base.js，webpack公共配置
+- webpack.dev.js，webpack开发环境配置
+- webpack.prod.js，webpack生产环境配置
 
 ```
 "scripts": {
@@ -868,6 +872,22 @@ module.exports = {
 * @babel/preset-react
 
 webpackChunkName，设置懒加载的文件名
+```js
+// index.js
+let btn = document.createElement('button')
+let p = document.createElement('p')
+btn.innerHTML = 'BUTTON'
+
+// 懒加载是使用了后才去加载 import()
+btn.addEventListener('click', function () {
+  import(/*webpackChunkName:"c"*/"./test").then(({default: m})=>{
+    // import("./test").then(({default: m})=>{
+    p.innerHTML = m(20,10)
+  })
+}, false)
+document.body.appendChild(btn)
+document.body.appendChild(p)
+```
 
 ### 打包文件分析工具(生产环境下使用)
 
