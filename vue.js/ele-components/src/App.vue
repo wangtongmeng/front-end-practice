@@ -5,6 +5,7 @@
     <router-link to="/form">form</router-link>
     <router-link to="/FormGenerator">FormGenerator</router-link>
     <router-link to="/optimize">optimize</router-link>
+    <router-link to="/FormCreate">FormCreate</router-link>
     <router-view></router-view>
   </div>
 </template>

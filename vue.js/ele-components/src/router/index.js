@@ -2,9 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Home from '@/pages/Home'
-import Demo from '@/pages/Demo'
-import Form from '@/pages/Form'
 import FormGenerator from '@/pages/form-generator'
+import FormCreate from '@/pages/FormCreate'
 import optimize from '@/pages/optimize'
 
 Vue.use(VueRouter)
@@ -16,16 +15,6 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/demo',
-    name: 'demo',
-    component: Demo
-  },
-  {
-    path: '/form',
-    name: 'form',
-    component: Form
-  },
-  {
     path: '/FormGenerator',
     name: 'FormGenerator',
     component: FormGenerator
@@ -35,6 +24,11 @@ Vue.use(VueRouter)
     name: 'optimize',
     component: optimize
   },
+  {
+    path: '/FormCreate',
+    name: 'FormCreate',
+    component: FormCreate
+  }
   
   // {
   //   path: '/about',

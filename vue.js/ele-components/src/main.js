@@ -5,7 +5,9 @@ import store from './store'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import formCreate from '@form-create/element-ui'
 Vue.use(ElementUI);
+Vue.use(formCreate)
 
 import VueFormGenerator from 'vue-form-generator'
 import 'vue-form-generator/dist/vfg.css'
