@@ -6,12 +6,18 @@
     <router-link to="/FormGenerator">FormGenerator</router-link>
     <router-link to="/optimize">optimize</router-link>
     <router-link to="/FormCreate">FormCreate</router-link>
+    <my-marquee></my-marquee>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {};
+import MyMarquee from './components/marquee'
+export default {
+  components: {
+    MyMarquee
+  }
+};
 </script>
 
 <style>

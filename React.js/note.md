@@ -1,5 +1,6 @@
 # react笔记
-## vue和react的区别
+## React-MVC 和 Vue-MVVM 的本质区别
+
 MVC VS MVVM：react单向数据绑定，数据影响视图；vue双向数据绑定，主要是针对表单元素的v-model，其他的也是单向数据流。
 ## react官方脚手架：create-react-app
 ```bash
@@ -9,7 +10,40 @@ yarn start 启动项目 / build 打包项目
 yarn eject 暴露webpackk配置项
 ```
 > vscode右下角调成javascriptreact格式
-初始化删减版本
+
+### 删减代码
+- /public中只留index.html文件
+- /src中只留入口文件 index.js
+```html
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+```
+```js 
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+ReactDOM.render(<div>
+  hello world
+</div>, document.getElementById('root'))
+```
+启动项目：进入项目目录，yarn start
+
+### 修改脚手架配置
+```bash
+yarn eject
+```
+
 
 默认配置项并一定能满足项目需求，需要修改脚手架配置，yarn eject
   eject安装之后会少安装依赖
@@ -18,3 +52,6 @@ yarn eject 暴露webpackk配置项
   - @babel/plugin-transform-react-jsx-self
 
 脚手架创建的项目默认会创建git仓库，防止 yarn eject导致项目无法恢复
+## 两大框架中jsx语法的应用
+## react底层核心：虚拟dom的渲染机制
+## react中三大组件创建机制的区别
