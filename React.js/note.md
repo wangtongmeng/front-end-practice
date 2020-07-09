@@ -157,5 +157,6 @@ ReactDOM.render(<>hello world</>, document.getElementById('root'))
 - babel-preset-react-app / vue-loader
 - React.createElement(type, props, children)
 - ReactDOM.render(...)
+虚拟DOM(JSX) => 真实DOM(渲染在页面)
 
 ## react中三大组件创建机制的区别
