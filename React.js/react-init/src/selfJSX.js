@@ -13,6 +13,20 @@ export function render(jsxOBJ, container, callback) {
   let element = document.createElement(type)
   for (let key in props) {
     if (!props.hasOwnProperty(key)) break
-    
+    // className
+    if (key === 'className') {
+      element.className = props['className']
+      continue
+    }
+    // style
+    if (key === 'style') {
+      let sty = props['style']
+      for (let attr in sty) {
+        if (!sty.getOwnProperty(attr)) break
+        element['style'][attr] = sty[arr]
+      }
+      continue
+    }
+    element.setAttribute(key, props[key])
   }
 }
