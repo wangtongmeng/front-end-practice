@@ -158,5 +158,149 @@ ReactDOM.render(<>hello world</>, document.getElementById('root'))
 - React.createElement(type, props, children)
 - ReactDOM.render(...)
 虚拟DOM(JSX) => 真实DOM(渲染在页面)
+### 过程
+- 1.基于babel-preset-react-app 把JSX变为React.createElement(...)
+  - 第一项：标签名(或者函数组件/类组件)
+  - 第二项：给标签设置的属性对象(一个都不设为null)
+  - 第三项或者更多项：标签的子节点(文本节点或者元素节点)
+  - =>所有的元素节点都会重新变成React.createElement
+- 2.执行React.createElement()创建JSX虚拟DOM对象
+- 3.ReactDOM.render把虚拟DOM对象变成真实的DOM对象(渲染到页面中)
+- 4.Vue-loader把tempalate语法解析为虚拟DOM对象(_vnode)
 
+第一步：基于babel-preset-react-app 把JSX变为React.createElement(...)
+```js
+import React from 'react'
+// react的核心：基础语法、属性、状态、生命周期、组件等
+import ReactDOM from 'react-dom'
+// ReactDOM把虚拟dom渲染成真是的dom
+ReactDOM.render(<div className='box' style={{
+  fontSize: '20px'
+}} index={0}>
+  hello world
+  <a></a>
+</div>, document.getElementById('root'))
+```
+=>
+```js
+React.createElement("div", {
+  className: "box",
+  style: {
+    fontSize: '20px'
+  },
+  index: 0
+}, "hello world", /*#__PURE__*/React.createElement("a", null));
+```
+
+第二步：执行React.createElement()创建JSX虚拟DOM对象
+```js
+{
+  type: 标签名或者组件
+  props: {
+    className: 'xxx' 我们传递的属性
+    children: 子节点内容(特点：没有子节点则没有这个属性，否则是一个或者一个数组)
+  }
+}
+```
+### 实现createElement和render函数
+```js
+// src/selfJSX.js
+export function createElement(type, props, ...childs) {
+  let obj = {}
+  obj.type = type
+  obj.props = props || {}
+  if (childs.length > 0) {
+    obj.props.children = childs.length === 1 ? childs[0] : childs
+  }
+  return obj
+}
+
+export function render(jsxOBJ, container, callback) {
+  let { type, props } = jsxOBJ
+  let element = document.createElement(type)
+  for (let key in props) {
+    if (!props.hasOwnProperty(key)) break
+    // className
+    if (key === 'className') {
+      element.className = props['className']
+      continue
+    }
+    // style
+    if (key === 'style') {
+      let sty = props['style']
+      for (let attr in sty) {
+        if (!sty.hasOwnProperty(attr)) break
+        element['style'][attr] = sty[attr]
+      }
+      continue
+    }
+    // children
+    if (key === 'children') {
+      let children = props['children']
+      children = Array.isArray(children) ? children : [children]
+      children.forEach(item => {
+        if (typeof item === 'string') {
+          element.appendChild(document.createTextNode(item))
+          return
+        }
+        // 递归
+        render(item, element)
+      })
+      continue
+    }
+    element.setAttribute(key, props[key])
+  }
+  container.appendChild(element)
+  callback && callback()
+}
+```
+在入口文件引入
+```js
+// src/index.js
+import { createElement, render } from './selfJSX'
+// https://www.babeljs.cn/repl
+// <div className='box' style={{
+//   fontSize: '20px'
+// }} index={0}>
+//   hello world
+// </div>
+render(createElement("div", {
+  className: "box",
+  style: {
+    fontSize: '20px'
+  },
+  index: 0
+}, "hello world"), document.getElementById('root'))
+```
 ## react中三大组件创建机制的区别
+## react的组件化开发
+- 函数式组件
+  - 基本语法和特点
+  - 属性只读
+  - children的处理
+- 类组件
+  - 属性处理
+  - 状态管理
+  - refs
+  - 生命周期
+  - PureComponent
+- react hooks
+  - useState
+  - useEffect
+  - useRef
+  - useReducer
+  - ...
+- 案例：投票管理
+> 创建组件后缀名用jsx，这样语法自动式javascriptReact，不需要手动改了，jsx文件会通过webpack进行解析。
+
+babel解析jsx时，遇到标签会解析成标签，遇到函数式组件会解析成组件
+```jsx
+<div>
+ 	<News index="1"></News>
+</div> 
+=>
+/*#__PURE__*/
+React.createElement("div", null, /*#__PURE__*/React.createElement(News, {
+  index: "1"
+}));
+```
