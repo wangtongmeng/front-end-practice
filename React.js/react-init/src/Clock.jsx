@@ -1,4 +1,6 @@
 import React from 'react'
+// 安装的第三方插件，设置属性的规则
+import PropTypes from 'prop-types' // https://github.com/facebook/prop-types
 /**
  * 函数式组件的特点
  * =>静态组件
@@ -19,12 +21,19 @@ import React from 'react'
  *  =>修改状态：setState修改组件状态及重新渲染
  */
 export default class Clock extends React.Component {
+  // 属性设置规则
+  static defaultProps = {
+    m: 100
+  }
+  static propTypes = {
+    m: PropTypes.number,
+    x: PropTypes.string.isRequired
+  }
   // constructor： 调用组件，创建类的一个实例，首先执行constructor 把属性、上下文等信息传递进来
   constructor(props){
     super(props) // React.Component.call(this, props)
     console.log(this.props); // 为了能在construtor中通过this.props访问属性，采用super(props) 源码react.development.js 427行
     // 属性和函数式组件一样包含普通属性和子节点属性children，同样只读
-    console.log(props);
     // 只有constructor执行完，才会把props挂载到实例上 
     // 创建初始状态
     this.state = {
