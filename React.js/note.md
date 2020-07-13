@@ -350,8 +350,6 @@ ReactDOM.render(<>
    </News>
  <News index="1" />
 </>, document.getElementById('root'))
-
-
 ```
 ### 类组件及其状态管理
 - 属性处理
