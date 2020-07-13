@@ -293,7 +293,8 @@ render(createElement("div", {
 - 案例：投票管理
 > 创建组件后缀名用jsx，这样语法自动式javascriptReact，不需要手动改了，jsx文件会通过webpack进行解析。
 
-babel解析jsx时，遇到标签会解析成标签，遇到函数式组件会解析成组件
+babel解析jsx时，遇到标签会解析成标签，遇到函数式组件，则会调用函数式组件，并传递属性。
+### 函数式组件
 ```jsx
 <div>
  	<News index="1"></News>
@@ -304,3 +305,57 @@ React.createElement("div", null, /*#__PURE__*/React.createElement(News, {
   index: "1"
 }));
 ```
+
+```jsx
+// src/News.jsx
+
+// babel会把jsx元素转换成React.createElement(...)，所以需要引入React
+import React from 'react'
+/**
+ * 创建一个函数，只要函数中返回一个新的JSX元素，则为函数式组件。
+ * =>传递进来的属性是只读的
+ * =>调用组件可以是单闭合也可以是双闭合
+ * =>项目中使用双闭合方式，可以把一些子节点当做属性(children)传递给组件，在组件中可以把传递的这些节点放到指定的位置 => vue 中的slot插槽机制
+ */
+function News(props) {
+  console.log(props);
+  return <div>
+    <h3>新闻资讯</h3>
+    <ul>
+      <li>新闻1</li>
+      <li>新闻2</li>
+      <li>新闻3</li>
+      <li>{props.index}</li>
+    </ul>
+    {/* {props.children} */}
+    {React.Children.map(props.children, item => {
+      return <div>
+        @@ {item}
+      </div>
+    })}
+  </div>
+}
+
+export default News
+
+// src/index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+import News from './News'
+ReactDOM.render(<>
+ <News index="1">
+   双闭合调用组件
+   <button>按钮</button>
+   </News>
+ <News index="1" />
+</>, document.getElementById('root'))
+
+
+```
+### 类组件及其状态管理
+- 属性处理
+- 状态管理
+- refs
+- 生命周期
+- PureComponent
