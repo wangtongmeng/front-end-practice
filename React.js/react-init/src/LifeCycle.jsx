@@ -104,7 +104,7 @@ export default class Clock extends React.PureComponent {
   //   }
   //   return true
   // }
-  // 执行函数保持this，方式1
+  // 执行函数保持this，方式2
   handle = ev => {
     // console.log(this, ev);
     let arr = this.state.x

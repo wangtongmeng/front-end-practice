@@ -5,7 +5,7 @@ import React from 'react'
  */
 export default class Clock extends React.Component {
 
-  render(){
+  render() {
     return <div>
       {/* 方式一 */}
       {/* <input type="text" ref='inpBox' /> */}
@@ -15,14 +15,14 @@ export default class Clock extends React.Component {
         this.INP = element
       }} /> */}
       {/* 方式二简化 */}
-      <input type="text" ref={x => this.INP = x}/>
+      <input type="text" ref={x => this.INP = x} />
     </div>
   }
-  componentDidMount(){
+  componentDidMount() {
     // console.log(this.refs); // {inpBox: input}
-      {/* 方式一 */}
+    {/* 方式一 */ }
     // this.refs.inpBox.focus()
-      {/* 方式二 */}
+    {/* 方式二 */ }
     this.INP.focus()
   }
 }
