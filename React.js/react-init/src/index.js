@@ -1,11 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-// import Clock from './Clock'
-import Input from './Input'
-import LifeCycle from './LifeCycle'
+// import Test1 from './Test1'
+import Test2 from './Test2'
 ReactDOM.render(<>
-  <LifeCycle />
-  {/* <Clock m={20} x='pass' />  */}
-  {/* <Input /> */}
+  {/* <Test1 /> */}
+  <Test2 n={0} />
 </>, document.getElementById('root'))
 
