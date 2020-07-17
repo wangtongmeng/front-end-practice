@@ -3,7 +3,7 @@
  * => useState(初始状态值) => [当前最新的状态值，修改状态的方法]
  */
 
- import React, {useState, useEffect} from 'react'
+ import React, {useState, useEffect, useRef, useReducer} from 'react'
 
 //  // 实现useState
 //  let _state
@@ -47,6 +47,9 @@
   useEffect(()=>{
     // DidMount
     console.log('DidMount');
+
+    console.log(inputBox);
+    inputBox.current.focus() 
   }, [])
   useEffect(()=>{
     // 只有依赖的状态改变才会执行
@@ -65,7 +68,11 @@
   //   }}>+M</button>
   // </div>
 
+  // 使用 ref
+  let inputBox = useRef() // => {current: xxx}
+
   return <div>
+    <input type="text" ref={inputBox}/>
     {state.n} {state.m}
     <button onClick={ev => {
       setState({
