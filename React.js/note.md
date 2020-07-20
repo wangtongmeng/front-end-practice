@@ -736,4 +736,9 @@ export default class Test1 extends React.Component {
  - useRef
  - useReducer
  - ...
+ ## 复合组件信息传递
+ - 属性传递
+ - 自己实现上下文传递
+ - 基于上下文传递
+ 
  
