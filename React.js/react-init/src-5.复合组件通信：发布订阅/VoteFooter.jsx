@@ -1,18 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 export default class VoteFooter extends React.Component {
-  static contextTypes = {
-    handle: PropTypes.func
-  }
-  render() {
-    let { handle } = this.context
+  render(){
+    let {eventBus}=this.props
     return <div>
       <button onClick={ev => {
-        handle('SUP')
+        eventBus.$emit('plus', 'SUP')
       }}>支持</button>
       <button onClick={ev => {
-        handle('OPP')
+        eventBus.$emit('plus', 'OPP')
       }}>反对</button>
     </div>
   }

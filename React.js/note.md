@@ -646,7 +646,7 @@ export default class Clock extends React.PureComponent {
  setState本身在生命周期函数或者在合成事件中执行时异步的
  - =>保证react本身生命周期函数执行的顺序不紊乱
  - =>保证其实现渲染队列的机制 可以合并setState统一渲染
-  
+
  在原生的事件绑定中和其他异步操作中的setState是同步的
  - =>没有渲染队列效果了
 
@@ -736,9 +736,24 @@ export default class Test1 extends React.Component {
  - useRef
  - useReducer
  - ...
- ## 复合组件信息传递
- - 属性传递
- - 自己实现上下文传递
- - 基于上下文传递
- 
- 
+ ## redux公共状态管理
+
+- 组件信息传递的方式
+  - 属性传递
+  - 上下文传递(createContext)
+  - 发布订阅
+- redux的基础应用和原理
+- react-redux的基础应用和原理
+- redux中间件
+- antd
+- 案例：TASK OA
+
+## 路由管控
+
+- hash路由和browser路由的原理
+- react-router-dom的基础操作
+  - 路由构建 
+  - 路由跳转
+  - 参数传递
+  - withRouter
+- 权限校验

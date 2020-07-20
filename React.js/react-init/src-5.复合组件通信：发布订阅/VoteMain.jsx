@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 
 function computed(supNum, oppNum) {
 	let total = supNum + oppNum;
@@ -10,13 +9,12 @@ function computed(supNum, oppNum) {
 }
 
 export default class VoteMain extends React.Component {
-	// 获取上下文中的信息
-	static contextTypes = {
-		supNum: PropTypes.number,
-		oppNum: PropTypes.number
+	state ={
+		supNum: 0,
+		oppNum: 0
 	}
 	render() {
-		let { supNum, oppNum } = this.context
+		let { supNum, oppNum } = this.state
 		return (
 			<div>
 				<p>支持人数：{supNum}</p>
@@ -24,5 +22,18 @@ export default class VoteMain extends React.Component {
 				<p>支持率：{computed(supNum, oppNum)}</p>
 			</div>
 		);
+	}
+	componentDidMount(){
+		this.props.eventBus.$on('plus', (type)=>{
+			if(type==='SUP'){
+				this.setState({
+					supNum: this.state.supNum + 1
+				})
+				return
+			}
+			this.setState({
+				oppNum: this.state.oppNum + 1
+			})
+		})
 	}
 }
