@@ -748,6 +748,12 @@ export default class Test1 extends React.Component {
 - antd
 - 案例：TASK OA
 
+组件信息传递（图）
+
+redux（图）
+
+安装依赖 yarn add redux redux-logger redux-promise redux-thunk
+
 ## 路由管控
 
 - hash路由和browser路由的原理
