@@ -750,6 +750,16 @@ export default class Test1 extends React.Component {
 
 组件信息传递（图）
 
+### redux的基础应用和原理
+
+#### redux的基础流程
+
+- .从redux中结构出createStore，通过createStore(reducer)创建一个容器store，容器中有两个池，一个是状态池（管控状态），一个是事件池（管控能够让各个组件重新渲染的方法）
+- 获取状态store.getState()，添加事件store.subscribe()
+- 创建store需要传入参数reducer函数，其接收两个值，第一个值是state（原有状态），第二个值是action（dispatch派发的行为对象），首先把state深拷贝一份，根据action.type对其进行修改，并返回最新state
+- 通过React.createContext()创建上下文ThemeContext，并通过ThemeContext.Provider注册上下文，在组件中通过ThemeContext.Consumer接收上下文context并使用
+- 通过向事件池中追加方法store.subscribe(()=>{this.forceUpdate()})，当状态发生改变时，重新通知组件渲染
+
 redux（图）
 
 安装依赖 yarn add redux redux-logger redux-promise redux-thunk
@@ -763,3 +773,4 @@ redux（图）
   - 参数传递
   - withRouter
 - 权限校验
+
