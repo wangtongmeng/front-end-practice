@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <template v-for="(value, name) in sonData" >
+      <input :key="name" :value="value" @input="handleChange($event, name)" />
+      {{value}}
+    </template>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        sonData: {}
+      },
+      methods: {
+        handleChange ($event, name) {
+          this.sonData[name] = $event.target.value
+        }
+      }
+    })
+    
+    setTimeout(() => {
+      var attr1 = 'attr1'
+      const value = eval('1+2')
+      Vue.set(app.$data.sonData, attr1, value)
+    }, 1000)
+  </script>
+</body>
+
+</html>

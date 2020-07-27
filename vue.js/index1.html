@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <template v-for="(value, name) in attrs">
+      <input :key="name" :value="value" @input="handleChange($event, name)" />
+      {{value}}
+    </template>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        attrs: {}
+      },
+      methods: {
+        handleChange($event, name) {
+          this.attrs[name] = $event.target.value
+        }
+      }
+    })
+
+    setTimeout(() => {
+      var str = '${A1}+${A2}'
+      var data = {
+        A1: '1T',
+        A2: '2O'
+      }
+      // 公式变量=>公式实际值
+      var replaceStr = str.replace(/\$\{(.+?)\}/g, function (val) {
+        let attr = /\$\{(.+?)\}/g.exec(val)[1]
+        return data[attr]
+      })
+      // 动态更新X的值
+      Vue.set(app.$data.attrs, 'X', replaceStr) // 1T+2O
+    }, 1000)
+  </script>
+</body>
+
+</html>

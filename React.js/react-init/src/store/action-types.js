@@ -1,0 +1,2 @@
+export const VOTE_SUPPORT = 'VOTE_SUPPORT'
+export const VOTE_OPPOSE = 'VOTE_OPPOSE'

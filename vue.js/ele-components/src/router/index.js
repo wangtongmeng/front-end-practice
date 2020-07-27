@@ -5,6 +5,7 @@ import Home from '@/pages/Home'
 import FormGenerator from '@/pages/form-generator'
 import FormCreate from '@/pages/FormCreate'
 import optimize from '@/pages/optimize'
+import ele from '@/pages/ele'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ Vue.use(VueRouter)
     path: '/FormCreate',
     name: 'FormCreate',
     component: FormCreate
+  },
+  {
+    path: '/ele',
+    name: 'ele',
+    component: ele
   }
   
   // {

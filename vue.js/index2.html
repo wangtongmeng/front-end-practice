@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <div>computed a: {{a}}</div>
+    <div>computed b: {{b}}</div>
+    <div v-if="b()">123</div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    
+    var app = new Vue({
+      el: '#app',
+      data: {
+        test: 'xxx'
+      },
+      beforeCreate() {
+        console.log('beforeCreate')
+        console.log('this', this)
+      },
+      created() {
+        console.log('created')
+        console.log('this', this)
+        this.$options.computed.b = function () {
+          return this.test + 22
+        }
+      },
+      computed: {
+        a() {
+          console.log('computed a')
+          return this.test + 11
+        }
+      },
+      methods: {
+        b(){
+          console.log('methods b')
+          return true
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

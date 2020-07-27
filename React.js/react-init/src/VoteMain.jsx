@@ -11,22 +11,10 @@ function computed(supNum, oppNum) {
 export default class VoteMain extends React.Component {
 
 	render() {
-		const ThemeContext = window.ThemeContext
-		return <ThemeContext.Consumer>
-			{context => {
-				this.context = context
-				const { supNum, oppNum } = this.context.store.getState()
-				return <div>
-					<p>支持人数：{supNum}</p>
-					<p>反对人数：{oppNum}</p>
-					<p>支持率：{computed(supNum, oppNum)}</p>
-				</div>
-			}}
-		</ThemeContext.Consumer>
-	}
-	componentDidMount(){
-		this.context.store.subscribe(()=>{
-			this.forceUpdate()
-		})
+		return <div>
+			<p>支持人数：</p>
+			<p>反对人数：</p>
+			<p>支持率：{computed(0, 0)}</p>
+		</div>
 	}
 }
