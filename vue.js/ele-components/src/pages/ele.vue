@@ -16,6 +16,7 @@
         <DynamicForm :formData="formData"></DynamicForm>
       </el-drawer>
       <el-button @click="openDrawer">打开划窗</el-button>
+      X{{X}}
     </section>
   </div>
 </template>
@@ -35,6 +36,10 @@ export default {
       drawer: false,
       direction: "rtl",
       formData: [],
+      realData: {
+        A1: "1T",
+        A2: "2O",
+      },
       computed: {},
     };
   },
@@ -42,33 +47,23 @@ export default {
   methods: {
     async openDrawer() {
       this.formData = await this.request();
+      this.$options.computed.X = () => {
+        var str = "${A1}+${A2}";
+        // 公式变量=>公式实际值
+        var replaceStr = str.replace(/\$\{(.+?)\}/g, val => {
+          let attr = /\$\{(.+?)\}/g.exec(val)[1];
+          return this.realData[attr];
+        });
+        return replaceStr
+      }
       this.drawer = true;
     },
     request() {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([
-            {
-              type: "input",
-              label: "标题1",
-              attr: "A1",
-              value: "",
-              formula: "",
-            },
-            {
-              type: "input",
-              label: "标题2",
-              attr: "A2",
-              value: "",
-              formula: "",
-            },
-            {
-              type: "input",
-              label: "标题3",
-              attr: "A3",
-              value: "",
-              formula: "${A1}+${A2}",
-            },
+            { type: "input", label: "标题1", attr: "A1", value: "" },
+            { type: "input", label: "标题2", attr: "A2", value: "" },
           ]);
         }, 100);
       });

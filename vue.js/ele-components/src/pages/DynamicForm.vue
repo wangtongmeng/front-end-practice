@@ -7,7 +7,7 @@
         :label="item.label"
         :prop="item.attr"
       >
-        <el-input v-if="item.type === 'input'" :value="item.value" :disabled="item.formula !== ''"></el-input>
+        <el-input v-if="item.type === 'input'" :value="item.value"></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -20,11 +20,6 @@ export default {
       type: Array,
       default: () => [],
     },
-    watch: {
-      formData (val) {
-        console.log('val',  )
-      }
-    }
   },
 };
 </script>
