@@ -8,6 +8,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 import formCreate from '@form-create/element-ui'
 Vue.use(ElementUI);
 Vue.use(formCreate)
+// element 二次封装
+import eleconfig from './eleComponents/index'
+Vue.use(eleconfig)
 
 import VueFormGenerator from 'vue-form-generator'
 import 'vue-form-generator/dist/vfg.css'

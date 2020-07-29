@@ -2,31 +2,28 @@
   <div>
     <section>
       <h2>dialog</h2>
-      <my-dialog title="提示" :visible.sync="dialogVisible" width="30%">
+      <m-dialog title="二次封装dialog" :visible.sync="dialogVisible" center>
         <span>这是一段信息</span>
-        <span slot="footer" class="dialog-footer">
+        <template v-slot:footer>
           <el-button @click="dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-        </span>
-      </my-dialog>
+        </template>
+      </m-dialog>
       <button @click="dialogVisible = true">打开dialog</button>
     </section>
-    <section>
+    <!-- <section>
       <el-drawer title="我是标题" :visible.sync="drawer" :direction="direction">
         <DynamicForm :formData="formData"></DynamicForm>
       </el-drawer>
       <el-button @click="openDrawer">打开划窗</el-button>
-      X{{X}}
-    </section>
+    </section>-->
   </div>
 </template>
 
 <script>
-import MyDialog from "../components/MyDialog";
 import DynamicForm from "./DynamicForm";
 export default {
   components: {
-    MyDialog,
     DynamicForm,
   },
   data() {
@@ -36,10 +33,6 @@ export default {
       drawer: false,
       direction: "rtl",
       formData: [],
-      realData: {
-        A1: "1T",
-        A2: "2O",
-      },
       computed: {},
     };
   },
@@ -47,15 +40,6 @@ export default {
   methods: {
     async openDrawer() {
       this.formData = await this.request();
-      this.$options.computed.X = () => {
-        var str = "${A1}+${A2}";
-        // 公式变量=>公式实际值
-        var replaceStr = str.replace(/\$\{(.+?)\}/g, val => {
-          let attr = /\$\{(.+?)\}/g.exec(val)[1];
-          return this.realData[attr];
-        });
-        return replaceStr
-      }
       this.drawer = true;
     },
     request() {
