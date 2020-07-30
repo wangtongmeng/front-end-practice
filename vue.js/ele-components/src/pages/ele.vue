@@ -11,12 +11,12 @@
       </m-dialog>
       <button @click="dialogVisible = true">打开dialog</button>
     </section>
-    <!-- <section>
+    <section>
       <el-drawer title="我是标题" :visible.sync="drawer" :direction="direction">
-        <DynamicForm :formData="formData"></DynamicForm>
+        <DynamicForm></DynamicForm>
       </el-drawer>
-      <el-button @click="openDrawer">打开划窗</el-button>
-    </section>-->
+      <el-button @click="drawer = true">打开划窗</el-button>
+    </section>
   </div>
 </template>
 
@@ -35,23 +35,6 @@ export default {
       formData: [],
       computed: {},
     };
-  },
-  mounted() {},
-  methods: {
-    async openDrawer() {
-      this.formData = await this.request();
-      this.drawer = true;
-    },
-    request() {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve([
-            { type: "input", label: "标题1", attr: "A1", value: "" },
-            { type: "input", label: "标题2", attr: "A2", value: "" },
-          ]);
-        }, 100);
-      });
-    },
   },
 };
 </script>

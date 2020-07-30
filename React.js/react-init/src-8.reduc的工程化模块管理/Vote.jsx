@@ -5,10 +5,11 @@ import VoteFooter from './VoteFooter'
 
 export default class Vote extends React.Component {
   render() {
+    const store = this.props.store
     return <>
-      <VoteHead />
-      <VoteMain />
-      <VoteFooter />
+      <VoteHead store={store} />
+      <VoteMain store={store} />
+      <VoteFooter store={store} />
     </>
   }
 }

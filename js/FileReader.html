@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" id="file" name="myFile">
+  <div id="progress"></div>
+  <div id="output"></div>
+  <script>
+    var fileList = document.getElementById('file')
+    fileList.addEventListener('change', e => {
+      var info = '',
+        output = document.getElementById('output'),
+        progress = document.getElementById('progress'),
+        files = e.target.files,
+        type = 'default',
+        reader = new FileReader()
+        console.log('files[0].type', files[0].type)
+      if (/image\/jpeg/.test(files[0].type)) {
+        console.log(111)
+        reader.readAsDataURL(files[0])
+        type = 'image/jpeg'
+      } else {
+        reader.readAsText(files[0])
+        type = 'text'
+      }
+      console.log('type', type)
+      reader.onerror = function () {
+        output.innerHTML = 'error'
+      }
+      reader.onprogress = function (event) {
+        if (event.lengthComputable) {
+          progress.innerHTML = event.loaded + '/' + event.total
+        }
+      }
+      reader.onload = function () {
+        var html = ''
+        switch (type) {
+          case 'image/jpeg':
+            console.log('image')
+            html = '<img width=100px src=\'' + reader.result + '\'>'
+            break;
+          case 'text':
+            console.log('text')
+            html = reader.result
+            break
+        }
+        output.innerHTML = html
+      }
+
+
+    })
+  </script>
+</body>
+</html>
