@@ -764,6 +764,13 @@ redux（图）
 
 安装依赖 yarn add redux redux-logger redux-promise redux-thunk
 
+#### redux的工程化模块管理
+
+#### react-redux的使用
+
+redux是一个通用的公共管理模块，任何框架都可以使用。
+
+
 ## 路由管控
 
 - hash路由和browser路由的原理
