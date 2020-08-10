@@ -23,7 +23,17 @@ export function connect(mapStateToProps, mapDispatchToProps) {
   }
   if (typeof mapDispatchToProps !== 'function') {
     if (mapDispatchToProps !== null && typeof mapDispatchToProps === 'object') {
-
+      const actions = mapDispatchToProps
+      mapDispatchToProps = function (dispatch) {
+        const obj = {}
+        for (let key in actions) {
+          if (!actions.hasOwnProperty(key)) break
+          obj[key] = function (...args) {
+            dispatch(actions[key](...args))
+          }
+        }
+        return obj
+      }
     } else {
       mapDispatchToProps = function () {
         return {}

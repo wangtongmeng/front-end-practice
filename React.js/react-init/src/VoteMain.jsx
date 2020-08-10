@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from './my-react-redux'
 
 function computed(supNum, oppNum) {
 	let total = supNum + oppNum;

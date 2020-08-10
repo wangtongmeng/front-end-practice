@@ -1,6 +1,6 @@
 import React from 'react';
 import action from './store/actions/index';
-import { connect } from 'react-redux';
+import { connect } from './my-react-redux';
 
 class VoteFooter extends React.Component {
 	render() {
