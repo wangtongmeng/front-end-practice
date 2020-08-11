@@ -772,7 +772,7 @@ redux是一个通用的公共管理模块，任何框架都可以使用。
 #### redux原理和react-redux原理
 #### TASK OA
 ```
-yarn add antd axios react-redux redux-logger redux-promise redux-thunk react-router-dom less less-loader
+yarn add antd axios react-redux redux-logger redux-promise redux-thunk react-router-dom less less-loader moment
 ```
 草稿图
 
