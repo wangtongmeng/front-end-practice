@@ -16,22 +16,32 @@ class App extends React.Component {
       {
         title: '状态',
         dataIndex: 'state',
-        render: (text, row, index) => {
-          return parseInt(text) === 1 ? '未完成' : '已完成'
-        }
+        render: (text, row, index) => parseInt(text) === 1 ? '未完成' : '已完成'
       },
       {
         title: '完成时间',
-        dataIndex: 'time',
-        key: 'time'
+        render: this.formatTime
       },
       {
         title: '操作'
       },
     ],
     data: [
-      { id: 1, task: '任务1', state: 1, time: '2020-08-11 19:55', complete: '2020-08-11 19:55' }
+      { id: 1, task: '任务1', state: 1, time: '2020-08-11 19:55', complete: '2020-08-11 19:55' },
+      { id: 1, task: '任务2', state: 2, time: '2020-08-11 19:55', complete: '2020-08-11 19:55' },
     ]
+  }
+  addZero = val => {
+    val = parseInt(val)
+    if (!val) {
+      return '00'
+    }
+    return val < 10 ? '0' + val : val
+  }
+  formatTime = (text, row, index) => {
+    let time = parseInt(row.state) === 1 ? row.time : row.complete
+    time = time.match(/\d+/g)
+    return `${this.addZero(time(1))}-${this.addZero(time(2))}-${this.addZero(time(3))}-${this.addZero(time(4))}-${this.addZero(time(5))}`
   }
   render() {
     let { columns, data } = this.state
