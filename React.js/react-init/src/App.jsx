@@ -7,28 +7,41 @@ class App extends React.Component {
     columns: [
       {
         title: '编号',
-        dataIndex: 'id'
+        dataIndex: 'id',
+        width: '8%'
       },
       {
         title: '任务描述',
-        dataIndex: 'task'
+        dataIndex: 'task',
+        width: '49%'
       },
       {
         title: '状态',
         dataIndex: 'state',
-        render: (text, row, index) => parseInt(text) === 1 ? '未完成' : '已完成'
+        render: (text, row, index) => parseInt(text) === 1 ? '未完成' : '已完成',
+        width: '10%'
       },
       {
         title: '完成时间',
-        render: this.formatTime
+        render: (text, row, index) => this.formatTime(text, row, index),
+        width: '18%'
       },
       {
-        title: '操作'
+        title: '操作',
+        width: '15%',
+        render: (text, row) => {
+          console.log('text', text);
+          return <>
+            <a>删除</a>
+            &nbsp;&nbsp;
+            {parseInt(text.state) === 1 ? <a>完成</a> : null}
+          </>
+        }
       },
     ],
     data: [
-      { id: 1, task: '任务1', state: 1, time: '2020-08-11 19:55', complete: '2020-08-11 19:55' },
-      { id: 1, task: '任务2', state: 2, time: '2020-08-11 19:55', complete: '2020-08-11 19:55' },
+      { id: 1, task: '任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1', state: 1, time: '2020-08-11 19:55', complete: '2020-08-11 19:55' },
+      { id: 2, task: '任务2', state: 2, time: '2020-08-11 19:55', complete: '2020-08-11 19:55' },
     ]
   }
   addZero = val => {
@@ -41,8 +54,9 @@ class App extends React.Component {
   formatTime = (text, row, index) => {
     let time = parseInt(row.state) === 1 ? row.time : row.complete
     time = time.match(/\d+/g)
-    return `${this.addZero(time(1))}-${this.addZero(time(2))}-${this.addZero(time(3))}-${this.addZero(time(4))}-${this.addZero(time(5))}`
+    return `${this.addZero(time[1])}-${this.addZero(time[2])} ${this.addZero(time[3])}:${this.addZero(time[4])}:${this.addZero(time[5])}`
   }
+
   render() {
     let { columns, data } = this.state
     return <div className="container">
@@ -54,7 +68,7 @@ class App extends React.Component {
         <Tag>未完成</Tag>
         <Tag>已完成</Tag>
       </div>
-      <Table columns={columns} dataSource={data} pagination={false} />
+      <Table columns={columns} dataSource={data} pagination={false} rowKey="id" />
     </div>
   }
 }
