@@ -46,7 +46,9 @@ class App extends React.Component {
       { id: 2, task: '任务2', state: 2, time: '2020-08-11 19:55', complete: '2020-08-11 19:55' },
     ],
     // 控制模态框和表单内容
-    visible: false
+    visible: false,
+    task: '',
+    time: ''
   }
   addZero = val => {
     val = parseInt(val)
@@ -65,13 +67,22 @@ class App extends React.Component {
 
   }
   handleCancel = () => {
-
+    this.setState({
+      visible: false,
+      task: '',
+      time: ''
+    })
+  }
+  openModal = () => {
+    this.setState({
+      visible: true
+    })
   }
   render() {
-    let { columns, data, visible } = this.state
+    let { columns, data, visible, task, time } = this.state
     return <div className="container">
       <PageHeader title="任务管理系统">
-        <Button type="dashed">新增按钮</Button>
+        <Button type="dashed" onClick={this.openModal}>新增按钮</Button>
       </PageHeader>
       <div className="navBox">
         <Tag color="blue">全部</Tag>
@@ -83,15 +94,18 @@ class App extends React.Component {
       {/* 新增任务 */}
       <Modal
         title="新增任务"
-        // visible={visible}
-        visible={true}
+        visible={visible}
         onOk={this.handleOK}
         onCancel={this.handleCancel}
       >
         <p>任务描述：</p>
-        <TextArea rows={3} />
+        <TextArea rows={3} value={task} onChange={ev => {
+          this.setState({task: ev.target.value})
+        }} />
         <p>完成时间：</p>
-        <DatePicker format="YYYY-MM-DD HH:mm:ss" />
+        <DatePicker format="YYYY-MM-DD HH:mm:ss" onChange={(time, str) => {
+          this.setState({time: str})
+        }} />
       </Modal>
     </div>
   }
