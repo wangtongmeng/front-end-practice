@@ -8,5 +8,25 @@ export default {
         state
       }
     })
+  },
+  addTask (task, time) {
+    return axios.post('/addTask', {
+      task,
+      time
+    })
+  },
+  removeTask (id) {
+    return axios.get('/removeTask', {
+      params: {
+        id
+      }
+    })
+  },
+  completeTask (id) {
+    return axios.get('/completeTask', {
+      params: {
+        id
+      }
+    })
   }
 }
