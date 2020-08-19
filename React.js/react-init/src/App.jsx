@@ -1,5 +1,7 @@
 import React from 'react'
 import './App.less'
+import { connect } from 'react-redux'
+import actions from './store/actions'
 import { PageHeader, Button, Tag, Table, Modal, message, Input, DatePicker } from 'antd'
 const { confirm } = Modal
 const { TextArea } = Input;
@@ -100,15 +102,15 @@ class App extends React.Component {
       >
         <p>任务描述：</p>
         <TextArea rows={3} value={task} onChange={ev => {
-          this.setState({task: ev.target.value})
+          this.setState({ task: ev.target.value })
         }} />
         <p>完成时间：</p>
         <DatePicker format="YYYY-MM-DD HH:mm:ss" onChange={(time, str) => {
-          this.setState({time: str})
+          this.setState({ time: str })
         }} />
       </Modal>
     </div>
   }
 }
 
-export default App
+export default connect(state => state.task, actions.task)(App)

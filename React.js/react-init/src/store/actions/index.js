@@ -1,7 +1,6 @@
 // 合并action
-import voteAction from './voteAction'
+import taskAction from './taskAction'
 
-const action = {
-  vote: voteAction
+export default {
+  task: taskAction
 }
-export default action

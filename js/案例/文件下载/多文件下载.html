@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <button id="single">单文件下载</button>
+  <button id="multi">多文件下载</button>
+
+  <a href="./demo.xls" download="单文件下载.xls">a标签下载</a>
+</head>
+
+<body>
+  <script>
+    const mp3arr =new Array(10).fill("./demo.xls")
+    const singleBtn = document.getElementById('single')
+    const multiBtn = document.getElementById('multi')
+    function download(name, url) {
+      const a = document.createElement('a')
+      a.style.display = 'none'
+      a.href = url
+      a.download = name
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+    }
+    singleBtn.onclick = function () {
+      download('单文件下载', mp3arr[0])
+    }
+    multiBtn.onclick = function () {
+      mp3arr.forEach((url, index)=> {
+        download('多文件下载' + index, url)
+      })
+    }
+  </script>
+</body>
+
+</html>

@@ -1,14 +1,10 @@
 import * as TYPES from  '../action-types'
 const voteAction = {
   // 写成函数返回的形式，主要是为react-redux准备的
-  changeSupNum() {
+  queryAll(){
     return {
-      type: TYPES.VOTE_SUPPORT
-    }
-  },
-  changeOppNum() {
-    return {
-      type: TYPES.VOTE_OPPOSE
+      types: TYPES.TASK_QUERY_ALL,
+      payload: []
     }
   }
 }
