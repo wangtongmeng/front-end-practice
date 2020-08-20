@@ -43,14 +43,12 @@ class App extends React.Component {
         }
       },
     ],
-    data: [
-      { id: 1, task: '任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1任务1', state: 1, time: '2020-08-11 19:55', complete: '2020-08-11 19:55' },
-      { id: 2, task: '任务2', state: 2, time: '2020-08-11 19:55', complete: '2020-08-11 19:55' },
-    ],
     // 控制模态框和表单内容
     visible: false,
     task: '',
-    time: ''
+    time: '',
+    // 控制标签选中
+    activeIndex: 0
   }
   addZero = val => {
     val = parseInt(val)
@@ -81,17 +79,20 @@ class App extends React.Component {
     })
   }
   render() {
-    let { columns, data, visible, task, time } = this.state
+    let { columns, visible, task, time } = this.state
+    let { taskList } = this.props
     return <div className="container">
       <PageHeader title="任务管理系统">
         <Button type="dashed" onClick={this.openModal}>新增按钮</Button>
       </PageHeader>
       <div className="navBox">
-        <Tag color="blue">全部</Tag>
+        <Tag color="blue" onClick={ev=>{
+          this.setState({activeIndex: 0})
+        }}>全部</Tag>
         <Tag>未完成</Tag>
         <Tag>已完成</Tag>
       </div>
-      <Table columns={columns} dataSource={data} pagination={false} rowKey="id" />
+      <Table columns={columns} dataSource={taskList?taskList: []} pagination={false} rowKey="id" />
 
       {/* 新增任务 */}
       <Modal
@@ -110,6 +111,12 @@ class App extends React.Component {
         }} />
       </Modal>
     </div>
+  }
+  componentDidMount(){
+    // 第一次渲染组件，redux中没有任务信息，我们则派发获取即可
+    if (!this.props.taskList) {
+      this.props.queryAll()
+    }
   }
 }
 
