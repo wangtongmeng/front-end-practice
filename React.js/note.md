@@ -770,6 +770,7 @@ redux（图）
 
 redux是一个通用的公共管理模块，任何框架都可以使用。
 #### redux原理和react-redux原理
+公共状态的两大作用：redux、react-redux不仅仅可以**实现组件信息通信**，还可以基于redux保存数据，**避免多次向服务器发送请求，提升性能**
 #### TASK OA
 ```
 yarn add antd axios react-redux redux-logger redux-promise redux-thunk react-router-dom less less-loader moment
@@ -785,4 +786,75 @@ yarn add antd axios react-redux redux-logger redux-promise redux-thunk react-rou
   - 参数传递
   - withRouter
 - 权限校验
+
+### 单页面应用和多页面应用
+
+> SPA：single page web application 单页面WEB应用(一个产品一个页面，所有内容的展示和业务的处理都是在这个页面完成)
+>
+> MPA：multi page web application 多页面WEB应用(一个产品包含很多页面，通过页面之前的跳转完成业务逻辑和链接等)
+
+#### SPA单页面应用的发展历程
+
+1、页面是基于服务器端渲染的，不管是多页面还是单页面，我们肯定有很多需要公共使用的部分，此时我们把它封装成一个组件，通过相关的技术导入到具体的某一个页面中（例如：include...）
+
+2、基于iframe完成SPA单页面应用开发（前端负责）
+
+>优势：主体页面内容依然是一个个的单独开发的，页面加载的时候，只渲染部分页面内容，想展示谁，才去加载谁（性能上还是不错的）
+>
+>弊端：父子页面之间的信息通信（包括一些公共资源的使用）iframe都体现的不是特别良好
+
+3、基于轻量级框架的模块化开发
+
+> AMD：require.js
+>
+> CMD：sea.js
+>
+> 自动化平台：grunt\gulp\fis
+
+开发很多的模块，后期基于gulp把所有的模块合并在一起（合并到一个页面中）
+
+> 优势：单程一个页面，不存在跨页面，模块之间的通信以及公共资源的使用都展现良好
+>
+> 弊端：合并后的页面，需要加载大量的资源，首次加载速度慢（也可以解决，一般都是基于hash解决的，不过需要额外的处理）
+
+4、vue/react中的路由管理，基于路由实现单页面应用（即解决了资源共享和信息通信的问题，也考虑了性能优化，按需加载所需的资源和内容...）
+
+#### SPA和MPA的对比
+
+|                            | 多页应用模式（MPA）                                        | 单页应用模式（SPA）                                          |
+| -------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------ |
+| 应用组成                   | 由多个完成页面构成                                         | 一个外壳页面和多个页面片段构成                               |
+| 跳转方式                   | 页面之间的跳转是从一个页面跳转到另一个页面                 | 页面片段之间的跳转是把一个页面片段删除或隐藏，加载另一个页面片段并显示出来。这是片段之间的模拟跳转，并没有离开壳页面 |
+| 刷新方式                   | 整页刷新                                                   | 页面片段局部刷新                                             |
+| 跳转后公共资源是否重新加载 | 是                                                         | 否                                                           |
+| URL模式                    | http://xxx/page1.html  http://xxx/page2.html               | http://xxx/shell.html#page1 http://xxx.shell.html#page2      |
+| 用户体验                   | 页面间切换加载慢，不流畅，**用户体验差**，特别是移动设备上 | 页面片段间的切换快，**用户体验好**，包括移动设备上           |
+| 能否实现转场动画           | 无法实现                                                   | 容易实现                                                     |
+| 页面间传递数据             | 依赖URL、cookie、或者localStorage，实现麻烦                | 因为在一个页面内，页面片段间传递数据很容易实现               |
+| 搜索引擎优化（SEO）        | 可以直接做                                                 | 需要单独方案做，有点麻烦                                     |
+| 特别适用的范围             | 需要对搜索引擎友好的网站                                   | 对体验要求高的应用，特别是移动应用                           |
+| 开发难度                   | 低一些，框架选择容易                                       | 高一些，需要专门的框架来降低这种模式的开发难度               |
+
+结论：**单页应用模式由于有很多好处，已经是Web应用开发的潮流，特别是移动应用开发**。
+
+### react-router-dom 实现SPA单页面应用
+
+> yarn add react-router-dom
+
+#### 基础使用
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {HashRouter, Route} from 'react-router-dom'
+
+react-router中提供了两种路由方式：
+	1、broswer-router(基于H5中的history-api完成的)
+		http://www.xxx.com/user
+		http://www.xxx.com/user/signin
+	2、hash-router(基于hash值处理，window.onhashchange=function(){})
+		http://www.xxx.com/#/user
+		http://www.xxx.com/#/user/signin
+	如果项目是单纯静态页面展示（数据绑定是有客户端完成的），一般我们都使用hash-router完成；如果当前的项目有些内容是需要后台完成，我们尽量使用broswer-router，因为hash值不太容易和服务器端产生关联。
+```
 
