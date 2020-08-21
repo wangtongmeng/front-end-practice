@@ -3,6 +3,7 @@ import './App.less'
 import { connect } from 'react-redux'
 import actions from './store/actions'
 import { PageHeader, Button, Tag, Table, Modal, message, Input, DatePicker } from 'antd'
+import api from './api'
 const { confirm } = Modal
 const { TextArea } = Input;
 
@@ -36,9 +37,13 @@ class App extends React.Component {
         render: (text, row) => {
           console.log('text', text);
           return <>
-            <a>删除</a>
+            <a onClick={ev => {
+              this.handleDelete(text)
+            }}>删除</a>
             &nbsp;&nbsp;
-            {parseInt(text.state) === 1 ? <a>完成</a> : null}
+            {parseInt(text.state) === 1 ? <a onClick={ev => {
+              this.handleComplete(text)
+            }}>完成</a> : null}
           </>
         }
       },
@@ -63,7 +68,16 @@ class App extends React.Component {
     return `${this.addZero(time[1])}-${this.addZero(time[2])} ${this.addZero(time[3])}:${this.addZero(time[4])}:${this.addZero(time[5])}`
   }
   // 处理模态框
-  handleOK = () => {
+  handleOK = async () => {
+    let { task, time } = this.state
+    let data = await api.task.addTask(task, time)
+    if (parseInt(data.code) === 0) {
+      message.success('恭喜您！任务增加成功')
+      this.handleCancel()
+      this.props.queryAll()
+      return
+    }
+    message.error('很遗憾！任务增加失败，请稍后再试~~')
 
   }
   handleCancel = () => {
@@ -79,20 +93,18 @@ class App extends React.Component {
     })
   }
   render() {
-    let { columns, visible, task, time } = this.state
+    let { columns, visible, task, time, activeIndex } = this.state
     let { taskList } = this.props
     return <div className="container">
       <PageHeader title="任务管理系统">
         <Button type="dashed" onClick={this.openModal}>新增按钮</Button>
       </PageHeader>
       <div className="navBox">
-        <Tag color="blue" onClick={ev=>{
-          this.setState({activeIndex: 0})
-        }}>全部</Tag>
-        <Tag>未完成</Tag>
-        <Tag>已完成</Tag>
+        {['全部', '未完成', '已完成'].map((item, index) => {
+          return <Tag key={index} color={activeIndex === index ? 'blue' : ''} onClick={this.handleTag.bind(this, index)}>{item}</Tag>
+        })}
       </div>
-      <Table columns={columns} dataSource={taskList?taskList: []} pagination={false} rowKey="id" />
+      <Table columns={columns} dataSource={this.filterData(taskList)} pagination={false} rowKey="id" />
 
       {/* 新增任务 */}
       <Modal
@@ -112,7 +124,30 @@ class App extends React.Component {
       </Modal>
     </div>
   }
-  componentDidMount(){
+  // 点击tag
+  filterData = taskList => {
+    if (!this.props.taskList) {
+      this.props.queryAll()
+      return []
+    }
+    let activeIndex = this.state.activeIndex
+    if (activeIndex === 0) return taskList
+    return taskList.filter(item => {
+      return parseInt(item.state) === activeIndex
+    })
+  }
+  // 完成或者删除
+  handleComplete = text => {
+
+  }
+  handleDelete = text => {
+    
+  }
+  handleTag = index => {
+    this.setState({ activeIndex: index })
+  }
+  // 钩子函数
+  componentDidMount() {
     // 第一次渲染组件，redux中没有任务信息，我们则派发获取即可
     if (!this.props.taskList) {
       this.props.queryAll()
