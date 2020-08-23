@@ -849,12 +849,105 @@ import ReactDOM from 'react-dom'
 import {HashRouter, Route} from 'react-router-dom'
 
 react-router中提供了两种路由方式：
-	1、broswer-router(基于H5中的history-api完成的)
+	1、broswer-router(基于H5中的history-api完成的，基于History API中的pushState进行地址切换的时候，页面不刷新，地址也会变，我们监听到改变后实现组件的切换；但是，当手动刷新，如果当前跳转的页面不存在，会报错，需要服务器对于不存在的页面做特殊的处理=>需要服务器配合)
 		http://www.xxx.com/user
 		http://www.xxx.com/user/signin
 	2、hash-router(基于hash值处理，window.onhashchange=function(){})
 		http://www.xxx.com/#/user
 		http://www.xxx.com/#/user/signin
 	如果项目是单纯静态页面展示（数据绑定是有客户端完成的），一般我们都使用hash-router完成；如果当前的项目有些内容是需要后台完成，我们尽量使用broswer-router，因为hash值不太容易和服务器端产生关联。
+
+每一个router(hash-router或者browser-router)都只能有一个子元素，我们需要把我们配置的每一条规则（route）放到一个容器中
 ```
 
+```jsx
+import A from './component/A'
+import B from './component/B'
+import C from './component/C'
+
+ReactDOM.render(<HashRouter>
+    {/* 
+    	* path:当前请求的路径（指的是hash值后的内容）
+    	* component:符合当前路径后渲染的组件
+    	* render:符合当前路径后执行的渲染方法（方法中可以根据自己的需求返回不同的组件或者内容，用来最后渲染）
+      * exact
+      * strict
+      * 默认情况下，只要path='/'，基本上所有的请求路径都可以把它匹配了，而这种路径一般都是首页的路径，我们如何控制，只有路径是一个斜杠才匹配，只要后面再有其他内容的，就不让其匹配？
+      * =>使用route中的exact来处理：精准匹配
+    	*/}
+    <Route path='/' exact component={A} />
+    <Route path='/user' render={()=>{
+        // 基于render一般都是做路由校验
+        let loginInfo = localStorage.getItem('login-info')
+        if (!loginInfo) {
+          return <div>暂时未登录</div>
+        }
+        return <B />
+      }} />
+    <Route path='/user/signin' component={C} />
+    
+  </HashRouter>)
+```
+
+**搭建客户管理系统**
+
+```shell
+基于react的router实现spa单页面应用，我们会按照如下的工程目录开发：
+	|-src
+	|--component 存放的是各个组件（组件：可被公共使用的）
+	|
+	|--container(routers) 这里一般存放的是页面
+	|----app.js 当前项目主页面（外层壳子）
+	|----xxx.js
+	|
+	|--store redux的一套
+	|
+	|--index.js
+```
+
+`<Switch>`
+
+Switch：react-router中提供的一个组件，这个组件是用来约束路由的（只要有一个route中的path被匹配到，直接渲染对应的组件，后面不管是否匹配，都不再继续渲染了，类似于switch case中的机制）
+
+```jsx
+<Switch>
+  <Route path="/" exact component={Home} />
+  <Route path="/custom" component={Custorm} />
+  {/* 如果请求的地址和是上面两个path都不匹配，则执行最后一个route(route不设置path，所有的路径都可以匹配)，如果上面有匹配的，switch会中断下面的匹配操作（也就是下面都不再执行了） */}
+  <Route render={()=>{
+      return <h2>hello world</h2>
+    }} />
+  {/* redirect: 重定向，重新定向到一个新的地址 */}
+  <Redirect to="/" />
+</Switch>
+```
+
+
+
+#### hash路由和broswer路由实现原理
+
+#### 小米有品路由
+
+```shell
+一级路由
+	#/ 首页组件
+	#/category 分类
+	#/pinwei 品味
+	#/cart 购物车
+	#/personal 个人中心
+		二级路由
+		/ 个人中心首页
+		/login 登录
+		/register 注册
+		...
+```
+
+1.有公共的，公共部分的操作控制非公共部分的切换，此时我们就建立路由
+
+2.也可能就是为了板块划分的明显
+
+#### react路由基础知识
+
+地址栏路由变化=>控制路由组件渲染
+
+点击操作=>控制路由组件渲染
