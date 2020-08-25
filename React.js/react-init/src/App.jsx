@@ -45,7 +45,10 @@ class App extends React.Component {
 					<NavLink to="/category">分类</NavLink>
 					<NavLink to="/pinwei">品类</NavLink>
 					<NavLink to="/cart">购物车</NavLink>
-					<NavLink to="/personal">个人中心</NavLink>
+					<NavLink to={{
+            pathname: '/personal',
+            search: '?lx=wx' // 问号传参
+          }}>个人中心</NavLink>
 				</div>
 			</div>
 		);

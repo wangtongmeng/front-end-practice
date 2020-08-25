@@ -922,6 +922,26 @@ Switch：react-router中提供的一个组件，这个组件是用来约束路�
 </Switch>
 ```
 
+**Link vs NavLink**
+
+都是router提供的组件，用来实现组件切换的
+
+```jsx
+[link]
+	类似于普通的A标签，通过Link中的to可以跳转到具体的路由页面
+  to='/'
+	to={{
+      pathname:'/',
+      search: '?xxx=xxx',
+      hash: '#xxx'
+     }}
+[NavLink]
+	拥有和Link相同的语法和效果，只是在Link的基础上，可以设置一些样式规则
+  1、基于NavLink实现跳转，会给点击的元素增加一个active的样式类
+  2、我们可以基于activeClassName / activeStyle 重新设置样式（或者样式类）
+  3、当路由切换完成，会拿当前的hash路径和对应的地址做匹配，把匹配到的NavLink设置对应的选中样式（和Route中的path路径匹配一样，对于'/'这种路径我们最好设置exact属性，精准匹配）
+```
+
 
 
 #### hash路由和broswer路由实现原理
@@ -951,3 +971,4 @@ Switch：react-router中提供的一个组件，这个组件是用来约束路�
 地址栏路由变化=>控制路由组件渲染
 
 点击操作=>控制路由组件渲染
+
