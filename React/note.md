@@ -96,6 +96,7 @@ const cssModuleRegex = /\.module\.(css|less)$/;
 ```
 在项目中使用less
 1.创建less文件
+
 ```less
 // /src/index.less
 @C: red;
@@ -104,6 +105,7 @@ body {
 }
 ```
 2.在入口文件中引入
+
 ```js
 // /src/index.js
 import React from 'react'
@@ -133,7 +135,7 @@ ReactDOM.render(<div>
 import React from 'react'
 // react的核心：基础语法、属性、状态、生命周期、组件等
 import ReactDOM from 'react-dom'
-// ReactDOM把虚拟dom渲染成真是的dom
+// ReactDOM把虚拟dom渲染成真实的dom
 import './index.less'
 
 // ReactDOM.render(jsx语法,容器,渲染完触发的回调函数)
