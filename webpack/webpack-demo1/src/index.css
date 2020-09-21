@@ -1,7 +1,0 @@
-@import './a.less';
-div {
-  width: 100px;
-  height: 100px;
-  background: red;
-  transform: rotate(45deg);
-}

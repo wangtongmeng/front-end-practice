@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="file" onchange="onChange(event)">
+  <script>
+    FileReader.prototype.readAsBinaryString = function (fileData) {
+      var binary = "";
+      var pt = this;
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        var bytes = new Uint8Array(reader.result);
+        var length = bytes.byteLength;
+        for (var i = 0; i < length; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        pt.content = binary;
+        pt.onload(pt); //页面内data取pt.content文件内容
+      }
+      reader.readAsArrayBuffer(fileData);
+    }
+    function onChange(event) {
+      var file = event.target.files[0];
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        console.log('event', event)
+        console.log(event.target.result)
+      };
+
+      reader.readAsBinaryString(file);
+    }
+  </script>
+</body>
+
+</html>

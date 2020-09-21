@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.less'
 
 
-ReactDOM.render(
-  <div>hello</div>,
-  document.getElementById('root')
-);
+// 一个根节点
+// ReactDOM.render(<>hello world</>, document.getElementById('root'));
+
+ReactDOM.render(<>hello world</>, document.getElementById('root'));
