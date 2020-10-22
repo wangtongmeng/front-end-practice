@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="post" enctype="multipart/form-data">
+        <div>
+            <label for="file">选择一个文件</label>
+            <input type="file" id="file" name="myFile" multiple>
+        </div>
+        <div>
+            <input type="submit" id="submit" name="submit_button" value="上传" />
+        </div>
+    </form>
+</body>
+<script>
+    var fileSelect = document.getElementById('file');
+    var files = fileSelect.files;
+</script>
+
+</html>
