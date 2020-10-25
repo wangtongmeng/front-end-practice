@@ -1,3 +1,2 @@
-console.log('hello')
-
-document.title = 'tm'
+// import './example/basic-type'
+import './example/symbol'
