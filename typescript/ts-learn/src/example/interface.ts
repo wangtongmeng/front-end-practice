@@ -77,7 +77,7 @@ let arr2: ArrInter = [1, 'a']
 // }
 // 保存 eslint会改为类型别名的方式
 type AddFunc = (num1: number, num2: number)  => number
-const add: AddFunc = (n1, n2) => n1 + n2
+// const add: AddFunc = (n1, n2) => n1 + n2
 
 // 索引类型
 // interface RoleDic {
