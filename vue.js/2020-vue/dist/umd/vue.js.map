@@ -1,0 +1,1 @@
+{"version":3,"file":"vue.js","sources":["../../src/index.js"],"sourcesContent":["function Vue(options){\r\n    // 进行Vue的初始化操作\r\n    console.log(options)\r\n}\r\nexport default Vue"],"names":["Vue","options","console","log"],"mappings":";;;;;;IAAA,SAASA,GAAT,CAAaC,OAAb,EAAqB;IACjB;IACAC,EAAAA,OAAO,CAACC,GAAR,CAAYF,OAAZ;IACH;;;;;;;;"}

@@ -81,7 +81,7 @@ class Parent {
         this.name = 'parent'
     }
     print () {
-        console.log(thi.name)
+        console.log(this.name)
     }
 }
 class Child extends Parent {
@@ -99,6 +99,15 @@ c.childPrint() // child ，因为父类原型上的print方法中的this指向Ch
 
 // 类的prototype属性和`__proto__`属性
 
-
+// es5中原生构造函数不允许继承，但es6中可以
+// Boolean Number String Array Date Function RegExp Error Object
+class CustomArray extends Array {
+    constructor (...args) {
+        super(...args)
+    }
+}
+const arr = new CustomArray(3)
+arr.fill('+')
+console.log(arr) // ["+", "+", "+"]
 
 

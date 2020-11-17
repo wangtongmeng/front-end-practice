@@ -8,7 +8,10 @@
         "quotemark": [false],
         "semicolon": [false],
         "interface-name": [true, "never-prefix"],
-        "object-literal-sort-keys": [false] // 按字母排序
+        "object-literal-sort-keys": [false], // 按字母排序
+        "max-classes-per-file": [false],
+        "no-empty": [false]
+
     },
     "rulesDirectory": []
 }
