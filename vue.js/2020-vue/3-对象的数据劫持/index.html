@@ -14,18 +14,21 @@
             el: '#app',
             data() {
                 return {
-                    name: [{
-                            a: 1
-                        },
-                        {
-                            b: 2
-                        }
-                    ]
+                    name: 'zhangsan',
+                    age: 18,
+                    address: {
+                        number: 0,
+                        name: 'xxx'
+                    }
                 }
             },
             computed() {},
             watch() {}
         })
+        vm._data.name = 'lisi'
+        console.log(vm._data)
+
+        vm._data.address = {a:1}
         console.log(vm._data)
     </script>
 </body>
