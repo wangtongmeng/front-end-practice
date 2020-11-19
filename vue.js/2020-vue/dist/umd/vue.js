@@ -42,6 +42,44 @@
     return Constructor;
   }
 
+  // 重写数组的方法 7个 push shift unshift pop reverse sort splice 会导致数组本身发生变化
+  var oldArrayMethods = Array.prototype; // value.__proto__ = arrayMethods 通过原型链向上查找
+  // arrayMethods.__proto__ = oldArrayMethods
+
+  var arrayMethods = Object.create(oldArrayMethods);
+  var methods = ['push', 'shift', 'unshift', 'pop', 'sort', 'splice', 'reverse'];
+  methods.forEach(function (method) {
+    arrayMethods[method] = function () {
+      console.log('调用了push方法'); // AOP 切片编程
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      var result = oldArrayMethods[method].apply(this, args); // 调用原生的数组方法
+      // push unshift 添加的元素可能还是一个对象
+
+      var inserted; // 当前用户插入的元素
+
+      var ob = this.__ob__; // __ob__ 是当前Observer的实例
+
+      switch (method) {
+        case 'push':
+        case 'unshift':
+          inserted = args;
+          break;
+
+        case 'splice':
+          // 3个 新增的属性 splice 有删除 新增的功能 arr.splice(0,1,{name: 1})
+          inserted = args.slice(2);
+      }
+
+      if (inserted) ob.observerArray(inserted); // 将新增属性继续观测
+
+      return result;
+    };
+  });
+
   /**
    * 
    * @param {*} data 当前数据是不是对象
@@ -49,18 +87,42 @@
   function isObject(data) {
     return _typeof(data) === 'object' && data !== null;
   }
+  function def(data, key, value) {
+    Object.defineProperty(data, key, {
+      enumerable: false,
+      configurable: false,
+      value: value
+    });
+  }
 
   var Observer = /*#__PURE__*/function () {
     function Observer(value) {
       _classCallCheck(this, Observer);
 
       // vue 如果数据的层次过多 需要递归的解析对象中的属性，依次增加set和get方法
-      if (Array.isArray(value)) ; else {
+      // value.__ob__ = this // 给每一个监控过的对象都增加一个__ob__属性
+      def(value, '__ob__', this);
+
+      if (Array.isArray(value)) {
+        // 对数组监控
+        // 如果是数组的话，并不会对索引进行观测 因为会导致性能问题
+        // 前端开发中很少 去操作索引，一般会使用 push、pop、shift、unshift...
+        value.__proto__ = arrayMethods; // 如果数组里放的是对象再监控
+
+        this.observerArray(value);
+      } else {
         this.walk(value);
       }
     }
 
     _createClass(Observer, [{
+      key: "observerArray",
+      value: function observerArray(value) {
+        for (var i = 0; i < value.length; i++) {
+          observe(value[i]);
+        }
+      }
+    }, {
       key: "walk",
       value: function walk(data) {
         var keys = Object.keys(data);
