@@ -24,3 +24,19 @@
 
 ## generator & co
 ## async & await
+
+
+
+node核心应用、npm、commonjs(原理)规范、buffer(node中的编码)、事件
+
+流及流的原理，http相关内容(header、缓存、防盗链、反向代理、断点续传)，实现http-server
+
+express、cookie、session、 jwt原理 及express源码
+
+koa应用及手写koa及mongo、redis数据库
+
+进程集群及EggJs
+
+
+
+
