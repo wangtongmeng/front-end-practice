@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app" style="color: red;background:blue">
+        <p>{{name}}</p>
+        <p>{{age}}</p>
+        <ul>
+            <li>{{name}}</li>
+            <li>age</li>
+        </ul>
+    </div>
+    <div>other dom</div>
+    <script src="./dist/umd/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    name: 'zhangsan',
+                    age: 11
+                }
+            },
+            computed() {},
+            watch() {}
+        })
+        // vm.name => vm._data.name
+        console.log(vm.name)
+    </script>
+</body>
+
+</html>
