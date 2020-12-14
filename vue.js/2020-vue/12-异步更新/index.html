@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- watcher 和 dep 的关系：一个watcher对应n个dep，一个dep对应n个watcher => 多对多 -->
+    <div id="app" style="color: red;background:blue">
+        <p>{{arr}}</p>
+    </div>
+    <div>other dom</div>
+    <script src="./dist/umd/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    arr: [[1,2,3]]
+                }
+            },
+        })
+
+        setTimeout(() => {
+            vm.arr.push(1)
+            vm.arr.push(2)
+            vm.arr.push(3)
+            vm.arr.push(4)
+            vm.$nextTick(()=>{
+                console.log(vm.$el.innerHTML)
+            })
+        }, 1000);
+    </script>
+</body>
+
+</html>
