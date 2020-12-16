@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component></my-component>
+    </div>
+    <script src="./dist/umd/vue.js"></script>
+    <script>
+        // 内部会调用 Vue.extend 返回一个组件的构造函数，通过new这个构造函数产生实例
+        Vue.component('my-component', {
+            template: '<div>hello 你好</div>'
+        })
+        // 更改组件的核心策略
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    name: 'zhangsan'
+                }
+            },
+            components: {
+                'my-component': {
+                    template: '<div>你好</div>'
+                }
+            }
+        })
+        let vm1 = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    name: 'zhangsan'
+                }
+            }
+        })
+        console.log('options', vm)
+        // 全局组件可以再任何实例上使用
+        console.log('component', vm1)
+    </script>
+</body>
+
+</html>
