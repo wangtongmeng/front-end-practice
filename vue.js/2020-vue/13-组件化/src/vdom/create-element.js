@@ -1,7 +1,10 @@
-import { isObject } from "../util"
+import {
+    isObject,
+    isReservedTag
+} from "../util/index"
 
 export function createElement(vm, tag, data = {}, ...children) {
-
+    console.log('this', this)
     // ast -> render -> 调用
     let key = data.key
     if (key) {
@@ -14,27 +17,41 @@ export function createElement(vm, tag, data = {}, ...children) {
         return vnode(tag, data, key, children, undefined)
     } else {
         // 组件 找到组件的定义
-        let Ctor = this.$options.components[tag]
+        let Ctor = vm.$options.components[tag]
         return createComponent(vm, tag, data, key, children, Ctor)
     }
 
 }
+
 function createComponent(vm, tag, data, key, children, Ctor) {
     if (isObject(Ctor)) {
         Ctor = vm.$options._base.extend(Ctor)
     }
+    data.hook = {
+        init(vnode){
+            // // 当前组件的实例 就是componentInstance
+            let child = vnode.componentInstance = new Ctor({_isComponent:true})
+            // // 组件的挂载 vm.$el
+            child.$mount()
+        },
+    }
+    return vnode(`vue-component-${Ctor.cid}-${tag}`, data, key, undefined, {
+        Ctor,
+        children
+    })
 }
 export function createTextNode(vm, text) {
     return vnode(undefined, undefined, undefined, undefined, text)
 }
 
-function vnode(tag, data, key, children, text) {
+function vnode(tag, data, key, children, text, componentOptions) {
     return {
         tag,
         data,
         key,
         children,
-        text
+        text,
+        componentOptions
     }
 }
 

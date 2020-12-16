@@ -101,3 +101,12 @@ export function mergeOptions(parent, child) {
 
     return options
 }
+
+export const isReservedTag = (tagName) => {
+    let str = 'p,div,span,input,button'
+    let obj = {}
+    str.split(',').forEach(tag=>{
+        obj[tag] = tag
+    })
+    return obj[tagName]
+}
