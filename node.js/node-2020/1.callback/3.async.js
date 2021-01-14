@@ -3,10 +3,10 @@ const fs = require('fs') // node中的自带模块
 // ---------------------------
 // code runner 执行 默认以vscode打开的文件夹为基准
 // 异步处理都是基于回调的，异步不能通过 try catch捕获异常，node中的回调参数第一个就是err属性s
-// fs.readFile('./age.txt', 'utf8', function (err, data) {
+// fs.readFile('./age.txt', 'utf8', function (err, data) { // ajax
 //     console.log(data)
 // })
-// fs.readFile('./name.txt', 'utf8', function (err, data) {
+// fs.readFile('./name.txt', 'utf8', function (err, data) { // ajax
 //     console.log(data)
 // })
 // ---------------------------
@@ -26,7 +26,7 @@ const fs = require('fs') // node中的自带模块
 // })
 
 let obj = {}
-function after(times, callback) {
+function after(times, callback) { // 计数器+回调
     return function () {
         --times == 0 && callback()
     }
@@ -37,7 +37,7 @@ let fn = after(2, () => { // lodash after
 fs.readFile('./age.txt', 'utf8', function (err, data) {
     if (err) return console.log(err)
     obj.age = data
-    fn()
+    fn()   
 })
 fs.readFile('./name.txt', 'utf8', function (err, data) {
     if (err) return console.log(err)
