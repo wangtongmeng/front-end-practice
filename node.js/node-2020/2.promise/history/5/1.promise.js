@@ -1,3 +1,6 @@
+// 2.2 2.2.1 可选参数
+// 测试
+
 const Promise = require('./promise')
 const p = new Promise((resolve, reject) => {
     resolve('ok')

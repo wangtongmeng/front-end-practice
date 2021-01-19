@@ -1,3 +1,7 @@
+/* 
+defer延迟对象的使用 减少套用
+staic方法实现 Promise.resolve() Promise.reject() catch
+*/
 // const Promise = require('./promise')
 // const fs = require('fs')
 // function read(...args) {

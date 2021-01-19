@@ -70,8 +70,8 @@ class Promise {
         }
     }
     then(onFulfilled, onRejected) { // switch 有作用域的问题
-        onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : data => data
-        onRejected = typeof onRejected === 'function' ? onRejected : err => {throw err}
+        onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : x => x // 可选参数
+        onRejected = typeof onRejected === 'function' ? onRejected : err => {throw err} // 可选参数
 
         let promise2 = new Promise((resolve, reject) => {
             if (this.status === STATUS.FULFILLED) {

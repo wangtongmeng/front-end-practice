@@ -1,0 +1,1 @@
+// all(一个失败全失败) race(赛跑 采用跑的快的作为结果) allSettled(纪要成功也要失败，类似于finally)

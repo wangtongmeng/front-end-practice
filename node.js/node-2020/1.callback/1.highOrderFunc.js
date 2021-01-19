@@ -2,7 +2,7 @@
 
 // 装饰器模式（对原本的功能进行包装）切片编程
 
-function core() {
+function core() { // 不改变核心函数，只进行包装
     console.log('core...')
 }
 // 每个类都有一个原型，所有实例都有一个属性__proto__

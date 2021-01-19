@@ -1,4 +1,4 @@
-// 利用发布订阅模式 当resolve/reject异步调用前，暂存方法，调用时在执行。
+// 利用发布订阅模式 当resolve/reject异步调用前，暂存方法，调用时在执行，实现异步调用
 const STATUS = {
     PENDING: 'PENDING',
     FULFILLED: 'FULFILLED',
@@ -23,7 +23,7 @@ class Promise {
                 this.status = STATUS.REJECTED
                 this.reason = reason
                 this.onRejectedCallbacks.forEach(fn => fn())
-            }
+            } 
         }
         try {
             executor(resolve, reject)

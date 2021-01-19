@@ -21,7 +21,7 @@
 const Promise = require('./promise.js')
 let p = new Promise((resolve, reject) => {
     console.log(1)
-    throw new Error('')
+    throw new Error('') // 如果抛出异常安装失败来处理
     reject('失败了')
     resolve('成功')
 })

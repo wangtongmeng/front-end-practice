@@ -49,6 +49,11 @@ class Promise {
         this.onResolvedCallbacks = [] // 存放成功的回调
         this.onRejectedCallbacks = [] // 存放失败的回调
         const resolve = (val) => {
+
+            if (val instanceof Promise) { // 是promise 就继续递归解析
+                return val.then(resolve, reject)
+            }
+
             if (this.status === STATUS.PENDING) {
                 this.status = STATUS.FULFILLED
                 this.value = val
@@ -129,13 +134,10 @@ class Promise {
     }
     static resolve(val){
         return new Promise((resolve, reject) => {
-            if (val instanceof Promise) { // 是promise 就继续递归解析
-                return val.then(resolve, reject)
-            }
-            resolve(val)
+            resolve(val) // 在resolve方法中添加promise处理
         })
     }
-    static reject (reason) { // 失败的promise
+    static reject (reason) { // 失败的promise 没有等待
         return new Promise((resolve, reject) => {
             reject(reason)
         })

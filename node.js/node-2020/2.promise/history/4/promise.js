@@ -4,9 +4,15 @@ const STATUS = {
     FULFILLED: 'FULFILLED',
     REJECTED: 'REJECTED'
 }
+// x.then是有有可能抛出错误的，所以使用trycatch捕获错误
+// Object.defineProperty('x', 'then', {
+//     get() {
+//         throw new Error()
+//     }
+// })
 // 我们的promise 按照规范来写 就可以和别人的promise公用
 function resolvePromise(x, promise2, resolve, reject) {
-    if (promise2 === x) { // 反之自己等待自己完成
+    if (promise2 === x) { // 防止自己等待自己完成
         return reject(new TypeError('出错了'))
     }
     // 看x 是普通值还是promise 如果是promise要采用他的状态
@@ -19,7 +25,7 @@ function resolvePromise(x, promise2, resolve, reject) {
                 // then是函数 就认为x是一个promise
                 // 如果x是promise 那么就采用他的状态
                 then.call(x, function (y) { // 调用返回的promise 用他的结果 作为下一次then的结果
-                    if (called) return
+                    if (called) return // 防止别人的promise多次调用resolve/reject
                     called = true
                     // 递归解析成功后的值 直到它是一个基本类型值为止
                     resolvePromise(y, promise2, resolve, reject)

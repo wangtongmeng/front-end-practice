@@ -26,22 +26,16 @@ let p = read('./name.txt', 'utf8')
 
 // 判断返回值 和 promise2的关系
 let promise2 = p.then(data => {
-    // throw new Error()
-    // return 100
+    // return promise2 // 超出类型错误，我等着我完成，我又没动所以就卡死了
     // return new Promise((resolve, reject) => {
-    //     resolve({
-    //         name: 'lisi'
-    //     })
+    //     resolve(new Promise((resolve, reject) => {
+    //         resolve(new Promise((resolve, reject) => {
+    //             resolve(new Promise((resolve, reject) => {
+    //                 resolve(100)
+    //             }))
+    //         }))
+    //     }))
     // })
-    return new Promise((resolve, reject) => {
-        resolve(new Promise((resolve, reject) => {
-            resolve(new Promise((resolve, reject) => {
-                resolve(new Promise((resolve, reject) => {
-                    resolve(100)
-                }))
-            }))
-        }))
-    })
 }, err => {
     return 200
 })

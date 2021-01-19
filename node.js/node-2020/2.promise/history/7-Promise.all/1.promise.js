@@ -1,3 +1,6 @@
+/* 
+    Promise.all
+*/
 let fs = require('fs').promises
 
 // fs.readFile('./name.txt', 'utf8').then(data => {
@@ -40,7 +43,7 @@ Promise.all = function (promises) {
     })
 }
 
-// Promise.all方法返回的是一个promise，其中一个失败就真的失败了
+// Promise.all方法返回的是一个promise，并发执行，其中一个失败就真的失败了
 Promise.all([1, getName, getAge, 2]).then(data => {
     console.log(data)
 })
