@@ -12,10 +12,10 @@ const p2 = new Promise((resolve, reject) => {
         resolve('ok')
     }, 1000);
 })
-console.log(Reflect.ownKeys(Promise))
-Promise.allSettled([p1, p2]).then(values => {
-    console.log(values) // [{status: "rejected", reason: "fail"}, {status: "fulfilled", value: "ok"}] 有顺序
-})
+// console.log(Reflect.ownKeys(Promise))
+// Promise.allSettled([p1, p2]).then(values => {
+//     console.log(values) // [{status: "rejected", reason: "fail"}, {status: "fulfilled", value: "ok"}] 有顺序
+// })
 // Promise.allSettled().then(values => {
 //     console.log(values)
 // }).catch(err => {
@@ -27,13 +27,21 @@ Promise.allSettled([p1, p2]).then(values => {
 /* 实现Promise.race */
 
 Promise.race = function (promises) {
-    return new Promise((resolve, reject)=>{
-        
+    return new Promise((resolve, reject) => {
+        for (let i = 0; i < promises.length; i++) {
+            let currentVal = promises[i];
+            if (currentVal && typeof currentVal.then === 'function') {
+                currentVal.then(resolve, reject)
+            } else {
+                resolve(currentVal)
+            }
+        }
     })
 }
 
-Promise.race([p1, p2]).then(data=>{
-
-}).catch(err=>{
+// Promise.race([p1, p2, 1]).then(data => {
+Promise.race([p1, p2]).then(data => {
+    console.log(data)
+}).catch(err => {
 
 })
