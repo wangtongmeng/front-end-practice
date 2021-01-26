@@ -16,3 +16,8 @@
 
 // 整个微任务和宏任务的调度顺序是怎样的？
 // 默认先执行宏任务（script脚本），会清空所有的微任务（全部执行完毕），微任务执行后开始页面渲染（不是每次都渲染），取出一个宏任务执行，执行过程中可能再次产生宏任务、微任务。。。不停地循环
+
+// 常见的宏任务微任务
+// 常见的宏任务 setTimeout setImmediate(IE支持)性能会高于setTimeout messageChannel requestFramAnimation script脚本渲染 ui渲染 i/o 事件 ajax...
+// 常见的微任务(浏览器 mutationObserver promise.then，node process.nextTick (queueMicrotask基于promise的))
+

@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <button id="button">点击</button>
     <script>
         // document.body.style.background = 'red';
         // console.log(1)
@@ -43,25 +44,110 @@
         // }, 0);
         // // Promise1 setTimeout1 Promise2 setTimeout2
 
+        // Promise.resolve().then(() => {
+        //     console.log('then1')
+        //     Promise.resolve().then(() => {
+        //         console.log('then1-1')
+        //         return Promise.resolve() // x.then().then() 如果promise返回一个promise，会延迟执行
+        //     }).then(() => {
+        //         console.log('then1-2')
+        //     })
+        // })
+        // .then(()=>{
+        //     console.log('then2')
+        // })
+        // .then(()=>{
+        //     console.log('then3')
+        // })
+        // .then(()=>{
+        //     console.log('then4')
+        // })
 
-        Promise.resolve().then(() => {
-            console.log('then1')
-            Promise.resolve().then(() => {
-                console.log('then1-1')
-                return Promise.resolve()
-            }).then(() => {
-                console.log('then1-2')
-            })
+        // 这道题比较特殊 promise除了遵循a+规范外，还遵循ecmascript262规范
+
+        // 同步代码执行完毕后：
+        // 微任务队列 [then1]
+        // 1.清空微任务队列               --输出then1
+        // 微任务队列 j [then-1,then2]
+        // 2.依次清空微任务队列           --输出then1-1,then2
+        // 微任务队列 [NewPromiseResolveThenableJob, then3]
+        // 3.依次继续清空微任务队列       --输出then3
+        // 微任务队列 [Promise.resolve().then,then4]
+
+
+        // Promise.resolve(1)
+        //     .then(x=>x+1) // 2
+        //     .then(x=>{throw new Error('my error')})
+        //     .catch(()=>1) // 1
+        //     .then(x=>x+1) // 2
+        //     .then(x=>console.log(x)) // 2
+        //     .catch(console.err)
+
+        // 对Promise理解正确的是
+        // 1.promise可以让异步代码变成同步代码  错误
+        // 2.promise解决了回调地狱问题
+        // 3.promise方便处理了多个异步并发请求
+        // 4.promise错误处理非常优雅和方便
+
+        // console.log(1)
+        // async function async() {
+        //     console.log(2)
+
+        //     // ---------
+        //     // 默认新版本 await 后面的代码 相当于后面会把await下面的代码放到then中
+        //     // 老的版本 会被解析出两个then  => new Promise((resolve)=>resolve(fn(x)).then()
+        //     await new Promise((resovle,reject=>{
+        //         console.log('ok')
+        //         resolve(1)
+        //     }))
+        //     // ---------
+
+        //     // await console.log(3) // Promise.resolve(console.log(3)).then(()=>{console.log(4)}) await后面相当于包了then
+        //     console.log(4)
+        // }
+        // setTimeout(() => {
+        //     console.log(5)
+        // }, 0);
+        // const promise = new Promise((resolve, reject) => {
+        //     console.log(6)
+        //     resolve(7)
+        // })
+        // promise.then(res => {
+        //     console.log(res)
+        // })
+        // async()
+        // console.log(8)
+        // // 1 6 2 3 8 7 4 5
+
+        // 代码从上到下执行 会注册两个宏任务 宏任务一个一个执行
+        button.addEventListener('click', () => {
+            console.log('listener1')
+            Promise.resolve().then(()=>console.log('micro task1'))
         })
-        .then(()=>{
-            console.log('then2')
+        button.addEventListener('click', () => {
+            console.log('listener2')
+            Promise.resolve().then(() => console.log('micro task2'))
         })
-        .then(()=>{
-            console.log('then3')
-        })
-        .then(()=>{
-            console.log('then4')
-        })
+
+        // listener1  task1 listener2 task2
+
+
+        // 如果是立刻调用的就是同步的
+        // button.click()
+        // listener1 listener2  task1  task2
+
+        // 相当于
+        // function a() {
+        //     console.log('listener1')
+        //     Promise.resolve().then(()=>console.log('micro task1'))
+        // }
+        // function b() {
+        //     console.log('listener2')
+        //     Promise.resolve().then(() => console.log('micro task2'))
+        // }
+        // a()
+        // b()
+
     </script>
 </body>
 
