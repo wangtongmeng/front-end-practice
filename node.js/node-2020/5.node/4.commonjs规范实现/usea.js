@@ -18,11 +18,26 @@ function Module(filename) {
     this.exports = {} // 代表导出的结果
     this.path = path.dirname(filename) // 文件所在目录
 }
+Module.wrapper = (content) => {
+    // 假如把变量挂载在了global上 new Function是获取不到的
+    return `(function(exports,require,module,__filename,__dirname){${content}})`
+}
 Module._extensions = {}
-Module._extensions['.js'] = function () {}
-Module._extensions['.json'] = function () {}
+Module._extensions['.js'] = function (module) {
+    let content = fs.readFileSync(module.id, 'utf8')
+    // 根据内容包裹一个函数
+    let str = Module.wrapper(content) // 目前只是字符串
+    let fn = vm.runInThisContext(str) // 让字符串变成函数
+    let exports = module.exports // module.exports === exports
+    // 模块中的this是module.exports
+    fn.call(exports, exports, myRequire, module, module.id, module.path) // 这句代码执行后 会做module.exports = 'hello'
+}
+Module._extensions['.json'] = function (module) {
+    let content = fs.readFileSync(module.id, 'utf8')
+    module.exports = JSON.parse(content) // 手动将json的结果赋予给module.exports
+}
 Module._resolveFilename = function (filename) {
-    let filePath = path.resolve(__dirname, filename)    
+    let filePath = path.resolve(__dirname, filename)
     let isExits = fs.existsSync(filePath)
     if (isExits) return filePath
 
@@ -36,7 +51,10 @@ Module._resolveFilename = function (filename) {
 }
 Module.prototype.load = function () {
     // 加载时 需要获取当前文件的后缀名，根据后缀名采用不同的策略进行加载
+    let extension = path.extname(this.id)
+    Module._extensions[extension](this)
 }
+
 function myRequire(filename) {
     // 1.解析当前的文件名
     filename = Module._resolveFilename(filename)
@@ -44,7 +62,7 @@ function myRequire(filename) {
     let module = new Module(filename)
 
     // 3.加载模块
-    Module._load() // 模块加载
+    module.load() // 模块加载
 
     return module.exports
 }
@@ -54,3 +72,9 @@ function myRequire(filename) {
 
 let r = myRequire('./a')
 console.log(r)
+
+// exports 和 module.exports的区别
+// 模块文件最终返回的是module.exports exports和module.exports是同一个引用，exports = {} 这样不行，module.exports不受影响
+
+// 模块导出不能使用 exports = xxx 错误写法
+// 正确写法 exports.a = xxx module.exports.a=xxx module.exports=xxx
