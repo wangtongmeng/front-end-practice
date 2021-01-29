@@ -18,6 +18,7 @@ function Module(filename) {
     this.exports = {} // 代表导出的结果
     this.path = path.dirname(filename) // 文件所在目录
 }
+Module._cache = {}
 Module.wrapper = (content) => {
     // 假如把变量挂载在了global上 new Function是获取不到的
     return `(function(exports,require,module,__filename,__dirname){${content}})`
@@ -58,11 +59,19 @@ Module.prototype.load = function () {
 function myRequire(filename) {
     // 1.解析当前的文件名
     filename = Module._resolveFilename(filename)
+
+    if (Module._cache[filename]) {
+        return Module._cache[filename].exports // 将exports返回即可
+    }
+
     // 2.创建模块
     let module = new Module(filename)
 
+    Module._cache[filename] = module // 将模块缓存起来
+
     // 3.加载模块
     module.load() // 模块加载
+
 
     return module.exports
 }
@@ -71,6 +80,11 @@ function myRequire(filename) {
 
 
 let r = myRequire('./a')
+myRequire('./a')
+myRequire('./a')
+myRequire('./a')
+myRequire('./a')
+myRequire('./a')
 console.log(r)
 
 // exports 和 module.exports的区别
@@ -78,3 +92,11 @@ console.log(r)
 
 // 模块导出不能使用 exports = xxx 错误写法
 // 正确写法 exports.a = xxx module.exports.a=xxx module.exports=xxx
+
+
+// es6Module 内部变量发生变化 再取值时如果要取到最新的 可以通过这种方式 import {a} from './a
+// export default 导出的是值
+// esModule 不能放在代码块中，只能放在顶层作用域中
+
+
+

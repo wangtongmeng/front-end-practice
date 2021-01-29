@@ -1,0 +1,25 @@
+{
+  "name": "npm-package-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "tm": "./bin/www.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "mime"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^5.18.0"
+  },
+  "peerDependencies": {},
+  "bundledDependencies": [],
+  "optionsDependencies": {},
+  "dependencies": {
+    "mime": "^2.5.0"
+  }
+}
