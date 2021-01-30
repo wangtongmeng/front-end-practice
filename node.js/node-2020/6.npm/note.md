@@ -27,7 +27,8 @@ C:\Users\wangtongmeng\AppData\Roaming\npm\nrm -> C:\Users\wangtongmeng\AppData\R
 - 通过命令生成包版本 npm version major/minor/patch
 - npm version major + git 可以实现版本管理
 - scripts + npx包发布 （会默认将当前node_modules下的.bin目录放到全局）只有在运行scripts或者npx 当前目录才可以使用，运行后就会删除掉 npx mime a.js(npx比scripts的好处是如果模块不存在会安装 安装后会销毁，表示安装时采用最新的包来安装)
-- 发包 nrm use npm 
+- 配置scripts命令后，可以通过 npm run xxx来执行，例如 npm run dev -- a.js (--用来占位)
+- 发包 nrm use npm 切换成npm源 npm addUser/npm login 输入账号密码 npm publish
 - events模块
 
 

@@ -1,7 +1,7 @@
 {
-  "name": "npm-package-demo",
-  "version": "1.0.0",
-  "description": "",
+  "name": "pck-test1",
+  "version": "1.0.2",
+  "description": "demo",
   "main": "index.js",
   "bin": {
     "tm": "./bin/www.js"
