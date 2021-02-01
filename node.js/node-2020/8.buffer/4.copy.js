@@ -1,3 +1,6 @@
+/**
+ * 文件copy的实现(流的原理)
+ */
 const fs = require('fs')
 const path = require('path')
 
@@ -29,6 +32,8 @@ const path = require('path')
 //     })
 // })
 
+
+// node中采用了流的方式简化了这坨代码 解耦 发布订阅模式 来做解耦操作
 function copy(source, target, cb) {
     const BUFFER_LENGTH = 3
     let read_position = 0
