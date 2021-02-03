@@ -22,7 +22,17 @@ class LinkedList {
         this.size = 0
     }
     // 增加节点
-    add() {}
+    add(index,element) {
+        if (arguments.length == 1) {
+            element = index
+            index = this.size
+        }
+
+        if (index < 0 || index > this.size) throw new Error('链表索引异常')
+
+
+        this.size++
+    }
     // 删除节点
     remove() {}
     // 获取节点
