@@ -38,10 +38,22 @@ class ReadStream extends EventEmitter {
             }
         })
     }
-    pause(){
+    // pipe
+    pipe(ws){
+        this.on('data', (chunk)=> {
+            let flag = ws.write(chunk)
+            if (!flag){
+                this.pause()
+            }
+        })
+        ws.on('drain',()=>{
+            this.resume()
+        })
+    }
+    pause() {
         this.flowing = false
     }
-    resume(){
+    resume() {
         if (!this.flowing) {
             this.flowing = true
             this.read() // 继续读取
@@ -63,7 +75,7 @@ class ReadStream extends EventEmitter {
         }
         // fd 一定存在了，buffer是内存 内存是引用类型
         const buffer = Buffer.alloc(this.highWaterMark)
-        let howMuchToRead = Math.min((this.end - this.offset + 1), this.highWaterMark)
+        let howMuchToRead = this.end ? Math.min((this.end - this.offset + 1), this.highWaterMark) : this.highWaterMark
         fs.read(this.fd, buffer, 0, howMuchToRead, this.offset, (err, bytesRead) => { // 真正读到的个数
             if (bytesRead) {
                 this.offset += bytesRead // 每次读到后累加，方便下次继续读取
