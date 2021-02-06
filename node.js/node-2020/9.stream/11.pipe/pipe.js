@@ -1,3 +1,7 @@
+/**
+ * pipe
+ * 流的种类：可读流 可写流 双攻流 转化流
+ */
 const ReadStream = require('../3.可读流的实现原理/ReadStream')
 const WriteStream = require('../10.使用Queue优化可写流/writeStream')
 
@@ -27,9 +31,10 @@ rs.pipe(ws)
 // 可读流 可写流 双攻流(能读也能写 既继承了可读流也继承了可写流(读和写可以没有关系))
 
 
-// const {
-//     Duplex
-// } = require('stream')
+const {
+    Duplex,
+    Transform
+} = require('stream')
 
 // class MyDuplex extends Duplex {
 //     _read() {
@@ -50,3 +55,21 @@ rs.pipe(ws)
 
 
 // 转化流 可以用于加密 压缩 可以把可写流转换成可读流
+class MyTransForm extends Transform {
+    _transform(chunk,encoding,cb){
+        // 这里可以调用push方法
+        this.push(chunk.toString().toUpperCase())
+        cb()
+    }
+}
+
+let my = new MyTransForm()
+// process.stdin.on('data',function (chunk) { // 监控用户输入内容
+//     process.stdout.write(chunk) // 等价于 console.log 可写流
+//     // process.stderr.write('error')
+// })
+// process.stdin.pipe( process.stdout)
+
+process.stdin.pipe(my).pipe( process.stdout)
+
+
