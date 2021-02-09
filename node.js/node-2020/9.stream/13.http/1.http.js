@@ -1,3 +1,6 @@
+/**
+ * http的基本使用
+ */
 const http = require('http')
 const url = require('url')
 const querystring = require('querystring')
@@ -8,6 +11,7 @@ const querystring = require('querystring')
 
 
 let server = http.createServer(function (req, res) {
+    // 客户端数据获取
     // 请求部分
     console.log(req.method) // 默认是大写的
     console.log(req.url) // /后面的 #前面的   希望获取用户的参数 ？后面的参数 期望得到 query {a:1,b:2}
@@ -30,6 +34,19 @@ let server = http.createServer(function (req, res) {
         console.log(Buffer.concat(arr).toString())
     })
 
+    // ---------------------------------------------------------
+    // 服务端相关方法
+    // 响应行 响应头 响应体 顺序不能发生变化
+    // res是一个可写流 write end
+
+    res.statusCode = 200
+    // res.statusMessage = 'no status' 状态信息一般不用设 采用默认值即可
+    res.setHeader('a', 1)
+    // res.write('ok') // 分段响应  headers里会有 Transfer-Encoding: chunked
+    res.end('ok') // 表示响应结束
+
+    // 希望服务器每一秒钟都给客户端发送一个最新的价格 socket.io
+    // 如果websocket不支持 一般情况会采用 前端定时器轮询
 })
 
 // 两种写法都行 一般会采用上面的写法
@@ -61,4 +78,8 @@ server.on('error', function (err) {
     // console.log(query)
 
 
-    // curl -v -X POST -d a=1 http://localhost:4000
+// curl -v -X POST -d a=1 http://localhost:4000
+// curl -v 显示详细信息
+// curl -X 指定方法
+// curl -d 指定数据
+// curl -h 指定头
