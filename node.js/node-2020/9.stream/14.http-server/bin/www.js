@@ -31,6 +31,7 @@ forEachObj(config, (value, key) => {
 
 // 1.解析用户参数
 // 2.开启服务 文件和目录操作
+// 3.对比缓存
 const Server = require('../src/index')
 
 let server = new Server(finalConfig)

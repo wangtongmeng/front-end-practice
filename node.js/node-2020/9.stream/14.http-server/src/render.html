@@ -9,8 +9,9 @@
 </head>
 
 <body>
+    <!-- 路径 尽量不用采用./ ../ 采用绝对路径 /a/a.js -->
     <%dirs.forEach(item=>{%>
-        <li><%=item%></li>
+    <li><a href="<%= item.href %>"><%= item.dir%></a></li>
     <%})%>
 </body>
 
