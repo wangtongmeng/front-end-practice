@@ -62,4 +62,3 @@ module.exports = Application
 // 2.koa中request和response实现
 // 3.koa中的代理 request中的代理 context中的代理
 // 4.上下文完整实现
-// 5.body的响应实现

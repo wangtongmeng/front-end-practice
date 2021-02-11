@@ -1,6 +1,4 @@
 const http = require('http')
-const Stream = require('stream')
-
 const context = require('./context')
 const request = require('./request')
 const response = require('./response')
@@ -31,23 +29,7 @@ class Application {
     }
     handleRequest(req,res){
         let ctx = this.createContext(req,res)
-
-        res.statusCode = 404
-
-        this.fn(ctx) // 内部可能会多次设置body的值
-
-        let body = ctx.body // 最终将body的结果返回回去
-        if (typeof body == 'string' || Buffer.isBuffer(body)){
-            res.end(ctx.body) // 用户多次设置只采用最后一次
-        } else if (body instanceof Stream) {
-            // res.setHeader(`Content-Disposition`,`attachment;filename=${encodeURIComponent('下载')}`)
-            body.pipe(res)
-        } else if (typeof body == 'object') {
-            res.end(JSON.stringify(body))
-        } else {
-            res.end(`Not Found`)
-        }
-
+        this.fn(ctx)
     }
     listen(...args){
         let server = http.createServer(this.handleRequest.bind(this))
@@ -57,9 +39,3 @@ class Application {
 }
 
 module.exports = Application
-
-// 1.koa基础版
-// 2.koa中request和response实现
-// 3.koa中的代理 request中的代理 context中的代理
-// 4.上下文完整实现
-// 5.body的响应实现
