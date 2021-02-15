@@ -22,6 +22,10 @@ methods.forEach(method=>{
     }
 
 })
+Application.prototype.use = function (path,handler) {
+    this.lazy_route()
+    this._router.use(path,handler)
+}
 // 监听启动服务
 Application.prototype.listen = function(...args) {
     const server = http.createServer((req, res) => {

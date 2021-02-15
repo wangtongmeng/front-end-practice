@@ -28,6 +28,18 @@ methods.forEach(method => {
     
 });
 
+Router.prototype.use = function (path,handler) {
+    if (typeof path === 'object') { // 如果只传递一个参数是函数
+        handler = path // handler就是这个函数
+        path = '/' // 路径默认是 /
+
+    }
+    let layer = new Layer(path,handler)
+    layer.route = undefined // 只是提示 中间件没有route属性
+    this.stack.push(layer)
+}
+
+// 请求到来时 会触发此方法
 Router.prototype.handle = function (req, res, done) {
     let { 
         pathname
@@ -40,11 +52,17 @@ Router.prototype.handle = function (req, res, done) {
         if(this.stack.length === idx) return done()
         let layer = this.stack[idx++]
 
-        if(layer.match(pathname)){
-            if(layer.route.match_method(req.method)){
-                layer.handle_request(req,res,next) // dispatch 里面处理完毕了 调用next方法
-            }else {
-                next()
+        if(layer.match(pathname)){ // 无论是中间件还是路由 都要匹配路径
+            if (layer.route){
+                // 路由
+                if(layer.route.match_method(req.method)){
+                    layer.handle_request(req,res,next) // dispatch 里面处理完毕了 调用next方法
+                }else {
+                    next()
+                }
+            } else {
+                // 中间件 路由匹配方法，中间件不匹配方法
+                layer.handle_request(req,res,next)
             }
         } else {
             next()
