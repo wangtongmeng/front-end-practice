@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lesson 31</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+<script>
+  // render function
+  // template -> render -> h -> 虚拟DOM（JS对象）-> 真实 DOM -> 展示到页面上
+  const app = Vue.createApp({
+    template: `
+      <my-title :level="2">
+        hello dell
+      </my-title>
+    `
+  });
+
+  app.component('my-title', {
+    props: ['level'],
+    render() {
+      const { h } = Vue;
+      return h('h' + this.level, {}, [
+        this.$slots.default(),
+        h('h4', {}, 'dell')
+      ])
+    }
+  })
+
+  const vm = app.mount('#root');
+</script>
+</html>

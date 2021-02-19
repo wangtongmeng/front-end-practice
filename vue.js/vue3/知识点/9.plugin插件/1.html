@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lesson 32</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+<script>
+  // plugin 插件, 也是把通用性的功能封装起来 vuex vue-router
+  const myPlugin = {
+    install(app, options) {
+      app.provide('name', 'Dell Lee'); // 扩展属性
+      app.directive('focus', { // 扩展指令
+        mounted(el) {
+          el.focus();
+        }
+      })
+      app.mixin({ // 扩展mixin
+        mounted(){
+          console.log('mixin')
+        }
+      })
+      app.config.globalProperties.$sayHello = 'hello world'; // 扩展全局属性
+    }
+  }
+
+  const app = Vue.createApp({
+    template: `
+      <my-title />
+    `
+  });
+
+  app.component('my-title', {
+    inject: ['name'],
+    mounted() {
+      console.log(this.$sayHello);
+    },
+    template: `<div>{{name}}<input v-focus /></div>`
+  })
+
+  app.use(myPlugin, { name: 'dell'});
+
+  const vm = app.mount('#root');
+</script>
+</html>

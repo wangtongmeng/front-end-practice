@@ -6,3 +6,8 @@
 - CompositionAPI：整合业务代码的逻辑，提取公共逻辑(Vue2采用mixin - 命名冲突数据来源不清晰)
 - 自定义渲染器：可以用来创建自定义的渲染器。改写Vue底层渲染逻辑
 - 新增Fragment、Teleport、Suspense组件
+
+
+## 更新vue-cli
+- npm uninstall vue-cli -g ->npm install vue-cli -g 固定版本npm install @vue/cli@4.5.9 -g
+- yarn global remove vue-cli -> yarn add vue-cli -g

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lesson 20</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+<script>
+  // 作用域插槽 父组件子组件的数据
+  const app = Vue.createApp({
+    template: `
+      <list v-slot="{item}">
+        <div>{{item}}</div>
+      </list>
+    `
+  });
+
+  app.component('list', {
+    data() {return {list: [1, 2, 3]}},
+    template: `
+      <div>
+        <slot v-for="item in list" :item="item" />
+      </div>
+    `
+  });
+
+  const vm = app.mount('#root');
+</script>
+</html>

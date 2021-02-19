@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lesson 36</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+<script>
+  // toRef, context
+  const app = Vue.createApp({
+    template: `
+        <div>{{age}}</div>
+    `,
+    setup(props,context){
+        const {reactive, toRef} = Vue
+        const data = reactive({name: 'zhangsan'})
+        const age = toRef(data, 'age')
+        setTimeout(() => {
+            age.value = 'lisi' // 有效，推荐还是在reactive中声明
+        }, 2000);
+        return {
+            age
+        }
+    }
+  });
+   
+  const vm = app.mount('#root');
+</script>
+</html>

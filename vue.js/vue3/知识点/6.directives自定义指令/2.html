@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lesson 29</title>
+  <style>
+    .header { position: absolute}
+  </style>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+<script>
+  // 自定义指令 directive 全局/局部指令
+  // 在指令的生命周期函数
+
+  const app = Vue.createApp({
+    data () {
+      return {
+        hello: true
+      }
+    },
+    template: `
+        <div>
+            <input  v-show="hello" v-focus />    
+            <input  v-if="hello" v-focus />    
+        </div>
+    `,
+    mounted() {
+      setTimeout(() => {
+        this.hello = false
+      }, 1000);
+    },
+  });
+
+
+
+// 全局指令
+  app.directive('focus', {
+    beforeMount() {
+      console.log('beforeMount')
+    },
+      mounted(el) {
+        el.focus()
+      },
+      beforeUpdate() {
+        console.log('beforeUpdate')
+      },
+      updated() {
+        console.log('updated')
+      },
+      beforeUnmount() {
+        console.log('beforeUnmount')
+      },
+      unmounted() {
+        console.log('unmounted')
+      }
+  })
+
+  const vm = app.mount('#root');
+</script>
+</html>
