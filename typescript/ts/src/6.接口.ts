@@ -147,4 +147,72 @@ let arr1: IlikeArray = { 1: 1, 2: 2 };
 
 // type My = IArr['a']['n']
 
+// 7) 接口实现 接口可以被类来实现 , 接口中的方法都是抽象（没有具体实现）的
+interface ISpeakable {
+  name: string,
+  // 用接口来形容类的时候  void 表示不关心返回值
+  speak(): void // 描述当前实例上的方法，或者原型的方法
+}
+interface IChineseSpeakable {
+  speakChinese(): void
+}
+class Speak implements ISpeakable, IChineseSpeakable { // 剋本身需要实现接口中的方法
+  speakChinese(): void {
+      throw new Error("Method not implemented.");
+  }
+  name!: string
+  speak(): string { // 此方法是原型方法
+      return 'xxx'
+  }
+}
+let s = new Speak()
+
+// 8.抽象类 不能被new, 可以被继承
+abstract class Animal { // 只有类被标记成abstract 属性在可以描述成abstract的
+  abstract name: string// 没有具体实现，需要子类实现
+  eat() {
+      console.log('eat')
+  }
+  abstract drink(): void
+}
+class Cat extends Animal {
+  drink(): void {
+      console.log('Method not implemented')
+  }
+  name: string = 'a'
+}
+
+// 8.可以用接口来描述实例 
+
+// 单例模式
+// let instance: Person;
+// type IPerson = new (name:string)=>Person  描述的是构造函数类型   // clazz: IPerson
+// interface IPerson {
+//     new (name:string):Person
+// }
+interface IPerson<T> {
+  new(name: string): T
+}
+function createInstance<T>(clazz: IPerson<T>, name: string) {
+  // if (instance) return instance;
+  return new clazz(name)
+}
+class Person {
+  eat() { }
+  constructor(public name: string) { }
+}
+class Dog {
+  drink() { }
+  constructor(public name: string) { }
+}
+
+// 泛型就是只有当使用的时候 才能确定类型， 通过参数传入类型
+let r = createInstance<Person>(Person, '张三'); // 类可以充当类型，可以描述实例
+r.eat()
+
+
+// 接口的使用  接口特性 extends 、 implements （不能使用联合类型）
+// 别名可以使用联合类型 但是不能继承和实现
+
+
 export {};
