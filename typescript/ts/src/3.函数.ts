@@ -3,13 +3,13 @@
 
 // 考虑函数的参数和返回值    函数声明的类型方式 function关键字 | 表达式声明
 
-// 函数关键字 写完后会对当前函数 自动推断函数类型
+// 函数关键字 写完后会对当前函数 自动推断函数类型  函数重载
 function sum1(x: string, y: string): string {
   // 函数类型 function sum(x: string, y: string): string
   return x + y;
 }
 
-// 表达式的方式
+// 表达式的方式 类型确定
 // 1.也可以自动根据等号右边的内容 推断左边的类型
 const num2 = (x: string, y: string): string => {
   // num2: (x: string, y: string) => string
@@ -20,6 +20,8 @@ type IFn = (a: number, b: number) => number;
 const num3: IFn = (x: number, y: number) => {
   return x + y;
 };
+
+// 3.函数会自动调到返回值类型
 
 // 3种方式都有使用
 
