@@ -137,19 +137,19 @@ class Promise {
             resolve(value)
         })
     }
-    static reject(value){
+    static reject(value) {
         return new Promise((resolve, reject) => {
             reject(value)
         })
     }
-    catch(errorFn){
-        return this.then(null,errorFn)
+    catch (errorFn) { // 非 promise a+ Promise.prototype.catch
+        return this.then(null, errorFn)
     }
-    static all(promises){
+    static all(promises) { // 非 promise a+ Promise.all
         return new Promise((resolve, reject) => {
             let result = []
             let times = 0
-            const processSuccess = (index,val)=>{
+            const processSuccess = (index, val) => {
                 result[index] = val
                 if (++times === promises.length) {
                     resolve(result)
@@ -161,11 +161,92 @@ class Promise {
                 if (p && typeof p.then === 'function') {
                     p.then(data => {
                         processSuccess(i, data)
-                    }, reject)  // 如果其中某一个promise失败了 直接执行失败即可
+                    }, reject) // 如果其中某一个promise失败了 直接执行失败即可
                 } else {
                     processSuccess(i, p)
                 }
             }
+        })
+    }
+    static any(promises) {
+        return new Promise((resolve, reject) => {
+            let result = []
+            let times = 0
+            const processFail = (index, val) => {
+                result[index] = val
+                if (++times === promises.length) {
+                    console.log(11, result)
+                    reject('AggregateError: All promises were rejected')
+                }
+            }
+
+            for (let i = 0; i < promises.length; i++) {
+                let p = promises[i]
+                if (p && typeof p.then === 'function') {
+                    p.then(resolve, err => {
+                        processFail(i, err)
+                    })
+                } else {
+                    resolve(p)
+                }
+            }
+        })
+    }
+    static race(promises) { // 非 promise a+ Promise.race
+        return new Promise((resolve, reject) => {
+            for (let i = 0; i < promises.length; i++) {
+                let p = promises[i]
+                if (p && typeof p.then === 'function') {
+                    p.then(resolve, reject) // 一旦成功就直接 停止
+                } else {
+                    resolve(p)
+                }
+            }
+        })
+    }
+    static allSettled(promises) {
+        return new Promise((resolve, reject) => {
+            let results = []
+            let times = 0
+            const process = (index, val, status) => {
+                if (status === 'fulfilled') {
+                    results[index] = {
+                        status,
+                        value: val
+                    }
+                }
+                if (status === 'rejected') {
+                    results[index] = {
+                        status,
+                        reason: val
+                    }
+                }
+                if (++times === promises.length) {
+                    resolve(results)
+                }
+            }
+
+            for (let i = 0; i < promises.length; i++) {
+                let p = promises[i]
+                if (p && typeof p.then === 'function') {
+                    p.then(data => {
+                        process(i, data, 'fulfilled')
+                    }, err => {
+                        process(i, err, 'rejected')
+                    })
+                } else {
+                    process(i, p, 'fulfilled')
+                }
+            }
+        })
+    }
+    finally(cb) { // 非 promise a+ Promise.prototype.finally
+        return this.then(data => {
+            return Promise.resolve(cb()).then(() => data)
+        }, err => {
+            return Promise.resolve(cb()).then(() => {
+                throw err
+            })
         })
     }
 }
@@ -177,10 +258,10 @@ class Promise {
 // 延迟对象 帮我们减少一次套用 ： 针对目前来说 应用不是很广泛
 Promise.deferred = function () {
     let dfd = {};
-    dfd.promise = new Promise((resolve,reject)=>{
-        dfd.resolve= resolve;
+    dfd.promise = new Promise((resolve, reject) => {
+        dfd.resolve = resolve;
         dfd.reject = reject;
-    }); 
+    });
     return dfd;
 }
 
