@@ -52,15 +52,15 @@ const fs = require('fs')
 
 
 // promise延迟对象的使用
-// function readFile(filePath, encoding) {
-//     let dfd = Promise.deferred();
-//     fs.readFile(filePath, encoding, (err, data) => { // nodeApi 转化成promise
-//         if (err) return dfd.reject(err);
-//         dfd.resolve(data);
-//     })
-//     return dfd.promise;
-// }
+function readFile(filePath, encoding) {
+    let dfd = Promise.deferred();
+    fs.readFile(filePath, encoding, (err, data) => { // nodeApi 转化成promise
+        if (err) return dfd.reject(err);
+        dfd.resolve(data);
+    })
+    return dfd.promise;
+}
 
-// readFile('./a.txt', 'utf8').then((data => {
-//     console.log(data)
-// }))
+readFile('./a.txt', 'utf8').then((data => {
+    console.log(data)
+}))

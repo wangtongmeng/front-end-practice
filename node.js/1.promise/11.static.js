@@ -17,21 +17,21 @@ let Promise = require('./source/3.promise')
 // })
 
 // 2.Promise.reject() 这个方法  会创造一个失败的promise
-// Promise.reject(1).then((data) => {
-//     console.log(data)
-// }).catch(err => { // catch方法就是没有成功的失败
-//     console.log(err, 'err')
-// });
+Promise.reject(1).then((data) => {
+    console.log(data)
+}).catch(err => { // catch方法就是没有成功的失败
+    console.log(err, 'err')
+});
 
-// Promise.reject(new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//         resolve(200);
-//     }, 1000);
-// })).then((data) => {
-//     console.log(data)
-// }).catch(err => { // catch方法就是没有成功的失败
-//     console.log(err, 'err')
-// });
+Promise.reject(new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(200);
+    }, 1000);
+})).then((data) => {
+    console.log(data)
+}).catch(err => { // catch方法就是没有成功的失败
+    console.log(err, 'err')
+});
 
 
 // 3.Promise.all 并发请求 全部成功才成功，一个失败则失败
@@ -105,19 +105,19 @@ let Promise = require('./source/3.promise')
 // }, 2000);
 
 // 5. Promise.allSettled([p1,p2])   但是会获得所有的结果， 不会走catch方法
-// let p1 = new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//         resolve('成功')
-//     }, 1000);
-// })
-// let p2 = new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//         reject('失败')
-//     }, 500);
-// })
-// Promise.allSettled([p1,2,p2]).then(data => {
-//     console.log(data)
-// })
+let p1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('成功')
+    }, 1000);
+})
+let p2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject('失败')
+    }, 500);
+})
+Promise.allSettled([p1,2,p2]).then(data => {
+    console.log(data)
+})
 
 // 6.Promise.any([p1,p2])  如果其中一个成功了 就会走成功 取出的是第一个成功的值， 都失败了 才会走失败
 let p1 = new Promise((resolve, reject) => {
