@@ -35,6 +35,3 @@ const fs = require('fs')  // require内部就是使用readFileSync来实现的
 // 不要通过global来定义属性
 // require('./a.js')
 // console.log(a) // 可以取到其他模块全局定义的属性
-
-
-// require的实现 1.读取文件  2.读取到后给文件包装一个函数  3.通过runInThisContext 将他变成js语法 4.调用
