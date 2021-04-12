@@ -57,3 +57,38 @@ console.log(r) // 找不到
 // 3.将此包放到npm下（可以全局安装）临时做一个npm link(把当前文件链接到全局node_modules下,调试方便)
 
 // 工具类的使用全局包
+
+
+// 2) 本地安装，在代码中使用
+// 依赖关系 （开发依赖 -webpack gulp  生产依赖 vue ） 同等依赖 打包依赖 可选依赖
+// npm install 模块   --save  --save-dev(-D)
+
+// npm 5.2 之后会把共同的模块拍平
+// .bin模块意味着你安装的一些模块可以在命令行中执行
+// 如果直接用 npm run script的方式 默认在执行命令之前，会将环境变量添加到全局下， 所以可以使用，但是命令执行完毕后会删掉对应的path
+
+// npx 和npm run 类似  ，npx 如果模块不存在会先安装 在使用，使用后可以自动删除掉 npx mime a.js
+
+
+// 版本号 管理的方式 semver   (major.minor.patch)
+
+// ^2.2.4 = 第一位只能是2
+// ~2.2.4 指定 MAJOR.MINOR 版本号下 不能超过2 不能比2.2.4小
+// <= >=
+
+// 包版本更新 npm version major (配合git tag使用)
+
+// beta (测试版本)  rc 
+// 配合git tag使用
+
+// 测试 如果更改了 package.json 会同步给 -> lock文件，如果版本兼容会采用lock的配置
+
+// 包的发布 1） 需要看包的名字是否重名 
+// 2) 切换到本地npm源
+// 3) 登录账号 发布
+
+// yarn mongorepo 
+
+
+// 1）模板引擎的实现 
+// 2）events 模块的实现 发布订阅
