@@ -1,4 +1,5 @@
-const EventEmitter = require('events')
+// const EventEmitter = require('events')
+const EventEmitter = require('./events')
 const util = require('util')
 
 function Girl() {}
