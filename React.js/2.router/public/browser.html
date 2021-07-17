@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        let historyObj = window.history
+        window.addEventListener('popstate', event => { // push入栈 pop类似出栈
+            console.log(event.type, event.state);
+            root.innerHTML = window.location.pathname // 真正浏览器路径
+        })
+        // 当我们调用pushState方法时会触发这函数执行
+        window.onpushstate = function (event) {
+            console.log(event,event.type,event.detail);
+            root.innerHTML = window.location.pathname
+        }
+        ;(function (historyObj) {
+            console.log('history', history);
+        })(historyObj)
+    </script>
+</body>
+</html>

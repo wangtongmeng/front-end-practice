@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let docEle = document.documentElement;
+        function setRemUnit() {
+            //设置根元素的font-size值=屏幕宽度/10  750/10=75  375/10=37.5px 10rem 375px
+            docEle.style.fontSize = docEle.clientWidth / 10 + 'px'; //1rem=真正应该等于多少像素
+        }
+        setRemUnit();
+        window.addEventListener('resize', setRemUnit);
+    </script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+</html>

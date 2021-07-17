@@ -1,0 +1,1 @@
+(()=>{var r,o=[,r=>{r.exports="depModule1"}],e={};function t(r){var p=e[r];if(void 0!==p)return p.exports;var s=e[r]={exports:{}};return o[r](s,s.exports,t),s.exports}r=t(1),console.log(r)})();

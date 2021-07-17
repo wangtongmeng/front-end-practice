@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.js"],"names":["console","log"],"mappings":"8IAAA,iBAGAA,QAAQC,IAAI,K","file":"static/js/main.f39984ab.chunk.js","sourcesContent":["import React from 'react';\nimport ReactDOM from 'react-dom';\n\nconsole.log(1)"],"sourceRoot":""}

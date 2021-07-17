@@ -1,1 +1,0 @@
-consele.log('hello world');

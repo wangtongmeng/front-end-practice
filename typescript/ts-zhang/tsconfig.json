@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "strictNullChecks": true,
+    "lib": ["ESNext", "DOM"],
+    "experimentalDecorators": true
+  }
+}
