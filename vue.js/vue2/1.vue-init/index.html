@@ -8,30 +8,34 @@
 </head>
 
 <body>
+    <!-- 'hello' + arr + 'world' -->
+    <div id="app" a=1 style="color:red;background:blue">
+        hello {{arr}} world
+    </div>
+    
     <script src="dist/vue.js"></script>
 
     <script>
-        // viewModel 数据模型
-        // 典型的MVVM  view   vm    model
-
         let vm = new Vue({
             data() {
-                //this = vm
                 return {
-                    obj: {name:'zhangsan'},
-                    names: [{name: 'zhangsan'},{name: 'lisi'}]
+                    arr: 'zhangsan'
                 }
             }
         });
-        console.log(vm);
-        vm.obj = 'lisi'
-        console.log(vm);
+        vm.$mount('#app')
 
-        // 数组没有监控 索引的变化 , 但是索引对应的内容是对象类型，需要被监控 Object.freeze
-        // 用户很少通过索引操作数组 arr[82] = 1000 内部就想到不对索引进行拦截，因为消耗严重，内部数组不采用defineProperty
+        console.log(vm.$options.render);
 
-        // push shift pop unshift reverse sort splice   7个方法都是变异方法，就是会更改原数组
+
+        // ƒ anonymous(
+        // ) {
+        // with(this){return _c('div',{id:"app",a:"1",style:{"color":"red","background":"blue"}},_v("hello"+_s(arr)+"world"))}
+        // }
     </script>
+
+
+
 </body>
 
 </html>
