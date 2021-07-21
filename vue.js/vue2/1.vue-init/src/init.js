@@ -1,4 +1,5 @@
 import { compileToFunction } from "./compiler/index";
+import { mountComponent } from "./lifecycle";
 import { initState } from "./state";
 export function initMixin(Vue) { // 表示在vue的基础上做一次混合操作
     Vue.prototype._init = function(options) {
@@ -30,6 +31,10 @@ export function initMixin(Vue) { // 表示在vue的基础上做一次混合操�
                 options.render = render;
             }
         }
+        // options.render 就是渲染函数
+        // 调用render方法 渲染成真实dom 替换掉页面的内容
+
+        mountComponent(vm,el); // 组件的挂载流程
     }
 }
 
