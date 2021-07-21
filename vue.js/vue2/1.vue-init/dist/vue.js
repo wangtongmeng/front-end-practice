@@ -245,58 +245,6 @@
       // html=> ast（只能描述语法 语法不存在的属性无法描述） => render函数 + (with + new Function) => 虚拟dom （增加额外的属性） => 生成真实dom
     }
 
-    function patch(oldVnode, vnode) {
-      if (oldVnode.nodeType == 1) {
-        // 用vnode  来生成真实dom 替换原本的dom元素
-        var parentElm = oldVnode.parentNode; // 找到他的父亲
-
-        var elm = createElm(vnode); //根据虚拟节点 创建元素
-
-        parentElm.insertBefore(elm, oldVnode.nextSibling);
-        parentElm.removeChild(oldVnode);
-      }
-    }
-
-    function createElm(vnode) {
-      var tag = vnode.tag;
-          vnode.data;
-          var children = vnode.children,
-          text = vnode.text;
-          vnode.vm;
-
-      if (typeof tag === 'string') {
-        // 元素
-        vnode.el = document.createElement(tag); // 虚拟节点会有一个el属性 对应真实节点
-
-        children.forEach(function (child) {
-          vnode.el.appendChild(createElm(child));
-        });
-      } else {
-        vnode.el = document.createTextNode(text);
-      }
-
-      return vnode.el;
-    }
-
-    function lifecycleMixin(Vue) {
-      Vue.prototype._update = function (vnode) {
-        // 既有初始化 又又更新 
-        var vm = this;
-        patch(vm.$el, vnode);
-      };
-    }
-    function mountComponent(vm, el) {
-      // 更新函数 数据变化后 会再次调用此函数
-      var updateComponent = function updateComponent() {
-        // 调用render函数，生成虚拟dom
-        vm._update(vm._render()); // 后续更新可以调用updateComponent方法
-        // 用虚拟dom 生成真实dom
-
-      };
-
-      updateComponent();
-    }
-
     function _typeof(obj) {
       "@babel/helpers - typeof";
 
@@ -335,11 +283,260 @@
       return Constructor;
     }
 
+    var id$1 = 0;
+
+    var Dep = /*#__PURE__*/function () {
+      // 每个属性我都给他分配一个dep，dep可以来存放watcher， watcher中还要存放这个dep
+      function Dep() {
+        _classCallCheck(this, Dep);
+
+        this.id = id$1++;
+        this.subs = []; // 用来存放watcher的
+      }
+
+      _createClass(Dep, [{
+        key: "depend",
+        value: function depend() {
+          // Dep.target  dep里要存放这个watcher，watcher要存放dep  多对多的关系
+          if (Dep.target) {
+            Dep.target.addDep(this);
+          }
+        }
+      }, {
+        key: "addSub",
+        value: function addSub(watcher) {
+          this.subs.push(watcher);
+        }
+      }, {
+        key: "notify",
+        value: function notify() {
+          this.subs.forEach(function (watcher) {
+            return watcher.update();
+          });
+        }
+      }]);
+
+      return Dep;
+    }();
+
+    Dep.target = null; // 一份
+
+    function pushTarget(watcher) {
+      Dep.target = watcher;
+    }
+    function popTarget() {
+      Dep.target = null;
+    }
+
     function isFunction(val) {
       return typeof val === 'function';
     }
     function isObject(val) {
       return _typeof(val) == 'object' && val !== null;
+    }
+    var callbacks = [];
+
+    function flushCallbacks() {
+      callbacks.forEach(function (cb) {
+        return cb();
+      });
+      waiting = false;
+    }
+
+    var waiting = false;
+
+    function timer(flushCallbacks) {
+      var timerFn = function timerFn() {};
+
+      if (Promise) {
+        timerFn = function timerFn() {
+          Promise.resolve().then(flushCallbacks);
+        };
+      } else if (MutationObserver) {
+        var textNode = document.createTextNode(1);
+        var observe = new MutationObserver(flushCallbacks);
+        observe.observe(textNode, {
+          characterData: true
+        });
+
+        timerFn = function timerFn() {
+          textNode.textContent = 3;
+        }; // 微任务
+
+      } else if (setImmediate) {
+        timerFn = function timerFn() {
+          setImmediate(flushCallbacks);
+        };
+      } else {
+        timerFn = function timerFn() {
+          setTimeout(flushCallbacks);
+        };
+      }
+
+      timerFn();
+    } // 微任务是在页面渲染前执行 我取的是内存中的dom，不关心你渲染完毕没有
+
+
+    function nextTick(cb) {
+      callbacks.push(cb); // flushSchedulerQueue / userCallback
+
+      if (!waiting) {
+        timer(flushCallbacks); // vue2 中考虑了兼容性问题 vue3 里面不在考虑兼容性问题
+
+        waiting = true;
+      }
+    }
+
+    var queue = [];
+    var has = {}; // 做列表的 列表维护存放了哪些watcher
+    // 动画  滚动的频率高，节流 requestFrameAnimation
+
+    function flushSchedulerQueue() {
+      for (var i = 0; i < queue.length; i++) {
+        queue[i].run(); // vm.name = 123?
+      }
+
+      queue = [];
+      has = {};
+      pending = false;
+    }
+
+    var pending = false; // 要等待同步代码执行完毕后 才执行异步逻辑
+
+    function queueWatcher(watcher) {
+      // 当前执行栈中代码执行完毕后，会先清空微任务，在清空宏任务， 我希望尽早更新页面
+      var id = watcher.id; // name 和 age的id 是同一个
+
+      if (has[id] == null) {
+        queue.push(watcher);
+        has[id] = true; // 开启一次更新操作  批处理 （防抖）
+
+        if (!pending) {
+          nextTick(flushSchedulerQueue);
+          pending = true;
+        }
+      }
+    }
+
+    var id = 0;
+
+    var Watcher = /*#__PURE__*/function () {
+      // vm,updateComponent,()=>{ console.log('更新视图了')},true
+      function Watcher(vm, exprOrFn, cb, options) {
+        _classCallCheck(this, Watcher);
+
+        this.vm = vm;
+        this.exprOrFn = exprOrFn;
+        this.cb = cb;
+        this.options = options;
+        this.id = id++; // 默认应该让exprOrFn执行  exprOrFn 方法做了什么是？ render （去vm上了取值）
+
+        this.getter = exprOrFn;
+        this.deps = [];
+        this.depsId = new Set();
+        this.get(); // 默认初始化 要取值
+      }
+
+      _createClass(Watcher, [{
+        key: "get",
+        value: function get() {
+          // 稍后用户更新 时 可以重新调用getter方法
+          // defineProperty.get, 每个属性都可以收集自己的watcher
+          // 我希望一个属性可以对应多个watcher，同时一个watcher可以对应多个属性
+          pushTarget(this); // Dep.target = watcher
+
+          this.getter(); // render() 方法会去vm上取值 vm._update(vm._render)
+
+          popTarget(); // Dep.target = null; 如果Dep.target有值说明这个变量在模板中使用了
+        }
+      }, {
+        key: "update",
+        value: function update() {
+          // vue中的更新操作是异步的
+          // 每次更新时 this
+          queueWatcher(this); // 多次调用update 我希望先将watcher缓存下来，等一会一起更新
+        }
+      }, {
+        key: "run",
+        value: function run() {
+          // 后续要有其他功能
+          this.get();
+        }
+      }, {
+        key: "addDep",
+        value: function addDep(dep) {
+          var id = dep.id;
+
+          if (!this.depsId.has(id)) {
+            this.depsId.add(id);
+            this.deps.push(dep);
+            dep.addSub(this);
+          }
+        }
+      }]);
+
+      return Watcher;
+    }(); // watcher 和 dep
+
+    function patch(oldVnode, vnode) {
+      if (oldVnode.nodeType == 1) {
+        // 用vnode  来生成真实dom 替换原本的dom元素
+        var parentElm = oldVnode.parentNode; // 找到他的父亲
+
+        var elm = createElm(vnode); //根据虚拟节点 创建元素
+        // 在第一次渲染后 是删除掉节点，下次在使用无法获取
+
+        parentElm.insertBefore(elm, oldVnode.nextSibling);
+        parentElm.removeChild(oldVnode);
+        return elm;
+      }
+    }
+
+    function createElm(vnode) {
+      var tag = vnode.tag;
+          vnode.data;
+          var children = vnode.children,
+          text = vnode.text;
+          vnode.vm;
+
+      if (typeof tag === 'string') {
+        // 元素
+        vnode.el = document.createElement(tag); // 虚拟节点会有一个el属性 对应真实节点
+
+        children.forEach(function (child) {
+          vnode.el.appendChild(createElm(child));
+        });
+      } else {
+        vnode.el = document.createTextNode(text);
+      }
+
+      return vnode.el;
+    }
+
+    function lifecycleMixin(Vue) {
+      Vue.prototype._update = function (vnode) {
+        // 既有初始化 又又更新 
+        var vm = this;
+        vm.$el = patch(vm.$el, vnode);
+      };
+
+      Vue.prototype.$nextTick = nextTick;
+    } // 后续每个组件渲染的时候都会有一个watcher
+
+    function mountComponent(vm, el) {
+      // 更新函数 数据变化后 会再次调用此函数
+      var updateComponent = function updateComponent() {
+        // 调用render函数，生成虚拟dom
+        vm._update(vm._render()); // 后续更新可以调用updateComponent方法
+        // 用虚拟dom 生成真实dom
+
+      }; // 观察者模式： 属性是“被观察者”  刷新页面：“观察者”
+      // updateComponent();
+
+
+      new Watcher(vm, updateComponent, function () {
+        console.log('更新视图了');
+      }, true); // 他是一个渲染watcher  后续有其他的watcher
     }
 
     var oldArrayPrototype = Array.prototype;
@@ -375,19 +572,24 @@
         // 更新操作.... todo...
 
 
-        if (inserted) ob.observeArray(inserted); // arr.push(1,2)
+        if (inserted) ob.observeArray(inserted); // 数组的observer.dep 属性
+
+        ob.dep.notify(); // arr.push(1,2)
         // arr.splice(0,1,xxxx)
       };
     });
 
     // 2.如果是数组，会劫持数组的方法，并对数组中不是基本数据类型的进行检测
     // 检测数据变化 类有类型 ， 对象无类型
+    // 如果给对象新增一个属性不会触发视图更新  (给对象本身也增加一个dep，dep中存watcher，如果增加一个属性后，我就手动的触发watcher的更新)
 
     var Observer = /*#__PURE__*/function () {
       function Observer(data) {
         _classCallCheck(this, Observer);
 
         // 对对象中的所有属性 进行劫持
+        this.dep = new Dep(); // 数据可能是数组或者对象
+
         Object.defineProperty(data, '__ob__', {
           value: this,
           enumerable: false // 不可枚举的
@@ -395,6 +597,7 @@
         }); // data.__ob__ = this; // 所有被劫持过的属性都有__ob__ 
 
         if (Array.isArray(data)) {
+          // 我希望数组的变化可以触发视图更新？
           // 数组劫持的逻辑
           // 对数组原来的方法进行改写， 切片编程  高阶函数
           data.__proto__ = arrayMethods; // 如果数组中的数据是对象类型，需要监控对象的变化
@@ -410,6 +613,7 @@
         value: function observeArray(data) {
           // 对我们数组的数组 和 数组中的对象再次劫持 递归了
           // [{a:1},{b:2}]
+          // 如果数组里放的是对象类型，也做了观测，JSON.stringify() 也做了收集一来了
           data.forEach(function (item) {
             return observe(item);
           });
@@ -427,21 +631,56 @@
 
       return Observer;
     }(); // vue2 会对对象进行遍历 将每个属性 用defineProperty 重新定义 性能差
+    // {arr:[1,2,3]}  
 
+
+    function dependArray(value) {
+      for (var i = 0; i < value.length; i++) {
+        var current = value[i]; // current是数组里面的数组 [[[[[]]]]]
+
+        current.__ob__ && current.__ob__.dep.depend();
+
+        if (Array.isArray(current)) {
+          dependArray(current);
+        }
+      }
+    }
 
     function defineReactive(data, key, value) {
       // value有可能是对象
-      observe(value); // 本身用户默认值是对象套对象 需要递归处理 （性能差）
+      var childOb = observe(value); // 本身用户默认值是对象套对象 需要递归处理 （性能差）
+
+      var dep = new Dep(); // 每个属性都有一个dep属性
+      // 获取到了数组对应ob
 
       Object.defineProperty(data, key, {
         get: function get() {
+          // 取值时我希望将watcher和dep 对应起来
+          if (Dep.target) {
+            // 此值是在模板中取值的
+            dep.depend(); // 让dep记住watcher
+
+            if (childOb) {
+              // 可能是数组 可能是对象，对象也要收集依赖，后续写$set方法时需要触发他自己的更新操作
+              childOb.dep.depend(); // 就是让数组和对象也记录watcher
+
+              if (Array.isArray(value)) {
+                //取外层数组要将数组里面的也进行依赖收集
+                dependArray(value);
+              }
+            }
+          }
+
           return value;
         },
         set: function set(newV) {
           // todo... 更新视图
-          observe(newV); // 如果用户赋值一个新对象 ，需要将这个对象进行劫持
+          if (newV !== value) {
+            observe(newV); // 如果用户赋值一个新对象 ，需要将这个对象进行劫持
 
-          value = newV;
+            value = newV;
+            dep.notify(); // 告诉当前的属性存放的watcher执行
+          }
         }
       });
     }
@@ -453,7 +692,7 @@
       }
 
       if (data.__ob__) {
-        return;
+        return data.__ob__;
       } // 默认最外层的data必须是一个对象
 
 

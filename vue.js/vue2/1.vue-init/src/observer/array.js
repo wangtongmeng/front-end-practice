@@ -32,6 +32,9 @@ methods.forEach(method =>{
         // 更新操作.... todo...
         if(inserted)  ob.observeArray(inserted)
 
+        // 数组的observer.dep 属性
+        ob.dep.notify()
+
         // arr.push(1,2)
         // arr.splice(0,1,xxxx)
     }
