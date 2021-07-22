@@ -4,10 +4,14 @@ import { queueWatcher } from "./scheduler";
 let id = 0;
 class Watcher {
     // vm,updateComponent,()=>{ console.log('更新视图了')},true
-    constructor(vm,exprOrFn,cb,options){
+    constructor(vm, exprOrFn, cb, options) {
+
+        // exporOfFn
         this.vm = vm;
         this.exprOrFn = exprOrFn;
         this.user = !!options.user; // 是不是用户watcher
+        this.lazy = !!options.lazy;
+        this.dirty = options.lazy; // 如果是计算属性，那么默认值lazy:true, dirty:true
         this.cb = cb;
         this.options = options;
         this.id = id++;
@@ -28,12 +32,13 @@ class Watcher {
             this.getter = exprOrFn; // updateComponent
         }
 
-        this.deps = []; 
+        this.deps = [];
         this.depsId = new Set();
+        // 第一次的value
+        this.value = this.lazy ? undefined : this.get(); // 默认初始化 要取值
 
-        this.value = this.get(); // 默认初始化 要取值
     }
-    get(){ // 稍后用户更新 时 可以重新调用getter方法
+    get() { // 稍后用户更新 时 可以重新调用getter方法
         // defineProperty.get, 每个属性都可以收集自己的watcher
         // 我希望一个属性可以对应多个watcher，同时一个watcher可以对应多个属性
         pushTarget(this); // Dep.target = watcher
@@ -42,9 +47,15 @@ class Watcher {
 
         return value
     }
-    update(){ // vue中的更新操作是异步的
-       // 每次更新时 this
-       queueWatcher(this); // 多次调用update 我希望先将watcher缓存下来，等一会一起更新
+    update() { // vue中的更新操作是异步的
+        // 每次更新时 this
+
+        if(this.lazy){
+            this.dirty = true;
+        }else{
+            queueWatcher(this); // 多次调用update 我希望先将watcher缓存下来，等一会一起更新
+        }
+
     }
     run() { // 后续要有其他功能
         let newValue = this.get();
@@ -54,12 +65,22 @@ class Watcher {
             this.cb.call(this.vm, newValue, oldValue);
         }
     }
-    addDep(dep){
+    addDep(dep) {
         let id = dep.id;
-        if(!this.depsId.has(id)){
+        if (!this.depsId.has(id)) {
             this.depsId.add(id);
             this.deps.push(dep);
             dep.addSub(this)
+        }
+    }
+    evaluate(){
+        this.dirty = false; // 为false表示取过值了
+        this.value = this.get(); // 用户的getter执行
+    }
+    depend(){
+        let i = this.deps.length;
+        while(i--){
+            this.deps[i].depend(); //lastName,firstName 收集渲染watcher
         }
     }
 }

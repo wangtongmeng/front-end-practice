@@ -62,16 +62,15 @@ function defineReactive(data,key,value){ // value有可能是对象
 
     Object.defineProperty(data,key,{
         get(){
+            console.log(dep,key);
             // 取值时我希望将watcher和dep 对应起来
             if(Dep.target){ // 此值是在模板中取值的
                 dep.depend() // 让dep记住watcher
                 if(childOb){ // 可能是数组 可能是对象，对象也要收集依赖，后续写$set方法时需要触发他自己的更新操作
                     childOb.dep.depend(); // 就是让数组和对象也记录watcher
-
                     if(Array.isArray(value)){ //取外层数组要将数组里面的也进行依赖收集
                         dependArray(value);
                     }
-
                 }
             }
             return value

@@ -115,10 +115,10 @@
     }
 
     var root = null;
-    var stack = [];
+    var stack$1 = [];
 
     function start(tagName, attributes) {
-      var parent = stack[stack.length - 1];
+      var parent = stack$1[stack$1.length - 1];
       var element = createAstElement(tagName, attributes);
 
       if (!root) {
@@ -131,11 +131,11 @@
         parent.children.push(element);
       }
 
-      stack.push(element);
+      stack$1.push(element);
     }
 
     function end(tagName) {
-      var last = stack.pop();
+      var last = stack$1.pop();
 
       if (last.tag !== tagName) {
         throw new Error('标签有误');
@@ -144,7 +144,7 @@
 
     function chars(text) {
       text = text.replace(/\s/g, "");
-      var parent = stack[stack.length - 1];
+      var parent = stack$1[stack$1.length - 1];
 
       if (text) {
         parent.children.push({
@@ -321,11 +321,15 @@
 
     Dep.target = null; // 一份
 
+    var stack = [];
     function pushTarget(watcher) {
       Dep.target = watcher;
+      stack.push(watcher);
+      console.log(stack);
     }
     function popTarget() {
-      Dep.target = null;
+      stack.pop();
+      Dep.target = stack[stack.length - 1];
     }
 
     function isFunction(val) {
@@ -425,9 +429,13 @@
       function Watcher(vm, exprOrFn, cb, options) {
         _classCallCheck(this, Watcher);
 
+        // exporOfFn
         this.vm = vm;
         this.exprOrFn = exprOrFn;
         this.user = !!options.user; // 是不是用户watcher
+
+        this.lazy = !!options.lazy;
+        this.dirty = options.lazy; // 如果是计算属性，那么默认值lazy:true, dirty:true
 
         this.cb = cb;
         this.options = options;
@@ -453,8 +461,9 @@
         }
 
         this.deps = [];
-        this.depsId = new Set();
-        this.value = this.get(); // 默认初始化 要取值
+        this.depsId = new Set(); // 第一次的value
+
+        this.value = this.lazy ? undefined : this.get(); // 默认初始化 要取值
       }
 
       _createClass(Watcher, [{
@@ -476,7 +485,11 @@
         value: function update() {
           // vue中的更新操作是异步的
           // 每次更新时 this
-          queueWatcher(this); // 多次调用update 我希望先将watcher缓存下来，等一会一起更新
+          if (this.lazy) {
+            this.dirty = true;
+          } else {
+            queueWatcher(this); // 多次调用update 我希望先将watcher缓存下来，等一会一起更新
+          }
         }
       }, {
         key: "run",
@@ -499,6 +512,22 @@
             this.depsId.add(id);
             this.deps.push(dep);
             dep.addSub(this);
+          }
+        }
+      }, {
+        key: "evaluate",
+        value: function evaluate() {
+          this.dirty = false; // 为false表示取过值了
+
+          this.value = this.get(); // 用户的getter执行
+        }
+      }, {
+        key: "depend",
+        value: function depend() {
+          var i = this.deps.length;
+
+          while (i--) {
+            this.deps[i].depend(); //lastName,firstName 收集渲染watcher
           }
         }
       }]);
@@ -683,7 +712,8 @@
 
       Object.defineProperty(data, key, {
         get: function get() {
-          // 取值时我希望将watcher和dep 对应起来
+          console.log(dep, key); // 取值时我希望将watcher和dep 对应起来
+
           if (Dep.target) {
             // 此值是在模板中取值的
             dep.depend(); // 让dep记住watcher
@@ -742,12 +772,14 @@
 
       if (opts.data) {
         initData(vm);
-      } // if(opts.computed){
-      //     initComputed();
-      // }
+      }
 
+      if (opts.computed) {
+        initComputed(vm, opts.computed);
+      }
 
       if (opts.watch) {
+        // 初始化watch
         initWatch(vm, opts.watch);
       }
     }
@@ -796,6 +828,60 @@
 
     function createWatcher(vm, key, handler) {
       return vm.$watch(key, handler);
+    }
+
+    function initComputed(vm, computed) {
+      var watchers = vm._computedWatchers = {};
+
+      for (var key in computed) {
+        // 校验 
+        var userDef = computed[key]; // 依赖的属性变化就重新取值 get
+
+        var getter = typeof userDef == 'function' ? userDef : userDef.get; // 每个计算属性本质就是watcher   
+        // 将watcher和 属性 做一个映射
+
+        watchers[key] = new Watcher(vm, getter, function () {}, {
+          lazy: true
+        }); // 默认不执行
+        // 将key 定义在vm上
+
+        defineComputed(vm, key, userDef);
+      }
+    }
+
+    function createComputedGetter(key) {
+      return function computedGetter() {
+        // 取计算属性的值 走的是这个函数
+        // this._computedWatchers 包含着所有的计算属性
+        // 通过key 可以拿到对应watcher，这个watcher中包含了getter
+        var watcher = this._computedWatchers[key]; // 脏就是 要调用用户的getter  不脏就是不要调用getter
+
+        if (watcher.dirty) {
+          // 根据dirty属性 来判断是否需要重新求值
+          watcher.evaluate(); // this.get()
+        } // 如果当前取完值后 Dep.target还有值  需要继续向上收集
+
+
+        if (Dep.target) {
+          // 计算属性watcher 内部 有两个dep  firstName,lastName
+          watcher.depend(); // watcher 里 对应了 多个dep
+        }
+
+        return watcher.value;
+      };
+    }
+
+    function defineComputed(vm, key, userDef) {
+      var sharedProperty = {};
+
+      if (typeof userDef == 'function') {
+        sharedProperty.get = userDef;
+      } else {
+        sharedProperty.get = createComputedGetter(key);
+        sharedProperty.set = userDef.set;
+      }
+
+      Object.defineProperty(vm, key, sharedProperty); // computed就是一个defineProperty
     }
 
     function initMixin(Vue) {
