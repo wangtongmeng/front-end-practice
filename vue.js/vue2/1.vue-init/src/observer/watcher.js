@@ -7,31 +7,52 @@ class Watcher {
     constructor(vm,exprOrFn,cb,options){
         this.vm = vm;
         this.exprOrFn = exprOrFn;
+        this.user = !!options.user; // 是不是用户watcher
         this.cb = cb;
         this.options = options;
         this.id = id++;
 
         // 默认应该让exprOrFn执行  exprOrFn 方法做了什么是？ render （去vm上了取值）
+        if (typeof exprOrFn == 'string') {
+            this.getter = function() { // 需要将表达式转化成函数
+                // 当我数据取值时 ， 会进行依赖收集
+                // age.n  vm['age.n']  =》 vm['age']['n']
+                let path = exprOrFn.split('.'); // [age,n]
+                let obj = vm;
+                for (let i = 0; i < path.length; i++) {
+                    obj = obj[path[i]]
+                }
+                return obj; // getter方法
+            }
+        } else {
+            this.getter = exprOrFn; // updateComponent
+        }
 
-        this.getter = exprOrFn; 
         this.deps = []; 
         this.depsId = new Set();
 
-        this.get(); // 默认初始化 要取值
+        this.value = this.get(); // 默认初始化 要取值
     }
     get(){ // 稍后用户更新 时 可以重新调用getter方法
         // defineProperty.get, 每个属性都可以收集自己的watcher
         // 我希望一个属性可以对应多个watcher，同时一个watcher可以对应多个属性
         pushTarget(this); // Dep.target = watcher
-        this.getter(); // render() 方法会去vm上取值 vm._update(vm._render)
+        const value = this.getter.call(this.vm); // render() 方法会去vm上取值 vm._update(vm._render)
         popTarget(); // Dep.target = null; 如果Dep.target有值说明这个变量在模板中使用了
+
+        return value
     }
     update(){ // vue中的更新操作是异步的
        // 每次更新时 this
        queueWatcher(this); // 多次调用update 我希望先将watcher缓存下来，等一会一起更新
     }
-    run(){ // 后续要有其他功能
-        this.get();
+    run() { // 后续要有其他功能
+        let newValue = this.get();
+        let oldValue = this.value
+        this.value = newValue; // 为了保证下一次更新时 上一次的最新值是下一次的老值
+        if (this.user) {
+            this.cb.call(this.vm, newValue, oldValue);
+        }
     }
     addDep(dep){
         let id = dep.id;

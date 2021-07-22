@@ -427,14 +427,34 @@
 
         this.vm = vm;
         this.exprOrFn = exprOrFn;
+        this.user = !!options.user; // 是不是用户watcher
+
         this.cb = cb;
         this.options = options;
         this.id = id++; // 默认应该让exprOrFn执行  exprOrFn 方法做了什么是？ render （去vm上了取值）
 
-        this.getter = exprOrFn;
+        if (typeof exprOrFn == 'string') {
+          this.getter = function () {
+            // 需要将表达式转化成函数
+            // 当我数据取值时 ， 会进行依赖收集
+            // age.n  vm['age.n']  =》 vm['age']['n']
+            var path = exprOrFn.split('.'); // [age,n]
+
+            var obj = vm;
+
+            for (var i = 0; i < path.length; i++) {
+              obj = obj[path[i]];
+            }
+
+            return obj; // getter方法
+          };
+        } else {
+          this.getter = exprOrFn; // updateComponent
+        }
+
         this.deps = [];
         this.depsId = new Set();
-        this.get(); // 默认初始化 要取值
+        this.value = this.get(); // 默认初始化 要取值
       }
 
       _createClass(Watcher, [{
@@ -445,9 +465,11 @@
           // 我希望一个属性可以对应多个watcher，同时一个watcher可以对应多个属性
           pushTarget(this); // Dep.target = watcher
 
-          this.getter(); // render() 方法会去vm上取值 vm._update(vm._render)
+          var value = this.getter.call(this.vm); // render() 方法会去vm上取值 vm._update(vm._render)
 
           popTarget(); // Dep.target = null; 如果Dep.target有值说明这个变量在模板中使用了
+
+          return value;
         }
       }, {
         key: "update",
@@ -460,7 +482,13 @@
         key: "run",
         value: function run() {
           // 后续要有其他功能
-          this.get();
+          var newValue = this.get();
+          var oldValue = this.value;
+          this.value = newValue; // 为了保证下一次更新时 上一次的最新值是下一次的老值
+
+          if (this.user) {
+            this.cb.call(this.vm, newValue, oldValue);
+          }
         }
       }, {
         key: "addDep",
@@ -699,6 +727,15 @@
       return new Observer(data);
     }
 
+    function stateMixin(Vue) {
+      Vue.prototype.$watch = function (key, handler) {
+        var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+        options.user = true; // 是一个用户自己写的watcher
+        // vm,name,用户回调，options.user
+
+        new Watcher(this, key, handler, options);
+      };
+    }
     function initState(vm) {
       // 状态的初始化
       var opts = vm.$options;
@@ -708,10 +745,11 @@
       } // if(opts.computed){
       //     initComputed();
       // }
-      // if(opts.watch){
-      //     initWatch();
-      // }
 
+
+      if (opts.watch) {
+        initWatch(vm, opts.watch);
+      }
     }
 
     function proxy(vm, source, key) {
@@ -739,6 +777,25 @@
       }
 
       observe(data);
+    }
+
+    function initWatch(vm, watch) {
+      // Object.keys
+      for (var key in watch) {
+        var handler = watch[key];
+
+        if (Array.isArray(handler)) {
+          for (var i = 0; i < handler.length; i++) {
+            createWatcher(vm, key, handler[i]);
+          }
+        } else {
+          createWatcher(vm, key, handler);
+        }
+      }
+    }
+
+    function createWatcher(vm, key, handler) {
+      return vm.$watch(key, handler);
     }
 
     function initMixin(Vue) {
@@ -844,6 +901,8 @@
     renderMixin(Vue); // _render
 
     lifecycleMixin(Vue); // _update
+
+    stateMixin(Vue);
     // $mount 找render方法  （template-> render函数  ast => codegen =>字符串）
     // render = with + new Function(codegen) 产生虚拟dom的方法 
     // 虚拟dom -> 真实dom 
