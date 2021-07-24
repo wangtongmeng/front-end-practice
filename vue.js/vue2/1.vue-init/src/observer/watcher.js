@@ -55,7 +55,6 @@ class Watcher {
         }else{
             queueWatcher(this); // 多次调用update 我希望先将watcher缓存下来，等一会一起更新
         }
-
     }
     run() { // 后续要有其他功能
         let newValue = this.get();

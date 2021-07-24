@@ -8,46 +8,52 @@
 </head>
 
 <body>
-    <div id="app"></div>
+    <!-- 
+          1.给组件创建一个构造函数, 基于Vue
+          2.开始生成虚拟节点， 对组件进行特殊处理 data.hook = { init () {}}
+          3.生成dom元素， 如果当前虚拟节点少有hook.init属性，说明是组建
+          4.对组件进行 new 组件().$mount()  => vm.$el
+          5.将组件的$el 插入到父容器中 (父组件)
+     -->
+
+
+    <!-- render -> vnode -> 真实dom -->
+    <div id="app">
+        <my-button></my-button>
+    </div>
     <script src="dist/vue.js"></script>
     <!-- <script src="node_modules/vue/dist/vue.js"></script> -->
     <script>
-        Vue.mixin({
-            beforeCreate(){
-                console.log('before create1');
-            }
-        })
-        Vue.mixin({
-            beforeCreate(){
-                console.log('before create2');
-            }
-        })
-        const vm = new Vue({
+        Vue.component("my-button", { // Vue.options.components = {"my-button":fn}
+            template: '<button>hello</button>'
+        });
+
+        
+        const vm = new Vue({ // .__proto__
             el: '#app',
-            beforeCreate() { // vm.$options.beforeCreate: [fn1,fn2,fn3]
-                console.log('before create3')
+            data:{
+                arr:1
             },
-            created(){
-                console.log('created');
-            },
-            beforeMount(){
-                console.log('beforeMount');
+            beforeCreate() {
+                console.log('beforeCreate', 'parent')
             },
             mounted() {
-                console.log('mounted')
+                console.log('mounted', 'parent')
             },
+            components: {
+                "my-button": {
+                    template: '<button>world</button>',
+                    beforeCreate() {
+                        console.log('beforeCreate', 'child');
+                    },
+                    mounted() {
+                        console.log('mounted', 'child')
+                    },
+                }
+            }
         });
     </script>
 
-
-<!-- 
-    before create1
-    before create2
-    before create3
-    created
-    beforeMount
-    mounted
- -->
 </body>
 
 </html>

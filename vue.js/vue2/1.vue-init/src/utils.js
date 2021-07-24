@@ -85,6 +85,17 @@ lifeCycleHooks.forEach(hook => {
     strats[hook] = mergeHook
 });
 
+strats.components = function(parentVal, childVal) {
+    // Vue.options.components
+    let options = Object.create(parentVal); // 根据父对象构造一个新对象 options.__proto__= parentVal
+    if (childVal) {
+        for (let key in childVal) {
+            options[key] = childVal[key];
+        }
+    }
+    return options
+}
+
 export function mergeOptions(parent, child) {
     const options = {}; // 合并后的结果
     for (let key in parent) {
@@ -113,4 +124,12 @@ export function mergeOptions(parent, child) {
         }
     }
     return options
+}
+
+
+
+export function isReservedTag(str) {
+    let reservedTag = 'a,div,span,p,img,button,ul,li';
+    // 源码根据 “，” 生成映射表 {a:true,div:true,p:true}
+    return reservedTag.includes(str);
 }

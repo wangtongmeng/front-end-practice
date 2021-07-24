@@ -62,7 +62,6 @@ function defineReactive(data,key,value){ // value有可能是对象
 
     Object.defineProperty(data,key,{
         get(){
-            console.log(dep,key);
             // 取值时我希望将watcher和dep 对应起来
             if(Dep.target){ // 此值是在模板中取值的
                 dep.depend() // 让dep记住watcher
@@ -77,9 +76,8 @@ function defineReactive(data,key,value){ // value有可能是对象
         },
         set(newV){ 
             // todo... 更新视图
-
             if(newV !== value){
-                observe(newV); // 如果用户赋值一个新对象 ，需要将这个对象进行劫持
+                childOb = observe(newV); // 如果用户赋值一个新对象 ，需要将这个对象进行劫持
                 value = newV;
                 dep.notify(); // 告诉当前的属性存放的watcher执行
             }

@@ -5,7 +5,6 @@ export function lifecycleMixin(Vue) {
     Vue.prototype._update = function(vnode) {
         // 既有初始化 又又更新 
         const vm = this;
-
         vm.$el = patch(vm.$el, vnode);
 
     }
@@ -20,7 +19,6 @@ export function mountComponent(vm, el) {
         vm._update(vm._render()); // 后续更新可以调用updateComponent方法
         // 用虚拟dom 生成真实dom
     }
-
     // 观察者模式： 属性是“被观察者”  刷新页面：“观察者”
     // updateComponent();
     callHook(vm,'beforeMount')

@@ -81,7 +81,7 @@ function initComputed(vm, computed) {
         // 依赖的属性变化就重新取值 get
         let getter = typeof userDef == 'function' ? userDef : userDef.get;
 
-        // 每个计算属性本质就是watcher   
+        // 每个就算属性本质就是watcher   
         // 将watcher和 属性 做一个映射
         watchers[key] = new Watcher(vm, getter, () => {}, { lazy: true }); // 默认不执行
 
@@ -98,7 +98,7 @@ function createComputedGetter(key) {
         let watcher = this._computedWatchers[key]
         // 脏就是 要调用用户的getter  不脏就是不要调用getter
 
-        if(watcher.dirty){ // 根据dirty属性 来判断是否需要重新求值
+        if(watcher.dirty){ // 根据dirty属性 来判断是否需要重新求职
             watcher.evaluate();// this.get()
         }
 
