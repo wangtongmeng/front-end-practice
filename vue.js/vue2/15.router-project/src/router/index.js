@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from '@/vue-router'
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
-
 Vue.use(VueRouter); // 注册两个全局组件  install(Vue)
 
 
@@ -44,14 +43,14 @@ const router = new VueRouter({
 })
 
 
-router.beforeEach((to,from,next)=>{ //[]
-  console.log(to,from,1);
-  setTimeout(() => {
-   next();
-  }, 1000);
-})
-router.beforeEach((to,from,next)=>{ // 全局钩子 路由钩子 组件钩子
-  console.log(to,from,2);
-  next();
-})
+// router.beforeEach((to,from,next)=>{ //[]
+//   console.log(to,from,1);
+//   setTimeout(() => {
+//    next();
+//   }, 1000);
+// })
+// router.beforeEach((to,from,next)=>{ // 全局钩子 路由钩子 组件钩子
+//   console.log(to,from,2);
+//   next();
+// })
 export default router
