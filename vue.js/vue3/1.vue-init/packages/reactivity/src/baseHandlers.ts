@@ -27,7 +27,7 @@ function createGetter(isReadonly = false, shallow = false) {
     // vue3 可以对不存在的属性进行获取，也会走get方法, proxy支持数组
 }
 function createSetter(shallow = false) {
-    // 针对数组而言 如果调用push方法，就会产生2次处罚 1.给数组新增了一项，同时也更改了长度 2.因为更改了长度再次触发set （第二次的触发是无意义的）
+    // 针对数组而言 如果调用push方法，就会产生2次触发 1.给数组新增了一项，同时也更改了长度 2.因为更改了长度再次触发set （第二次的触发是无意义的）
     return function set(target, key, value, receiver) {
         const oldValue = target[key]; // 获取老值
         // target[key] = value; // 如果设置失败 没有返回值
