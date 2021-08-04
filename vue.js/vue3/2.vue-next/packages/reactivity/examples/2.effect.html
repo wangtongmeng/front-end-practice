@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../dist/reactivity.global.js"></script>
+    <script>
+        const { reactive, readonly, ref, toRaw, markRaw ,effect} = VueReactivity;
+
+        // 1.已经是effect函数，再被effect
+        // let reactiveEffect = effect(() => {
+        //     console.log(1);
+        // });
+        // debugger;
+        // let reactiveEffect2 = effect(reactiveEffect);
+        // console.log(reactiveEffect === reactiveEffect2); // false
+
+        // 2.
+        // const state = reactive({ name: 'zf', age: 11 })
+        // effect(() => { // 1.默认执行时 需要 收集 name：{n:2,w:2} 和 age {n:0,w:2} 
+        //     console.log('effect')
+        //     if (state.name === 'zf') {
+        //         console.log(state.age);
+        //     }
+        // })
+        // // 我改了name后，需要重新渲染重新调用effect，(把name和age的依赖全部清空) 取name了 但是没取age （age不需要依赖手机了）
+        // debugger
+        // state.name = 'jw';
+        // state.age = 200;
+
+        // 3.
+        // const state = reactive({ name: 'zf', age: 11 });
+        // effect(() => {
+        //     debugger
+        //     state.name;
+        // });
+        // debugger;
+        // state.name = 'zs'
+
+        // 4.
+        // const state = reactive({ name: 'zf', age: 11 });
+        // effect(() => { state.name }, {
+        //     scheduler: (effect) => {
+        //         console.log('更新')
+        //     }
+        // })
+        // state.name = 'jw'
+
+
+        // reactive 响应式 防止多次代理， 取值的时候 如果被代理过会 返回对应的标识
+        // ref 如果放在reactive中会被拆包
+        // reactive里面放数组 数组里面放ref不会被拆包 
+
+        // 取值时会进行依赖收集 设置的时候回触发更新
+    </script>
+</body>
+
+
+</html>

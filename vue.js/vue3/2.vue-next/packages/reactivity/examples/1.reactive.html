@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../dist/reactivity.global.js"></script>
+    <script>
+        const { reactive, readonly, ref, toRaw, markRaw } = VueReactivity;
+        // 1.同一个对象被readonly代理后将代理对象传入reactive
+        // let obj = { name: 'jw' };
+        // let proxy1 = readonly(obj);
+        // let proxy2 = reactive(proxy1);
+        // console.log(proxy1 === proxy2);
+
+        // 2.reactive代理问题
+        // let obj = { name: 'jw' };
+        // debugger;
+        // let proxy1 = reactive(obj);
+        // let proxy2 = reactive(proxy1);
+        // let proxy3 = reactive(obj);
+        // console.log(proxy1 == proxy2);
+        // console.log(proxy2 === proxy3)
+
+
+        // 3.toRaw方法的使用， 将代理对象转化成原值
+        // let obj = { name: 'jw' };
+        // let proxy = reactive(obj);
+        // debugger;
+        // console.log(obj === toRaw(proxy));
+        // let obj2 = { name: 'zf' }; // 有个库内部已经自己实现了代理功能
+        // let proxy2 = reactive(markRaw(obj2)); // 表示不能被代理  Object.freeze
+        // console.log(proxy2);
+
+        // 4.数组的特殊处理
+        // let proxyArr = reactive([1, 2, 3]);// 访问数组的方法时会访问数组的长度
+        // debugger;
+        // proxyArr.push(5); // 调用数组方法时 有暂停收集的功能和增加收集项的功能
+        // proxyArr[Symbol.hasInstance]; // 访问内置属性不会依赖收集
+
+        // 5.ref的拆包
+        // let r = reactive({
+        //     name: ref('jw') // xxx.value
+        // });
+        // console.log(r.name); // reactive 会判断里面是否包含ref，自动拆包
+        // let r1 = reactive([ref(1), 2, 3, 4]); // 这种情况下不会拆包
+        // console.log(r1[0]); // 1
+        // 6.设置值的特性
+        // // debugger;
+        // let proxy1 = reactive({ name: 'zf', age: ref(11) });
+        // proxy1.name = reactive({ str: 'jw' });
+        // proxy1.age = 12;
+        // console.log(proxy1);
+
+      
+
+        // 7.问题处理
+        let obj = {};
+        let proto = { a: 1 }
+        let proxyProto = new Proxy(proto, {
+            get(target, key, receiver) {
+                return Reflect.get(target, key, receiver)
+            },
+            set(target, key, value, receiver) {
+                console.log(proxyProto, receiver == myProxy)
+                if(receiver == proxyProto){
+                    // 触发更新
+                }
+                return Reflect.set(target, key, value, receiver)
+            }
+        })
+        Object.setPrototypeOf(obj, proxyProto); //原型链 obj.__proto__ = proxyProto
+        let myProxy = new Proxy(obj, {
+            get(target, key, receiver) {
+                return Reflect.get(target, key, receiver)
+            },
+            set(target, key, value, receiver) {
+                console.log(receiver === myProxy)
+                return Reflect.set(target, key, value, receiver)
+            }
+        })
+        myProxy.a = 100
+    </script>
+</body>
+
+</html>
