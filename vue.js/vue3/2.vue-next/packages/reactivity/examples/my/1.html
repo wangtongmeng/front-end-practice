@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../../dist/reactivity.global.js"></script>
+    <script>
+        const { reactive, readonly, ref, toRaw, markRaw } = VueReactivity;
+        let obj = {a:1}
+        let proxy = reactive(obj)
+        obj.a
+        obj.a =2 // 直接改原对象，proxy也会变(毕竟只是代理)
+        console.log(obj,proxy);
+        proxy.a // 通过代理修改原对象，会走代理触发track，判断不在effect中，不进行依赖收集
+        proxy.a = 3 // 走代理触发trigger，判断不在effect中，不进行依赖更新
+        console.log(obj, proxy);
+        
+    </script>
+</body>
+
+</html>

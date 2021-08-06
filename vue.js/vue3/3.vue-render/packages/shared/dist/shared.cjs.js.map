@@ -1,0 +1,1 @@
+{"version":3,"file":"shared.cjs.js","sources":["../src/index.ts"],"sourcesContent":["let s = 1;\nexport {\n    s\n}"],"names":[],"mappings":";;;;IAAI,CAAC,GAAG;;;;"}

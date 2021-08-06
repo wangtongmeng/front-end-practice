@@ -1,0 +1,26 @@
+{
+  "name": "vue3-reactivity",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://gitee.com/jw-speed/jiagouke3-vue2021.git",
+  "author": "Your Name <you@example.com>",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "node scripts/dev.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.2",
+    "execa": "^5.1.1",
+    "lerna": "^4.0.0",
+    "rollup": "^2.53.2",
+    "rollup-plugin-typescript2": "^0.30.0"
+  }
+}

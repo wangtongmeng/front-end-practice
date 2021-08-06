@@ -13,10 +13,11 @@
     <script>
         const { reactive, readonly, ref, toRaw, markRaw } = VueReactivity;
         // 1.同一个对象被readonly代理后将代理对象传入reactive
-        // let obj = { name: 'jw' };
-        // let proxy1 = readonly(obj);
-        // let proxy2 = reactive(proxy1);
-        // console.log(proxy1 === proxy2);
+        let obj = { name: 'jw' };
+        debugger
+        let proxy1 = readonly(obj);
+        let proxy2 = reactive(proxy1);
+        console.log(proxy1 === proxy2);
 
         // 2.reactive代理问题
         // let obj = { name: 'jw' };
@@ -60,31 +61,31 @@
       
 
         // 7.问题处理
-        let obj = {};
-        let proto = { a: 1 }
-        let proxyProto = new Proxy(proto, {
-            get(target, key, receiver) {
-                return Reflect.get(target, key, receiver)
-            },
-            set(target, key, value, receiver) {
-                console.log(proxyProto, receiver == myProxy)
-                if(receiver == proxyProto){
-                    // 触发更新
-                }
-                return Reflect.set(target, key, value, receiver)
-            }
-        })
-        Object.setPrototypeOf(obj, proxyProto); //原型链 obj.__proto__ = proxyProto
-        let myProxy = new Proxy(obj, {
-            get(target, key, receiver) {
-                return Reflect.get(target, key, receiver)
-            },
-            set(target, key, value, receiver) {
-                console.log(receiver === myProxy)
-                return Reflect.set(target, key, value, receiver)
-            }
-        })
-        myProxy.a = 100
+        // let obj = {};
+        // let proto = { a: 1 }
+        // let proxyProto = new Proxy(proto, {
+        //     get(target, key, receiver) {
+        //         return Reflect.get(target, key, receiver)
+        //     },
+        //     set(target, key, value, receiver) {
+        //         console.log(proxyProto, receiver == myProxy)
+        //         if(receiver == proxyProto){
+        //             // 触发更新
+        //         }
+        //         return Reflect.set(target, key, value, receiver)
+        //     }
+        // })
+        // Object.setPrototypeOf(obj, proxyProto); //原型链 obj.__proto__ = proxyProto
+        // let myProxy = new Proxy(obj, {
+        //     get(target, key, receiver) {
+        //         return Reflect.get(target, key, receiver)
+        //     },
+        //     set(target, key, value, receiver) {
+        //         console.log(receiver === myProxy)
+        //         return Reflect.set(target, key, value, receiver)
+        //     }
+        // })
+        // myProxy.a = 100
     </script>
 </body>
 

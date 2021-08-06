@@ -1,0 +1,1 @@
+{"version":3,"file":"runtime-dom.global.js","sources":["../src/index.ts"],"sourcesContent":["export default {\n    a:1\n}"],"names":[],"mappings":";;;AAAA,gBAAe;QACX,CAAC,EAAC,CAAC;KACN;;;;;;;;"}

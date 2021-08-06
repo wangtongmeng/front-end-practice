@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="node_modules/@vue/reactivity/dist/reactivity.global.js"></script>
+    <script>
+        let { reactive, shallowReactive, readonly, shallowReadonly, effect } = VueReactivity;
+        let school = { name: 'zf', age: 12, address: { num: 517 } }
+        let proxy = shallowReadonly(school); // 当我在effect中取值的时候回进行依赖收集
+        // 当赋值的时候 会重新执行effect
+
+        // effect 会默认执行， 执行时会收集属性的依赖  effect = [name,age]
+
+        // watch computed 都是基于这个effect来实现的
+        effect(() => {
+            app.innerHTML = proxy.name + ':' + proxy.address.num
+        });
+        setTimeout(() => {
+            proxy.name = 'jw'; //name 变化 对应的effect就会执行
+        }, 1000);
+
+        setTimeout(() => {
+            proxy.address.num = 'jw'; //name 变化 对应的effect就会执行
+        }, 2000);
+
+        // 有的时候 刚开始他是响应式的 ， 突然我希望某个属性变成非响应式的 readonly
+
+        // reactive 会将对象里的所有对象都进行代理 proxy
+        // shallowReactive 只代理第一层对象
+        // readonly表示会被代理 但是， 不进行依赖收集可以节约性能
+        // shallowReadonly  因为外层没有收集依赖，虽然里层能改 但是不会更新视图
+
+    </script>
+</body>
+
+</html>
