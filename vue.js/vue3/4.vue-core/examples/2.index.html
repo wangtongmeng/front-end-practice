@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../node_modules/@vue/reactivity/dist/reactivity.global.js"></script>
+    <script>
+        let {reactive,shallowReactive,readonly,shallowReadonly,effect} = VueReactivity;
+
+        let school = {name:'zf',age:12,address:{num:517},arr:[1,2,3]}
+        let proxy = reactive(school)
+        // effect(()=>{
+        //     // 默认这个函数会执行一次,执行的时候应该把用到的属性和这个effect关联起来
+        //     console.log(proxy.name);
+        //     console.log(proxy.age);
+        // })
+        // 下次更新属性的时候 会再次执行这个effect
+
+        // weakMap 是一个弱引用，如果这个对象被销毁了 map可以自动释放掉
+        // setTimeout(() => {
+        //     proxy.name = 'jw'
+        //     proxy.name = 'jw1'
+        //     proxy.name = 'jw2'
+        //     proxy.name = 'jw3'
+        //     proxy.name = 'jw4'
+        //     proxy.name = 'jw5'
+        //     proxy.name = 'jw6'
+        // }, 1000);
+
+        effect(()=>{ // 当你调用strinify的时候 会访问数组中每一个属性, 包括length
+            console.log(proxy.arr[2])
+        });
+        proxy.arr.length = 1;
+
+        // 1. 通过索引更新数组
+        // 2.可以通过length来修改
+        // 3.去length，新增
+    </script>
+</body>
+</html>

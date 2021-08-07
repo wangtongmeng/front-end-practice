@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- compostion 组合式api 写成一个个的hook，整合在一起 -->
+    <!-- vue3中有5个大模块   runtime-dom =》  runtime-core =》  reactivity(不能编译模板) -->
+    <!-- compiler-dom -->
+    <!-- runtime-dom 这个模块中主要放的式DOM Api -->
+    <!-- 小程序有dom创建吗?  setData() -->
+    <script src="../node_modules/@vue/runtime-dom/dist/runtime-dom.global.js"></script>
+
+    <script>
+        const { createApp , h ,ref } = VueRuntimeDOM;
+        function useCounter(){
+            const count = ref(1);
+            const add = () =>{
+                count.value++;
+            }
+            return {
+                add,
+                count
+            }
+        }
+        const App = {
+            setup(){
+                let {count,add} = useCounter();
+                return ()=>{
+                    return h('h1',{onClick:add},count.value);
+                }
+            }
+            // render:()=>{
+            //     return h('h1','hello zf'); // 创建虚拟节点
+            // }
+        }
+        // createApp就是将虚拟节点，变成真实节点，最后插入到元素中
+        createApp(App).mount('#app')
+    </script>
+</body>
+
+</html>

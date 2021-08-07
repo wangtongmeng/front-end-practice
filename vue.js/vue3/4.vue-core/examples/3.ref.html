@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../node_modules/@vue/reactivity/dist/reactivity.global.js"></script>
+
+    <script>
+        // ref 的实现
+        let {reactive,shallowReactive,readonly,shallowReadonly,effect,ref,shallowRef} = VueReactivity;
+        let isShow = ref(true); // 帮你把这个变量用defineProperty定义在一个对象上 
+
+        effect(()=>{
+            console.log(isShow.value)
+        });
+
+        setTimeout(() => {
+            isShow.value = false;
+        }, 1000);
+
+        // let  isShowShallow = shallowRef({flag:true});
+        // console.log(isShowShallow)
+    </script>
+</body>
+</html>

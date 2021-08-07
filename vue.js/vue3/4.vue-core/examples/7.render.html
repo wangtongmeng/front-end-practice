@@ -1,0 +1,62 @@
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <div id="app">123123</div>
+        <script src="../node_modules/@vue/runtime-dom/dist/runtime-dom.global.js"></script>
+        <script>
+            // 组件化的特点：属性，插槽，事件
+            let { createApp, h, reactive, toRefs, ref } = VueRuntimeDOM
+            // 代码在浏览器种跑，没有把模板编译成render函数的能力
+            const App = {
+                setup(props, ctx) { // vnode,替换掉原有的 beforeCreate方法
+                    const state = reactive({ name: 'zf', age: 12 });
+                    const flag = ref(true)
+                    setTimeout(() => {
+                        flag.value = false;
+                    }, 1000);
+                        // state.name = 'jw';
+                    return {
+                        ...toRefs(state),
+                        flag
+                    }
+                },
+                // 如果setup中返回的是对象 那么这个对象会被用于渲染使用
+                // 如果返回的是函数，会作为render方法
+                render({ name, age, handleClick, flag }) { // vue2中参数是h,vue3中参数是proxy 和 this指向是同一个地址
+                    // let {name,age} = proxy;
+                    if (flag.value) {
+                        return h('div',[
+                     
+                            h('li',{key:'A'},'A'),
+                            h('li',{key:'B'},'B'),
+                            h('li',{key:'D'},'D'),
+                        h('li',{key:'C'},'C'),
+
+                        ])
+                    } else {
+                        return h('div',[
+                        
+                            h('li',{key:'A'},'A'),
+                            h('li',{key:'B'},'B'),
+                           
+                        ])
+                    }
+
+
+                    // return h('div', {}, [h('p', { style: { color: 'red' },onClick:handleClick}, `${name.value}今年${age.value}岁了`)])
+                }
+            }
+            createApp(App, { name: 'zf', age: 12 }).mount('#app')
+        </script>
+        <!-- 3.15继续 -->
+    </body>
+
+    </html>
