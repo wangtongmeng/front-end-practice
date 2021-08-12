@@ -23,7 +23,10 @@
         })
         const vm = new Vue({
             el: '#app',
-            render: (h) => h('async-component')
+            render: (h) => {
+                debugger    
+                h('async-component')
+            }
         })
     </script>
 </body>
