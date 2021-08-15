@@ -10,6 +10,7 @@ namespace a {
   }
   // Component类名本身表示的是实例的类型
   // ts 冒号后面的是类型，=后面的是值
+  
   let c: Component = new Component()
   let f: typeof Component = Component
 }
