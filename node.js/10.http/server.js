@@ -29,22 +29,22 @@ const url = require('url');
 
 // http://localhost:4000/a/b?id=1&age=18#tag
 const server = http.createServer((req,res) => {
-
+    // console.dir(req, {depth:2});
 
     // 先获取请求行 请求方法 请求路径 版本号
     console.log('请求行-----start---------')
-    console.log(req.method); // GET    请求方法是大写的
-    console.log(req.url); // /a/b?id=1&age=18   请求路径是从 路径开始 到hash的前面，默认没写路径就是/，/代表的是服务端根路径
+    console.log('method', req.method); // GET    请求方法是大写的
+    console.log('url', req.url); // /a/b?id=1&age=18   请求路径是从 路径开始 到hash的前面，默认没写路径就是/，/代表的是服务端根路径
     const {pathname, query} = url.parse(req.url, true);
-    console.log(url.parse(req.url, true))
-    console.log(pathname); // /a/b
-    console.log('xx', query) // [Object: null prototype] { id: '1', age: '18' }   query就是get请求的参数
+    console.log('url', url.parse(req.url, true))
+    console.log('pathname', pathname); // /a/b
+    console.log('query', query) // [Object: null prototype] { id: '1', age: '18' }   query就是get请求的参数
     console.log('请求行-----end---------')
 
 
 
     console.log('请求头-----start---------')
-    // console.log(req.headers); // 获取浏览器的请求头，node中所有的请求头都是小写的
+    console.log('headers', req.headers); // 获取浏览器的请求头，node中所有的请求头都是小写的
     console.log('请求头-----end---------');
 
 
@@ -72,9 +72,9 @@ const server = http.createServer((req,res) => {
     res.write('world');
     res.end('ok'); // 写完了  end => write + close
 });
-// server.on('request',function (req,res) {
-//     console.log('client come on')
-// })
+server.on('request',function (req,res) {
+    console.log('client come on')
+})
 server.listen(4000,function () { // 监听成功后的回调
     console.log('server start 4000')
 });

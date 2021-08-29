@@ -90,7 +90,7 @@ VueRouter.install = (_Vue) => {
     })
 }
 // 父 store  -》 子 store  -》 孙子store
-// 父    this._routerRoot = this  / this._router => router 
+// 父    this._routerRoot = this  / this._router => router
 // 儿子  this.$parent._routerRoot
 // 孙子  this.$parent._routerRoot
 export default VueRouter

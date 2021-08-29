@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 前端下载html功能 -->
+  <!-- <script>
+    let str = `<h1>hello world</h1>`;
+    const blob = new Blob([str], {
+      type: 'text/html'
+    });
+    let a = document.createElement('a');
+    a.setAttribute('download', 'a.html');
+    a.href = URL.createObjectURL(blob);
+    a.innerHTML = '下载'
+    document.body.appendChild(a);
+  </script> -->
+
+  <!-- 前端文件预览 -->
+
+  <input id="file" type="file" />
+  <script>
+    // 使用fileReader来实现
+    // file.addEventListener('change', (e) => {
+    //   let file = e.target.files[0];
+    //   let fileReader = new FileReader();
+    //   fileReader.onload = function () {
+    //     let img = document.createElement('img');
+    //     img.src = fileReader.result;
+    //     document.body.appendChild(img)
+    //   }
+    //   fileReader.readAsDataURL(file);
+    // })
+
+    // createObjectURL来实现
+    file.addEventListener('change', e => {
+      let file = e.target.files[0]
+      let r = URL.createObjectURL(file);
+      let img = document.createElement('img');
+      img.src = r;
+      document.body.appendChild(img)
+      setTimeout(() => {
+        URL.revokeObjectURL(r);
+      }, 0);
+    })
+  </script>
+</body>
+
+</html>

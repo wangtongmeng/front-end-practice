@@ -86,7 +86,7 @@ let tree = new Tree();
 [10, 8, 19, 6, 15, 22, 20].forEach(item => {
     tree.add(item);
 });
-// console.dir(tree,{depth:1000});
+console.dir(tree,{depth:1000});
 
 // webpack -> ast babel树的遍历， 需要在遍历的过程中将当前节点给你传递出来，你来使用
 tree.reverse();
