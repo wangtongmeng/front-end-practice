@@ -8,8 +8,9 @@ const app = new Koa();
 // 我们可以使用 await 也可以使用 return 因为都可以达到等待下一个promise执行完毕
 app.use(async (ctx, next) => { // 都会把最外层的函数全部执行完毕
     console.log(1);
-    // ctx.body = 'hello' //ctx.body = hello
-    return next(); // ctx.body = 'world';
+    ctx.body = 'hello' //ctx.body = hello
+    next(); // ctx.body = 'world';
+    // return next()
     console.log(2);
 })
 app.use(async (ctx, next) => {
@@ -24,7 +25,7 @@ app.use(async (ctx, next) => {
     //ctx.body = 'world';
     console.log(4);
 })
-app.use((ctx, next) => {
+app.use(async (ctx, next) => {
 
     console.log(5);
     await next();

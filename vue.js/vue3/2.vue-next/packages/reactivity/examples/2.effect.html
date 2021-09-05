@@ -29,9 +29,10 @@
         //         console.log(state.age);
         //     }
         // })
-        // // 我改了name后，需要重新渲染重新调用effect，(把name和age的依赖全部清空) 取name了 但是没取age （age不需要依赖手机了）
+        // // 我改了name后，需要重新渲染重新调用effect，(把name和age的依赖全部清空) 取name了 但是没取age （age不需要依赖收集了）
         // debugger
         // state.name = 'jw';
+        // debugger
         // state.age = 200;
 
         // 3.
@@ -44,13 +45,13 @@
         // state.name = 'zs'
 
         // 4.
-        // const state = reactive({ name: 'zf', age: 11 });
-        // effect(() => { state.name }, {
-        //     scheduler: (effect) => {
-        //         console.log('更新')
-        //     }
-        // })
-        // state.name = 'jw'
+        const state = reactive({ name: 'zf', age: 11 });
+        effect(() => { state.name }, {
+            scheduler: (effect) => {
+                console.log('更新', effect)
+            }
+        })
+        state.name = 'jw'
 
 
         // reactive 响应式 防止多次代理， 取值的时候 如果被代理过会 返回对应的标识

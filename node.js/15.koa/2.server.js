@@ -5,9 +5,11 @@ const app = new Koa();
 
 // 对koa中 ctx.request ctx.response 进行了扩展，增加一些内置方法和属性
 app.use((ctx) => { 
-  ctx.body = 'hello1'  // ctx.body = ctx.response.body = 'hello1'
-  ctx.body = {name:'zf1'}
+  // ctx.body = 'hello1'  // ctx.body = ctx.response.body = 'hello1'
+  // ctx.body = {name:'zhangsan'}
   // rs.pipe(ws);
+  // ctx.res.setHeader('Content-Type', 'text/palin; charset=utf-8');
+  ctx.res.setHeader('Content-Type', 'text/palin; charset=utf-8');
   ctx.body = fs.createReadStream('./note.md')
 })
 app.listen(3000, function() {
