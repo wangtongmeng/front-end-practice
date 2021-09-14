@@ -4,6 +4,8 @@
     "module": "commonjs",
     "strictNullChecks": true,
     "lib": ["ESNext", "DOM"],
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    // "strictPropertyInitialization": true,
+    "declaration": true,
   }
 }
