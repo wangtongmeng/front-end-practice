@@ -6,6 +6,6 @@
     "lib": ["ESNext", "DOM"],
     "experimentalDecorators": true,
     // "strictPropertyInitialization": true,
-    "declaration": true,
+    "strictFunctionTypes": true,
   }
 }
