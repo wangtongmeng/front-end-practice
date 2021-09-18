@@ -75,3 +75,25 @@ function getValue(name, ec) {
     }
     return null;
 }
+
+
+
+
+function one() {
+    var a = 1;
+    var name = 'one';
+    function two() {
+        var b = 2;
+        var name = 'two';
+        function three() {
+            var c = 3;
+            var name = 'three';
+            return () => console.log(a, b, c);
+
+        }
+        return three();
+    }
+    return two();
+}
+var fn = one();
+fn(); // 1 2 3

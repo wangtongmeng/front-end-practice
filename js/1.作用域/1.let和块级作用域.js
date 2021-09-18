@@ -100,3 +100,19 @@ let globalEC = {
     }
 }
  
+
+
+
+'use strict'
+function fn() {
+    console.log("out");
+}
+(function () {
+    if (false) {
+        function fn() {
+            console.log("in");
+        }
+    }
+    fn();
+}());
+// out
