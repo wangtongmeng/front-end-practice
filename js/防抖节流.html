@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 防抖
+    function debounce(fun, delay) {
+      return (...args) => {
+        clearTimeout(fun.id)
+        fun.id = setTimeout(() => {
+          fun(...args)
+        }, delay)
+      }
+    }
+    // 节流
+    function throttle(fun, delay) {
+      let last, deferTimer
+      let now = Date.now()
+      return (...args) => {
+        if (last && last < last + delay) {
+          clearTimeout(deferTimer)
+          deferTimer = setTimeout(() => {
+            last = now
+            fun(...args)
+          }, delay)
+        } else {
+          last = now
+          fun(...args)
+        }
+      }
+    }
+
+    let fn1 = debounce(function () {console.log(2)}, 1000)
+    fn1()
+    fn1()
+    fn1()
+
+
+    let fn = throttle(function () {console.log(1)}, 1000)
+    fn()
+    fn()
+    fn()
+  </script>
+</body>
+</html>
