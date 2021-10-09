@@ -1,3 +1,11 @@
+/* 
+深拷贝 拷贝前后是没有关系的
+浅拷贝 拷贝前后是有关系的
+
+*/
+
+
+
 let person = {
     married: true,
     age: 10,
@@ -53,7 +61,7 @@ function deepClone1(source, map = new Map()) {
     }
     return source;//基本类型值 直接拷贝
 }
-console.log(deepClone1(person));
+// console.log(deepClone1(person));
 // {
 //     married: true,
 //     age: 10,
@@ -71,3 +79,46 @@ console.log(deepClone1(person));
 //     math: {},不能识别
 //     json: {}不能识别
 //   }
+
+
+/* 方案3  */
+function deepClone2(obj, hash = new WeakMap) {
+    // null undefined
+    if (obj == null) return obj
+    // Date RegExp...
+    if (obj instanceof Date) return new Date(obj)
+    if (obj instanceof RegExp) return new RegExp(obj)
+    // 普通值
+    if (typeof obj !== 'object') return obj
+    // 对象 {} []
+    if (hash.get(obj)) return obj // 防止自己引用自己死循环
+    let cloneObj = new obj.constructor
+    hash.set(obj, cloneObj) // 缓存对象类型值
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            // 递归拷贝
+            cloneObj[key] = deepClone2(obj[key], hash)
+        }
+    }
+    return cloneObj
+
+}
+console.log(deepClone2(person));
+
+
+
+
+/* 浅拷贝 */
+{
+    // ...运算符只拷贝一层
+    let obj = {name: 'lisi', address: {x:100,y:100}}
+    let o = {...obj}
+    obj.address.x = 200
+    console.log(o.address.x); // 200
+
+    let a = [1,2,3]
+    let arr = [a]
+    let newArr = arr.slice()
+    newArr[0][0] = 100
+    console.log(arr); // [ [ 100, 2, 3 ] ]
+}

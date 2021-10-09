@@ -10,6 +10,7 @@ JS中有七种基本数据类型
 
 typeof 基本类型
 instanceof 类的实例
+constructor
 Object.prototype.toString.call() 最强大
 */
 

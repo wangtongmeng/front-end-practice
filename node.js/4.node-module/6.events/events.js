@@ -31,3 +31,41 @@ EventEmitter.prototype.once = function (eventName, callback) {
 }
 
 module.exports = EventEmitter
+
+
+
+class EventEmitter {
+    constructor(){
+        this._event = {}
+    }
+    on (eventName, cb) {
+        if (!this._event) {
+            this._event = {}
+        }
+        if ((this._event[eventName])) {
+            this._event[eventName].push(cb)
+        } else {
+            this._event = [cb]
+        }
+    }
+    emit(eventName, ...args) {
+        if (this._event[eventName]) {
+            this._event[eventName].forEach(fn => {
+                fn(...args)
+            })
+        }
+    }
+    // off(eventName, cb){
+    //     if (this._event && this._event[eventName] {
+    //         this._event[eventName] = this._event[eventName].filter(fn => fn !== cb && fn.l !== cb)
+    //     }
+    // }
+    off(eventName, cb) {
+        if (this._event && this._event[eventName]) {
+            this._event[eventName] = this._event[eventName].filter(fn !== cb && fn.l !== cb)
+        }
+    }
+    once(eventName, cb){
+
+    }
+}
